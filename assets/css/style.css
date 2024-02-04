@@ -2011,7 +2011,7 @@ hr {
 .section-overly::before {
     position: absolute;
     content: "";
-    background-color: rgba(31, 43, 123, 0.8);
+    background-color: #08578e;
     width: 100%;
     height: 100%;
     left: 0;
@@ -4738,15 +4738,10 @@ del {
     }
 }
 .slider-height2 {
-    min-height: 450px;
+    min-height: 250px;
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;
-}
-@media (max-width: 767px) {
-    .slider-height2 {
-        min-height: 260px;
-    }
 }
 .slider-area {
     margin-top: -1px;
@@ -5224,6 +5219,22 @@ form.search-box .search-form a {
     background-color: #0056b3;
 }
 
+.featured-job-area nav{
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.featured-job-area .page-link{
+    border: 1px solid #08578e;
+    color: #08578e;
+}
+
+.featured-job-area .page-link:focus{
+    outline: none;
+    box-shadow: none;
+}
+
 @media (max-width: 767px) {
     .online-cv {
         padding-top: 80px;
@@ -5517,15 +5528,15 @@ form.search-box .search-form a {
     }
 }
 
-.featured-job-area .modal-dialog{
+.modal-dialog{
     max-width: 60%;
 }
 
-.featured-job-area .modal-dialog .nice-select{
+.modal-dialog .nice-select{
     display: none;
 }
 
-.featured-job-area .modal-dialog select{
+.modal-dialog select{
     display: block !important;
 }
 
@@ -6304,4 +6315,41 @@ form.search-box .search-form a {
     outline: 0;
     background: #242b5e;
     color: #fff;
+}
+
+
+
+
+.modal .form-control{
+    border: 1px solid #08578e;
+}
+
+.modal .form-control:focus{
+    box-shadow: none;
+}
+
+.modal [type="file"]{
+    border: 0px;
+}
+
+.modal .modal-footer{
+    justify-content: center;
+}
+
+.modal .modal-footer .btn:active, .modal .modal-footer .btn:focus{
+    box-shadow: none;
+    outline: none;
+    background-color: #333;
+}
+
+.modal .modal-footer .btn{
+    background: #08578e;
+}
+
+.modal-title{
+    font-weight: bold;
+}
+
+.online-cv.section-overly::before{
+    background-color: #101010c2;
 }
