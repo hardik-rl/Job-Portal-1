@@ -1,3 +1,5 @@
+import { Route, Routes } from "react-router-dom";
+
 import Preloader from "./components/Preloader";
 import Job from "./module/job/Job";
 import "../assets/css/bootstrap.min.css";
@@ -11,12 +13,16 @@ import "../assets/css/themify-icons.css";
 import "../assets/css/slick.css";
 import "../assets/css/nice-select.css";
 import "../assets/css/style.css";
+import JobDetails from "./module/job-details/JobDetails";
 
 function App() {
   return (
     <>
       <Preloader />
-      <Job />
+      <Routes>
+        <Route path="/" element={<Job />} />
+        <Route path="/job-details" element={<JobDetails />} />
+      </Routes>
     </>
   );
 }
