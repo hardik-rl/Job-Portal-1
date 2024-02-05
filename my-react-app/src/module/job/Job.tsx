@@ -7,8 +7,8 @@ const Job = () => {
   return (
     <main>
       <Banner />
-      <OnlineResume />
       <FeaturedJobs />
+      <OnlineResume />
       <HowItWorks />
     </main>
   );
