@@ -1,11 +1,12 @@
-import ReactDOM from "react-dom";
 
+import { createRoot } from "react-dom/client";
+
+const rootElement = document.getElementById("root");
 import App from "./App";
-import { BrowserRouter as Router } from "react-router-dom";
 
-ReactDOM.render(
-  <Router>
-    <App />
-  </Router>,
-  document.getElementById("root")
-);
+if (rootElement) {
+  const root = createRoot(rootElement);
+  root.render(<App />);
+} else {
+  console.error("Root element not found");
+}

@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, BrowserRouter as Router } from "react-router-dom";
 
 import Preloader from "./components/Preloader";
 import Job from "./module/job/Job";
@@ -17,13 +17,13 @@ import JobDetails from "./module/job-details/JobDetails";
 
 function App() {
   return (
-    <>
+    <Router>
       <Preloader />
       <Routes>
         <Route path="/" element={<Job />} />
         <Route path="/job-details" element={<JobDetails />} />
       </Routes>
-    </>
+    </Router>
   );
 }
 
