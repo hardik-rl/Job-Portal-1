@@ -1,10 +1,10 @@
+import JobSelect from "./JobSelect";
+
 const Banner = () => {
   return (
     <div className="slider-area">
       <div className="slider-active">
-        <div
-          className="single-slider slider-height d-flex align-items-center"
-        >
+        <div className="single-slider slider-height d-flex align-items-center">
           <div className="container">
             <div className="row">
               <div className="col-xl-8 col-lg-9 col-md-10">
@@ -21,16 +21,7 @@ const Banner = () => {
                   </div>
                   <div className="select-form">
                     <div className="select-itms">
-                      <select name="select" id="select1">
-                        <option value="">Any - All Locations</option>
-                        <option value="">Mumbai - HO</option>
-                        <option value="">Akkalkot Road-Solapur</option>
-                        <option value="">Chincholi - Solapur</option>
-                        <option value="">Ankhleshwar</option>
-                        <option value="">Panoli</option>
-                        <option value="">Indore</option>
-                        <option value="">Dahej</option>
-                      </select>
+                      <JobSelect />
                     </div>
                   </div>
                   <div className="search-form">

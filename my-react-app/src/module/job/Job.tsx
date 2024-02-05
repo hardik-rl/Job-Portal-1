@@ -5,12 +5,12 @@ import OnlineResume from "./OnlineResume";
 
 const Job = () => {
   return (
-    <main>
+    <>
       <Banner />
       <FeaturedJobs />
       <OnlineResume />
       <HowItWorks />
-    </main>
+    </>
   );
 };
 
