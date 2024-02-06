@@ -5559,6 +5559,9 @@ form.search-box .search-form a {
     padding-top: 35px;
     text-align: center;
   }
+  .single-job-items .job-items { 
+    max-width: 100%;
+  }
 }
 .items-link a,
 .items-link button {
