@@ -7,27 +7,6 @@ const JobPost = () => {
       <div className="container">
         <div className="row justify-content-between">
           <div className="col-xl-7 col-lg-8">
-            <div className="single-job-items mb-50">
-              <div className="job-items">
-                <div className="company-img company-img-details">
-                  <a href="#">
-                    <img src="assets/img/icon/job-list1.png" alt="" />
-                  </a>
-                </div>
-                <div className="job-tittle">
-                  <a href="#">
-                    <h4>Digital Marketer</h4>
-                  </a>
-                  <ul>
-                    <li>Creative Agency</li>
-                    <li>
-                      <i className="fas fa-map-marker-alt"></i>Athens, Greece
-                    </li>
-                    <li>$3500 - $4000</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
             <div className="job-post-details">
               <div className="post-details1 mb-50">
                 <div className="small-section-tittle">
