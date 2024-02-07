@@ -57,58 +57,67 @@ const JobModel = () => {
                   <form onSubmit={handleSubmit}>
                     <div className="form-row">
                       <div className="form-group col-md-4">
-                        <FormLabel name="First Name" htmlFor="htmlFor"/>
-                        <FormControl id="firstname" type="text"/>
+                        <FormLabel name="First Name" htmlFor="htmlFor" />
+                        <FormControl id="firstname" type="text" />
                       </div>
                       <div className="form-group col-md-4">
-                        <FormLabel name="Last Name" htmlFor="lastname"/>
-                        <FormControl id="lastname" type="text"/>
-                      </div>
-
-                      <div className="form-group col-md-4">
-                        <FormLabel name="Email" htmlFor="youremail"/>
-                        <FormControl id="youremail" type="email"/>
+                        <FormLabel name="Last Name" htmlFor="lastname" />
+                        <FormControl id="lastname" type="text" />
                       </div>
 
                       <div className="form-group col-md-4">
-                        <FormLabel name="Pancard number" htmlFor="pancard"/>
-                        <FormControl id="pancard" type="text"/>
+                        <FormLabel name="Email" htmlFor="youremail" />
+                        <FormControl id="youremail" type="email" />
                       </div>
 
                       <div className="form-group col-md-4">
-                        <FormLabel name="Mobile number" htmlFor="mobilenumber"/>
-                        <FormControl id="mobilenumber" type="number"/>
+                        <FormLabel name="Pancard number" htmlFor="pancard" />
+                        <FormControl id="pancard" type="text" />
                       </div>
 
                       <div className="form-group col-md-4">
-                        <FormLabel name="Education" htmlFor="education"/>
-                        <FormControl id="education" type="text"/>
+                        <FormLabel
+                          name="Mobile number"
+                          htmlFor="mobilenumber"
+                        />
+                        <FormControl id="mobilenumber" type="number" />
+                      </div>
+
+                      <div className="form-group col-md-4">
+                        <FormLabel name="Education" htmlFor="education" />
+                        <FormControl id="education" type="text" />
                       </div>
 
                       <div className="form-group col-md-4">
                         <label htmlFor="ctc">CTC (In Laksh)</label>
-                        <FormLabel name="First Name" htmlFor="htmlFor"/>
-                        <FormControl id="ctc" type="text"/>
+                        <FormLabel name="First Name" htmlFor="htmlFor" />
+                        <FormControl id="ctc" type="text" />
                       </div>
 
                       <div className="form-group col-md-4">
-                        <FormLabel name="Expected CTC" htmlFor="expctc"/>
-                        <FormControl id="expctc" type="text"/>
+                        <FormLabel name="Expected CTC" htmlFor="expctc" />
+                        <FormControl id="expctc" type="text" />
                       </div>
 
                       <div className="form-group col-md-4">
-                        <FormLabel name="Notice Period" htmlFor="noticeperiod"/>
-                        <FormControl id="noticeperiod" type="text"/>
+                        <FormLabel
+                          name="Notice Period"
+                          htmlFor="noticeperiod"
+                        />
+                        <FormControl id="noticeperiod" type="text" />
                       </div>
 
                       <div className="form-group col-md-4">
-                        <FormLabel name="Total Work Experience" htmlFor="workexperience"/>
-                        <FormControl id="workexperience" type="text"/>
+                        <FormLabel
+                          name="Total Work Experience"
+                          htmlFor="workexperience"
+                        />
+                        <FormControl id="workexperience" type="text" />
                       </div>
 
                       <div className="form-group col-md-4">
-                        <FormLabel name="Gender" htmlFor="gendar"/>
-                        <FormControl id="gendar" type="text"/>
+                        <FormLabel name="Gender" htmlFor="gendar" />
+                        <FormControl id="gendar" type="text" />
                       </div>
 
                       <div className="form-group col-md-4">
@@ -156,7 +165,7 @@ const JobModel = () => {
                           <option value="West Bengal">West Bengal</option>
                           <option
                             // disabled=""
-                            style={{backgroundColor:"#aaa", color:"#fff"}}
+                            style={{ backgroundColor: "#aaa", color: "#fff" }}
                           >
                             UNION Territories
                           </option>
