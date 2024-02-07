@@ -13,16 +13,27 @@ import "../assets/css/themify-icons.css";
 import "../assets/css/slick.css";
 import "../assets/css/style.css";
 import JobDetails from "./module/job-details/JobDetails";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ToastContainer } from "react-toastify";
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+    },
+  },
+});
 
 function App() {
   return (
-    <Router>
+    <QueryClientProvider client={queryClient}>
       <Preloader />
       <Routes>
         <Route path="/" element={<Job />} />
-        <Route path="/job-details" element={<JobDetails />} />
+        <Route path="/job-details/:id" element={<JobDetails />} />
       </Routes>
-    </Router>
+      <ToastContainer />
+    </QueryClientProvider>
   );
 }
 

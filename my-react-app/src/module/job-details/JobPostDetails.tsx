@@ -1,23 +1,22 @@
-const JobPostDetails = () => {
+const JobPostDetails = ({jobData}: any) => {
   return (
     <div className="post-details4  mb-50">
       <div className="small-section-tittle">
         <h4>Company Information</h4>
       </div>
-      <span>Colorlib</span>
+      <span>{jobData?.company_id?.name}</span>
       <p>
-        It is a long established fact that a reader will be distracted by the
-        readable content of a page when looking at its layout.
+        {jobData?.company_id?.description}
       </p>
       <ul>
         <li>
-          Name: <span>Colorlib </span>
+          Name: <span>{jobData?.company_id?.name} </span>
         </li>
         <li>
-          Web : <span> colorlib.com</span>
+          Web : <span> {jobData?.company_id?.website}</span>
         </li>
         <li>
-          Email: <span>carrier.colorlib@gmail.com</span>
+          Email: <span>{jobData?.company_id?.email_id}</span>
         </li>
       </ul>
     </div>
