@@ -7,10 +7,10 @@ const OnlineResume = () => {
         <div className="row justify-content-center">
           <div className="col-xl-10">
             <div className="cv-caption text-center">
-              <p className="pera1">FEATURED TOURS Packages</p>
+              <p className="pera1">FUTURE JOBS</p>
               <p className="pera2">
                 {" "}
-                Make a Difference with Your Online Resume!
+                Can't find your approeriate role, Don't worry upload your resume here
               </p>
               <a href="#" className="border-btn2 border-btn4">
                 Upload your cv

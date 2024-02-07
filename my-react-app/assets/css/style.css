@@ -1765,7 +1765,7 @@ hr {
   }
 }
 .feature-padding {
-  padding-top: 195px;
+  padding-top: 100px;
   padding-bottom: 130px;
 }
 @media only screen and (min-width: 992px) and (max-width: 1199px) {
@@ -2011,7 +2011,7 @@ hr {
 .section-overly::before {
   position: absolute;
   content: "";
-  background-color: rgba(31, 43, 123, 0.8);
+  background-color: #101010c2;
   width: 100%;
   height: 100%;
   left: 0;
@@ -2020,6 +2020,11 @@ hr {
   right: 0;
   z-index: -1;
   background-repeat: no-repeat;
+}
+.online-cv .border-btn2 {
+    color: #fff;
+    border-color: #ffffff38;
+    background-color: #0056b3;
 }
 .white-bg {
   background: #ffffff;
@@ -5327,11 +5332,7 @@ form.search-box .search-form a {
 .apply-process-area .single-process .process-cap p {
   color: #a5aaca;
 }
-.apply-bg {
-  background: url("../img/gallery/how-applybg.png");
-  background-size: cover;
-  background-repeat: no-repeat;
-}
+
 .support-company-area .support-location-img {
   position: relative;
 }
@@ -5462,6 +5463,7 @@ form.search-box .search-form a {
 .single-job-items {
   padding: 36px 30px;
   display: flex;
+  box-shadow: 0px 22px 57px 0px rgba(34, 41, 72, 0.05);
   justify-content: space-between;
   flex-wrap: wrap;
   -webkit-transition: 0.4s;
@@ -5543,6 +5545,8 @@ form.search-box .search-form a {
 .single-job-items .job-items {
   display: flex;
   flex-wrap: wrap;
+  max-width: 70%;
+
 }
 @media only screen and (min-width: 576px) and (max-width: 767px) {
   .items-link {
@@ -5555,11 +5559,15 @@ form.search-box .search-form a {
     padding-top: 35px;
     text-align: center;
   }
+  .single-job-items .job-items { 
+    max-width: 100%;
+  }
 }
-.items-link a {
-  color: #8b92dd;
+.items-link a,
+.items-link button {
+  color: #08578e;
   display: block;
-  border: 1px solid #8b92dd;
+  border: 1px solid #08578e;
   border-radius: 30px;
   padding: 4px 33px;
   text-align: center;
@@ -5570,9 +5578,10 @@ form.search-box .search-form a {
     padding: 4px 19px;
   }
 }
-.items-link a:hover {
+.items-link a:hover,
+.items-link button:hover {
   color: #fff;
-  background: #8b92dd;
+  background: #08578e;
   border: 1px solid transparent;
 }
 .items-link span {
@@ -6336,4 +6345,18 @@ form.search-box .search-form a {
 }
 .job-details {
     background-image: url("../img/hero/about.jpg");
+}
+.featured-job-area nav {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.fade.modal-toggle {
+  display: block;
+  opacity: 1;
+}
+.featured-job-area .page-link {
+  border: 1px solid #08578e;
+  color: #08578e;
 }

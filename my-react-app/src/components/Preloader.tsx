@@ -1,24 +1,28 @@
-import React, { useEffect } from 'react';
+import { useEffect } from "react";
 
 const Preloader = () => {
   useEffect(() => {
-    const preloader = document.getElementById('preloader-active');
-    const body = document.querySelector('body');
+    const preloader = document.getElementById("preloader-active");
+    const body = document.querySelector("body");
 
     const hidePreloader = () => {
-      preloader.style.transitionDelay = '0.45s';
-      preloader.style.opacity = '0';
+      if (preloader) {
+        preloader.style.transitionDelay = "0.45s";
+        preloader.style.opacity = "0";
 
-      setTimeout(() => {
-        preloader.style.display = 'none';
-        body.style.overflow = 'visible';
-      }, 450);
+        setTimeout(() => {
+          preloader.style.display = "none";
+          if (body) {
+            body.style.overflow = "visible";
+          }
+        }, 450);
+      }
     };
 
-    window.addEventListener('load', hidePreloader);
+    window.addEventListener("load", hidePreloader);
 
     return () => {
-      window.removeEventListener('load', hidePreloader);
+      window.removeEventListener("load", hidePreloader);
     };
   }, []);
 
