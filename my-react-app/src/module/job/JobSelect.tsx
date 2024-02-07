@@ -1,6 +1,24 @@
-import CreatableSelect from "react-select";
+import ReactSelect from "react-select";
 
 const JobSelect = () => {
+  const customStyles = {
+    indicatorContainer:(base: any) =>({
+      ...base,
+      color: 'red',
+      marginRight: 19,
+   }),
+    control: (base: any) => ({
+      ...base,
+      height: 70,
+      minHeight: 70,
+      border: 0,
+      '&:hover' : {
+        boxShadow: 'none',
+        borderColor: '#fff',
+      },
+    }),
+
+  };
   const options = [
     { value: "all", label: "Any - All Locations" },
     { value: "mumbai", label: "Mumbai - HO" },
@@ -11,7 +29,9 @@ const JobSelect = () => {
     { value: "indore", label: "Indore" },
     { value: "dahej", label: "Dahej" },
   ];
-  return <CreatableSelect isClearable options={options} />;
+  return <ReactSelect styles={customStyles} options={options} components={{
+    IndicatorSeparator: () => null
+  }}/>;
 };
 
 export default JobSelect;
