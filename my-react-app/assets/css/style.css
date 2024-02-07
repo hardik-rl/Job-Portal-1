@@ -5579,7 +5579,7 @@ form.search-box .search-form a {
   }
 }
 .items-link a:hover,
-.items-link button:hover {
+.items-link > button:hover {
   color: #fff;
   background: #08578e;
   border: 1px solid transparent;

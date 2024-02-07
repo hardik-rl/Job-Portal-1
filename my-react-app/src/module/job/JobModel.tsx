@@ -1,4 +1,6 @@
 import { useState } from "react";
+import FormControl from "../../components/FormControl";
+import FormLabel from "../../components/FormLabel";
 
 const JobModel = () => {
   const [showModal, setShowModal] = useState(false);
@@ -55,99 +57,58 @@ const JobModel = () => {
                   <form onSubmit={handleSubmit}>
                     <div className="form-row">
                       <div className="form-group col-md-4">
-                        <label htmlFor="firstname">First Name</label>
-                        <input
-                          type="text"
-                          className="form-control"
-                          id="firstname"
-                        />
+                        <FormLabel name="First Name" htmlFor="htmlFor"/>
+                        <FormControl id="firstname" type="text"/>
                       </div>
                       <div className="form-group col-md-4">
-                        <label htmlFor="lastname">Last Name</label>
-                        <input
-                          type="text"
-                          className="form-control"
-                          id="lastname"
-                        />
+                        <FormLabel name="Last Name" htmlFor="lastname"/>
+                        <FormControl id="lastname" type="text"/>
                       </div>
 
                       <div className="form-group col-md-4">
-                        <label htmlFor="youremail">Email</label>
-                        <input
-                          type="email"
-                          className="form-control"
-                          id="youremail"
-                        />
+                        <FormLabel name="Email" htmlFor="youremail"/>
+                        <FormControl id="youremail" type="email"/>
                       </div>
 
                       <div className="form-group col-md-4">
-                        <label htmlFor="pancard">Pancard number</label>
-                        <input
-                          type="text"
-                          className="form-control"
-                          id="pancard"
-                        />
+                        <FormLabel name="Pancard number" htmlFor="pancard"/>
+                        <FormControl id="pancard" type="text"/>
                       </div>
 
                       <div className="form-group col-md-4">
-                        <label htmlFor="mobilenumber">Mobile number</label>
-                        <input
-                          type="number"
-                          className="form-control"
-                          id="mobilenumber"
-                        />
+                        <FormLabel name="Mobile number" htmlFor="mobilenumber"/>
+                        <FormControl id="mobilenumber" type="number"/>
                       </div>
 
                       <div className="form-group col-md-4">
-                        <label htmlFor="education">Education</label>
-                        <input
-                          type="text"
-                          className="form-control"
-                          id="education"
-                        />
+                        <FormLabel name="Education" htmlFor="education"/>
+                        <FormControl id="education" type="text"/>
                       </div>
 
                       <div className="form-group col-md-4">
                         <label htmlFor="ctc">CTC (In Laksh)</label>
-                        <input type="text" className="form-control" id="ctc" />
+                        <FormLabel name="First Name" htmlFor="htmlFor"/>
+                        <FormControl id="ctc" type="text"/>
                       </div>
 
                       <div className="form-group col-md-4">
-                        <label htmlFor="expctc">Expected CTC</label>
-                        <input
-                          type="text"
-                          className="form-control"
-                          id="expctc"
-                        />
+                        <FormLabel name="Expected CTC" htmlFor="expctc"/>
+                        <FormControl id="expctc" type="text"/>
                       </div>
 
                       <div className="form-group col-md-4">
-                        <label htmlFor="noticeperiod">Notice Period</label>
-                        <input
-                          type="text"
-                          className="form-control"
-                          id="noticeperiod"
-                        />
+                        <FormLabel name="Notice Period" htmlFor="noticeperiod"/>
+                        <FormControl id="noticeperiod" type="text"/>
                       </div>
 
                       <div className="form-group col-md-4">
-                        <label htmlFor="workexperience">
-                          Total Work Experience
-                        </label>
-                        <input
-                          type="text"
-                          className="form-control"
-                          id="workexperience"
-                        />
+                        <FormLabel name="Total Work Experience" htmlFor="workexperience"/>
+                        <FormControl id="workexperience" type="text"/>
                       </div>
 
                       <div className="form-group col-md-4">
-                        <label htmlFor="gendar">Gender</label>
-                        <input
-                          type="text"
-                          className="form-control"
-                          id="gendar"
-                        />
+                        <FormLabel name="Gender" htmlFor="gendar"/>
+                        <FormControl id="gendar" type="text"/>
                       </div>
 
                       <div className="form-group col-md-4">
