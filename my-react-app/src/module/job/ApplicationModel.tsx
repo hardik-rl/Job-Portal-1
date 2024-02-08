@@ -48,8 +48,7 @@ const ApplicationModal = () => {
 
   
   const onClickSubmit = () => {
-    console.log('jsdflkjsfl');
-    // applyJobMutate();
+    applyJobMutate();
   }
 
   if (applyJobIsPending) {
