@@ -1,4 +1,4 @@
-import JobModel from "./JobModel";
+import JobModel from "./ApplicationModel";
 
 interface SingleJobProps {
   id: string;

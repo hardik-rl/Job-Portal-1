@@ -88,6 +88,33 @@ try {
         name: 'Sample Position 3',
         salary_range: '$4000 - $7000',
       },
+    },
+    {
+      description: 'Sample job description 4',
+      education_description: [
+        "education description 1",
+        "education description 2",
+        "education description 3",
+        "education description 4",
+        "education description 5",
+      ],
+      knowledge_description: [
+        "knowledge description 1",
+        "knowledge description 2",
+        "knowledge description 3",
+        "knowledge description 4",
+        "knowledge description 5",
+      ],
+      category_id: new mongoose.Types.ObjectId('65c26377b786a6aacd920c5e'),
+      company_id: new mongoose.Types.ObjectId('65c271758b94577d67f558b1'),
+      job_location_id: new mongoose.Types.ObjectId('65c26385e45c200d244195e2'),
+      vacancy: 6,
+      nature: 'Full-time',
+      annual_salary: 280000,
+      position: {
+        name: 'Sample Position 4',
+        salary_range: '$7000 - $8000',
+      },
     }
   ]);
   console.log('Static data inserted successfully');

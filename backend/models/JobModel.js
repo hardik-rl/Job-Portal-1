@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const JobCategory = require('./JobCategoryModel');
 const Company = require('./CompanyModel');
 const JobLocation = require('./JobLocationModel');
+const mongoosePaginate = require('mongoose-paginate-v2');
 
 const jobSchema = new mongoose.Schema({
   description: String,
@@ -30,6 +31,8 @@ const jobSchema = new mongoose.Schema({
     salary_range: String
   }
 });
+
+jobSchema.plugin(mongoosePaginate);
 
 const Job = mongoose.model('jobs', jobSchema);
 

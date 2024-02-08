@@ -1,8 +1,10 @@
 import { useState } from "react";
 import FormControl from "../../components/FormControl";
 import FormLabel from "../../components/FormLabel";
+import axios from "axios";
+import { useMutation } from "@tanstack/react-query";
 
-const JobModel = () => {
+const ApplicationModal = () => {
   const [showModal, setShowModal] = useState(false);
 
   const handleOpenModal = () => {
@@ -17,6 +19,42 @@ const JobModel = () => {
     e.preventDefault();
     handleCloseModal();
   };
+
+  const addJobApplication = async (data:any) => {
+    const response = await axios.post(`http://localhost:3000/apply`, data);
+    return response.data;
+  };
+
+  const data:any = {
+    "job_id": "65c27c92ac4f8ffb8f2496f4",
+    "first_name": "FN",
+    "last_name": "LN",
+    "email": "email",
+    "pan_number": 123445,
+    "mobile_number": 28237748292,
+    "education": "education",
+    "ctc": 42293,
+    "expected_ctc": 49283,
+    "notice_period": 2,
+    "total_work_experience": 3,
+    "gender": "Male",
+    "state": "Gujarat",
+    "resume_file": "slkd"
+  }
+
+  const { mutate: applyJobMutate, isPending: applyJobIsPending } = useMutation({
+    mutationFn: () => addJobApplication(data),
+  });
+
+  
+  const onClickSubmit = () => {
+    console.log('jsdflkjsfl');
+    // applyJobMutate();
+  }
+
+  if (applyJobIsPending) {
+    return <h1>Loading</h1>
+  }
 
   return (
     <div className=" mb-30">
@@ -181,146 +219,6 @@ const JobModel = () => {
                           <option value="Lakshadeep">Lakshadeep</option>
                           <option value="Pondicherry">Pondicherry</option>
                         </select>
-                        {/* <div className="nice-select form-control" tabIndex={0}>
-                          <span className="current">Select State</span>
-                          <ul className="list">
-                            <li
-                              data-value="SelectState"
-                              className="option selected"
-                            >
-                              Select State
-                            </li>
-                            <li data-value="Andra Pradesh" className="option">
-                              Andra Pradesh
-                            </li>
-                            <li
-                              data-value="Arunachal Pradesh"
-                              className="option"
-                            >
-                              Arunachal Pradesh
-                            </li>
-                            <li data-value="Assam" className="option">
-                              Assam
-                            </li>
-                            <li data-value="Bihar" className="option">
-                              Bihar
-                            </li>
-                            <li data-value="Chhattisgarh" className="option">
-                              Chhattisgarh
-                            </li>
-                            <li data-value="Goa" className="option">
-                              Goa
-                            </li>
-                            <li data-value="Gujarat" className="option">
-                              Gujarat
-                            </li>
-                            <li data-value="Haryana" className="option">
-                              Haryana
-                            </li>
-                            <li
-                              data-value="Himachal Pradesh"
-                              className="option"
-                            >
-                              Himachal Pradesh
-                            </li>
-                            <li
-                              data-value="Jammu and Kashmir"
-                              className="option"
-                            >
-                              Jammu and Kashmir
-                            </li>
-                            <li data-value="Jharkhand" className="option">
-                              Jharkhand
-                            </li>
-                            <li data-value="Karnataka" className="option">
-                              Karnataka
-                            </li>
-                            <li data-value="Kerala" className="option">
-                              Kerala
-                            </li>
-                            <li data-value="Madya Pradesh" className="option">
-                              Madya Pradesh
-                            </li>
-                            <li data-value="Maharashtra" className="option">
-                              Maharashtra
-                            </li>
-                            <li data-value="Manipur" className="option">
-                              Manipur
-                            </li>
-                            <li data-value="Meghalaya" className="option">
-                              Meghalaya
-                            </li>
-                            <li data-value="Mizoram" className="option">
-                              Mizoram
-                            </li>
-                            <li data-value="Nagaland" className="option">
-                              Nagaland
-                            </li>
-                            <li data-value="Orissa" className="option">
-                              Orissa
-                            </li>
-                            <li data-value="Punjab" className="option">
-                              Punjab
-                            </li>
-                            <li data-value="Rajasthan" className="option">
-                              Rajasthan
-                            </li>
-                            <li data-value="Sikkim" className="option">
-                              Sikkim
-                            </li>
-                            <li data-value="Tamil Nadu" className="option">
-                              Tamil Nadu
-                            </li>
-                            <li data-value="Telangana" className="option">
-                              Telangana
-                            </li>
-                            <li data-value="Tripura" className="option">
-                              Tripura
-                            </li>
-                            <li data-value="Uttaranchal" className="option">
-                              Uttaranchal
-                            </li>
-                            <li data-value="Uttar Pradesh" className="option">
-                              Uttar Pradesh
-                            </li>
-                            <li data-value="West Bengal" className="option">
-                              West Bengal
-                            </li>
-                            <li
-                              data-value="UNION Territories"
-                              className="option disabled"
-                            >
-                              UNION Territories
-                            </li>
-                            <li
-                              data-value="Andaman and Nicobar Islands"
-                              className="option"
-                            >
-                              Andaman and Nicobar Islands
-                            </li>
-                            <li data-value="Chandigarh" className="option">
-                              Chandigarh
-                            </li>
-                            <li
-                              data-value="Dadar and Nagar Haveli"
-                              className="option"
-                            >
-                              Dadar and Nagar Haveli
-                            </li>
-                            <li data-value="Daman and Diu" className="option">
-                              Daman and Diu
-                            </li>
-                            <li data-value="Delhi" className="option">
-                              Delhi
-                            </li>
-                            <li data-value="Lakshadeep" className="option">
-                              Lakshadeep
-                            </li>
-                            <li data-value="Pondicherry" className="option">
-                              Pondicherry
-                            </li>
-                          </ul>
-                        </div> */}
                       </div>
 
                       <div className="form-group col-md-4">
@@ -335,7 +233,7 @@ const JobModel = () => {
                   </form>
                 </div>
                 <div className="modal-footer">
-                  <button type="button" className="btn btn-primary">
+                  <button type="button" className="btn btn-primary" onClick={onClickSubmit}>
                     Submit
                   </button>
                 </div>
@@ -349,4 +247,4 @@ const JobModel = () => {
   );
 };
 
-export default JobModel;
+export default ApplicationModal;

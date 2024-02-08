@@ -1,20 +1,32 @@
-import Pagination from "./Pagination";
 import axios from "axios";
 import SingleJobList from "./SingleJobList";
 import { useQuery } from "@tanstack/react-query";
+import ReactPaginate from "react-paginate";
+import { useEffect, useState } from "react";
 
 const FeaturedJobs = () => {
+  const [page, setPage] = useState(1);
 
-  const fetchJobs = async () => {
-    const response = await axios.get('http://localhost:3000/jobs');
+  const fetchJobs = async (page:number) => {
+    const response = await axios.get(`http://localhost:3000/jobs?page=${page}`);
     return response.data;
   };
 
   const { data: jobsData, isLoading: isLoadingJobsData } = useQuery({
-    queryKey: ['jobData'],
-    queryFn: () => fetchJobs(),
+    queryKey: ['jobData', page],
+    queryFn: () => fetchJobs(page),
+    
   })
 
+  useEffect(() => {
+    if (!jobsData) return;
+
+    console.log(jobsData);
+  }, [jobsData])
+
+  const handlePageClick = (event:any) => {
+    setPage(event.selected + 1);
+  };
 
   if(isLoadingJobsData) {
     return <h1>Loading</h1>
@@ -32,9 +44,9 @@ const FeaturedJobs = () => {
         </div>
         <div className="row justify-content-center">
           <div className="col-xl-10">
-          {jobsData?.length > 0 && !isLoadingJobsData && (
+          {jobsData?.jobs.length > 0 && !isLoadingJobsData && (
             <>
-              {jobsData?.map((data:any, index: any) => (
+              {jobsData?.jobs.map((data:any, index: any) => (
                 <span key={index}>
                   <SingleJobList
                     id={data?._id}
@@ -50,7 +62,17 @@ const FeaturedJobs = () => {
           )}
           </div>
         </div>
-        <Pagination />
+        {/* <Pagination /> */}
+        <ReactPaginate
+          breakLabel="..."
+          nextLabel="next >"
+          onPageChange={handlePageClick}
+          pageRangeDisplayed={5}
+          pageCount={jobsData.totalPages}
+          previousLabel="< previous"
+          renderOnZeroPageCount={null}
+        />
+        
       </div>
     </section>
   );
