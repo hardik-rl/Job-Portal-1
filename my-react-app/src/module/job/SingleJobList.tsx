@@ -3,9 +3,16 @@ import JobModel from "./JobModel";
 interface SingleJobProps {
   title: string;
   location: string;
+  showModal: string;
+  setShowModal: (show: boolean) => void;
 }
 
-const SingleJobList = ({ title, location }: SingleJobProps) => {
+const SingleJobList = ({
+  title,
+  location,
+  showModal,
+  setShowModal,
+}: SingleJobProps) => {
   return (
     <div className="single-job-items mb-30">
       <div className="job-items">
@@ -28,7 +35,13 @@ const SingleJobList = ({ title, location }: SingleJobProps) => {
       </div>
       <div className="items-link f-right">
         <a href="/job-details">Explore</a>
-        <JobModel />
+
+        <div className="items-link f-right">
+          <button type="button" onClick={() => setShowModal(true)}>
+            Apply Now
+          </button>
+        </div>
+        <JobModel showModal={showModal} setShowModal={setShowModal} />
       </div>
     </div>
   );

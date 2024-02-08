@@ -1,7 +1,8 @@
+import { ModelProps } from "../../shared/components/type";
 import Pagination from "./Pagination";
 import SingleJobList from "./SingleJobList";
 
-const FeaturedJobs = () => {
+const FeaturedJobs = ({ setShowModal, showModal }: ModelProps) => {
   return (
     <section className="featured-job-area feature-padding">
       <div className="container">
@@ -14,9 +15,24 @@ const FeaturedJobs = () => {
         </div>
         <div className="row justify-content-center">
           <div className="col-xl-10">
-            <SingleJobList title="Human Resources" location="Mumbai - HO" />
-            <SingleJobList title="Packaging" location="Mumbai - HO" />
-            <SingleJobList title="Accounts & Finance" location="Mumbai - HO" />
+            <SingleJobList
+              setShowModal={setShowModal}
+              showModal={showModal}
+              title="Human Resources"
+              location="Mumbai - HO"
+            />
+            <SingleJobList
+              setShowModal={setShowModal}
+              showModal={showModal}
+              title="Packaging"
+              location="Mumbai - HO"
+            />
+            <SingleJobList
+              setShowModal={setShowModal}
+              showModal={showModal}
+              title="Accounts & Finance"
+              location="Mumbai - HO"
+            />
           </div>
         </div>
         <Pagination />
