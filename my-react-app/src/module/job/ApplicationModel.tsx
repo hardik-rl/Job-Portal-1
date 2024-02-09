@@ -3,6 +3,7 @@ import FormControl from "../../components/FormControl";
 import FormLabel from "../../components/FormLabel";
 import axios from "axios";
 import { useMutation } from "@tanstack/react-query";
+import { toast } from "react-toastify";
 
 const ApplicationModal = () => {
   const [showModal, setShowModal] = useState(false);
@@ -44,6 +45,9 @@ const ApplicationModal = () => {
 
   const { mutate: applyJobMutate, isPending: applyJobIsPending } = useMutation({
     mutationFn: () => addJobApplication(data),
+    onSuccess: () => {
+      toast.success('Application added successfully');
+    }
   });
 
   
