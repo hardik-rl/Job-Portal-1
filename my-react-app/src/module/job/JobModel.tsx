@@ -2,7 +2,7 @@ import FormControl from "../../components/FormControl";
 import FormLabel from "../../components/FormLabel";
 
 interface ModelProps {
-  showModal: string;
+  showModal: boolean;
   setShowModal: (show: boolean) => void;
 }
 
@@ -17,7 +17,7 @@ const JobModel = ({ showModal, setShowModal }: ModelProps) => {
   };
 
   return (
-    <div className="mb-30">
+    <>
       {showModal && (
         <>
           <div
@@ -197,7 +197,7 @@ const JobModel = ({ showModal, setShowModal }: ModelProps) => {
           <div className="modal-backdrop fade show"></div>
         </>
       )}
-    </div>
+    </>
   );
 };
 

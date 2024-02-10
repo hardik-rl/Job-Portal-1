@@ -1,9 +1,10 @@
+import { useNavigate } from "react-router-dom";
 import JobModel from "./JobModel";
 
 interface SingleJobProps {
   title: string;
   location: string;
-  showModal: string;
+  showModal: boolean;
   setShowModal: (show: boolean) => void;
 }
 
@@ -13,6 +14,7 @@ const SingleJobList = ({
   showModal,
   setShowModal,
 }: SingleJobProps) => {
+  const navigate = useNavigate();
   return (
     <div className="single-job-items mb-30">
       <div className="job-items">
@@ -33,14 +35,13 @@ const SingleJobList = ({
           </ul>
         </div>
       </div>
-      <div className="items-link f-right">
-        <a href="/job-details">Explore</a>
-
-        <div className="items-link f-right">
-          <button type="button" onClick={() => setShowModal(true)}>
-            Apply Now
-          </button>
-        </div>
+      <div className="items-link f-right single-job-items__btn">
+        <button type="button" onClick={() => navigate("/job-details")}>
+          Explore
+        </button>
+        <button type="button" onClick={() => setShowModal(true)}>
+          Apply Now
+        </button>
         <JobModel showModal={showModal} setShowModal={setShowModal} />
       </div>
     </div>
