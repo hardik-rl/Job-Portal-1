@@ -1,13 +1,15 @@
+import ScrollToTop from "../../components/ScrollToTop"
 import Banner from "./Banner"
 import JobPost from "./JobPost"
 
 const JobDetails = () => {
   return (
-    <div>
+    <>
+        <ScrollToTop />
         <Banner />
         <JobPost />
-    </div>
+    </>
   )
 }
 
-export default JobDetails   
+export default JobDetails
