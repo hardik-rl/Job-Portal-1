@@ -13,7 +13,10 @@ const OnlineResume = ({ showModal, setShowModal }: ModelProps) => {
                 <p className="pera2">
                   {" "}
                   Can't find your approeriate role, Don't worry upload your
-                  resume here
+                  resume here 
+
+
+                  
                 </p>
                 <button
                   onClick={() => setShowModal(true)}
