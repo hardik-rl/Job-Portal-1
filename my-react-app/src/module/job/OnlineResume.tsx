@@ -1,5 +1,5 @@
 import { ModelProps } from "../../shared/components/type";
-import JobModel from "./JobModel";
+import ApplicationModel from "./ApplicationModel";
 
 const OnlineResume = ({ showModal, setShowModal }: ModelProps) => {
   return (
@@ -26,7 +26,7 @@ const OnlineResume = ({ showModal, setShowModal }: ModelProps) => {
           </div>
         </div>
       </div>
-      <JobModel showModal={showModal} setShowModal={setShowModal} />
+      <ApplicationModel showModal={showModal} setShowModal={setShowModal} />
     </>
   );
 };

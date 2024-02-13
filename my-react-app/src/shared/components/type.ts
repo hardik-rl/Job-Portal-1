@@ -1,4 +1,4 @@
 export type ModelProps = {
-  showModal: string;
+  showModal: boolean;
   setShowModal: (show: boolean) => void;
 };

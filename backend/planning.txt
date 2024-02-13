@@ -1,0 +1,82 @@
+jobs:
+
+- id
+- category_id
+- description
+- company_id
+- position_id
+- job_location_id
+- education_description
+- required_knowledge_description
+- createdAt
+- vacancy
+- nature
+- annual_salary
+- position: {
+  - name
+  - salary_range
+}
+
+
+job_locations (static data)
+- Mumbai - HO
+- Akkalkot Road - Solapur
+- Chincholi - Solapur
+- Ankhleshwar
+- Panoli
+- Indore
+- Dahej
+
+
+job_categories: (static data)
+- Accounts & Finance
+- Production
+- Maintainance
+- Human Resources
+- Sales & Business Development
+- Packaging
+- Procurement
+- Administration 
+- Logistics
+- Compliance
+- R&D
+- Quality
+- Documentation
+- Raw Material Yard ( RMY)/Stores
+- Marketing & Corporate Communication
+- Operations
+- Information Technology
+- Projects
+- Strategy & Business Analytics
+
+
+companies:
+- id
+- name
+- logo_url
+- description
+- website
+- email_id
+
+
+applications:
+- id
+- first_name
+- last_name
+- email
+- pan_number
+- mobile_number
+- education
+- ctc
+- expected_ctc
+- notice_period
+- total_work_experience
+- gender
+- state
+- resume_file
+
+
+
+
+------------------------------------------------------------------
+
