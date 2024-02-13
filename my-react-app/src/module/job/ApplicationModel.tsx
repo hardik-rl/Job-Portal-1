@@ -5,11 +5,7 @@ import axios from "axios";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import { useFormik } from "formik";
-
-interface ModelProps {
-  showModal: boolean;
-  setShowModal: (show: boolean) => void;
-}
+import { ModelProps } from "../../shared/components/type";
 
 const ApplicationModal = ({ showModal, setShowModal }: ModelProps) => {
   const handleCloseModal = () => {

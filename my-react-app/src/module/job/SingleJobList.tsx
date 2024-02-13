@@ -1,24 +1,14 @@
-import { useState } from "react";
 import ApplicationModel from "./ApplicationModel";
-
-interface SingleJobProps {
-  id: string;
-  img: string;
-  title: string;
-  location: string;
-  showModal: boolean;
-  setShowModal: (show: boolean) => void;
-  companyName: string;
-  description: string;
-}
+import { SingleJobProps } from "./type";
 
 const SingleJobList = ({
   id,
   title,
+  showModal,
+  setShowModal,
   location,
   description,
 }: SingleJobProps) => {
-  const [showModal, setShowModal] = useState(false);
   return (
     <div className="single-job-items mb-30">
       <div className="job-items">

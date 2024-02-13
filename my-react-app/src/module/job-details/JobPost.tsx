@@ -1,8 +1,8 @@
+import { JobDetails } from "../job/type";
 import JobOverview from "./JobOverview";
 import JobPostDetails from "./JobPostDetails";
 
-const JobPost = ({ jobData }: any) => {
-  console.log({ jobData });
+const JobPost = ({ jobData }: JobDetails) => {
   return (
     <div className="job-post-company pt-120 pb-120">
       <div className="container">
@@ -21,7 +21,7 @@ const JobPost = ({ jobData }: any) => {
                 </div>
                 <ul>
                   {jobData?.knowledge_description?.map(
-                    (knowledgeData: any, index: any) => (
+                    (knowledgeData: string, index: number) => (
                       <li key={index}>{knowledgeData}</li>
                     )
                   )}
@@ -33,7 +33,7 @@ const JobPost = ({ jobData }: any) => {
                 </div>
                 <ul>
                   {jobData?.education_description?.map(
-                    (educationData: any, index: any) => (
+                    (educationData: string, index: number) => (
                       <li key={index}>{educationData}</li>
                     )
                   )}

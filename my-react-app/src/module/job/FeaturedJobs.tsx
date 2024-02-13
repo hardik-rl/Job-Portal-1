@@ -3,8 +3,9 @@ import SingleJobList from "./SingleJobList";
 import { useQuery } from "@tanstack/react-query";
 import ReactPaginate from "react-paginate";
 import { useEffect, useState } from "react";
+import { JobData, ModalProps } from "./type";
 
-const FeaturedJobs = () => {
+const FeaturedJobs = ({ setShowModal, showModal }: ModalProps) => {
   const [page, setPage] = useState(1);
 
   const fetchJobs = async (page: number) => {
@@ -22,11 +23,6 @@ const FeaturedJobs = () => {
 
     console.log(jobsData);
   }, [jobsData]);
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const handlePageClick = (event: any) => {
-    setPage(event.selected + 1);
-  };
 
   if (isLoadingJobsData) {
     return <h1>Loading</h1>;
@@ -46,14 +42,15 @@ const FeaturedJobs = () => {
           <div className="col-xl-10">
             {jobsData?.jobs.length > 0 && !isLoadingJobsData && (
               <>
-                {jobsData?.jobs.map((data: any, index: any) => (
+                {jobsData?.jobs.map((data: JobData, index: number) => (
                   <span key={index}>
                     <SingleJobList
+                      setShowModal={setShowModal}
+                      showModal={showModal}
                       id={data?._id}
                       title={data?.category_id?.name}
                       description={data?.description}
                       location={data?.job_location_id?.name}
-                      img={data?.company_id?.logo_url}
                       companyName={data?.company_id?.name}
                     />
                   </span>
@@ -67,7 +64,7 @@ const FeaturedJobs = () => {
           activeClassName="paginate-active"
           breakLabel="..."
           nextLabel="Next"
-          onPageChange={handlePageClick}
+          onPageChange={(event) => setPage(event.selected + 1)}
           pageRangeDisplayed={5}
           pageCount={jobsData.totalPages}
           previousLabel="Previous"
