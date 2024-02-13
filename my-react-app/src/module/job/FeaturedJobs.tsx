@@ -3,33 +3,29 @@ import SingleJobList from "./SingleJobList";
 import { useQuery } from "@tanstack/react-query";
 import ReactPaginate from "react-paginate";
 import { useEffect, useState } from "react";
+import { JobData, ModalProps } from "./type";
 
-const FeaturedJobs = () => {
+const FeaturedJobs = ({ setShowModal, showModal }: ModalProps) => {
   const [page, setPage] = useState(1);
 
-  const fetchJobs = async (page:number) => {
+  const fetchJobs = async (page: number) => {
     const response = await axios.get(`http://localhost:3000/jobs?page=${page}`);
     return response.data;
   };
 
   const { data: jobsData, isLoading: isLoadingJobsData } = useQuery({
-    queryKey: ['jobData', page],
+    queryKey: ["jobData", page],
     queryFn: () => fetchJobs(page),
-    
-  })
+  });
 
   useEffect(() => {
     if (!jobsData) return;
 
     console.log(jobsData);
-  }, [jobsData])
+  }, [jobsData]);
 
-  const handlePageClick = (event:any) => {
-    setPage(event.selected + 1);
-  };
-
-  if(isLoadingJobsData) {
-    return <h1>Loading</h1>
+  if (isLoadingJobsData) {
+    return <h1>Loading</h1>;
   }
 
   return (
@@ -44,35 +40,36 @@ const FeaturedJobs = () => {
         </div>
         <div className="row justify-content-center">
           <div className="col-xl-10">
-          {jobsData?.jobs.length > 0 && !isLoadingJobsData && (
-            <>
-              {jobsData?.jobs.map((data:any, index: any) => (
-                <span key={index}>
-                  <SingleJobList
-                    id={data?._id}
-                    title={data?.category_id?.name}
-                    description={data?.description}
-                    location={data?.job_location_id?.name}
-                    img={data?.company_id?.logo_url}
-                    companyName={data?.company_id?.name}
-                  />
-                </span>
-              ))}
-            </>
-          )}
+            {jobsData?.jobs.length > 0 && !isLoadingJobsData && (
+              <>
+                {jobsData?.jobs.map((data: JobData, index: number) => (
+                  <span key={index}>
+                    <SingleJobList
+                      setShowModal={setShowModal}
+                      showModal={showModal}
+                      id={data?._id}
+                      title={data?.category_id?.name}
+                      description={data?.description}
+                      location={data?.job_location_id?.name}
+                      companyName={data?.company_id?.name}
+                    />
+                  </span>
+                ))}
+              </>
+            )}
           </div>
         </div>
-        {/* <Pagination /> */}
         <ReactPaginate
+          className="custom-pagination "
+          activeClassName="paginate-active"
           breakLabel="..."
-          nextLabel="next >"
-          onPageChange={handlePageClick}
+          nextLabel="Next"
+          onPageChange={(event) => setPage(event.selected + 1)}
           pageRangeDisplayed={5}
           pageCount={jobsData.totalPages}
-          previousLabel="< previous"
+          previousLabel="Previous"
           renderOnZeroPageCount={null}
         />
-        
       </div>
     </section>
   );

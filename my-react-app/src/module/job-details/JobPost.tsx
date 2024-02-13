@@ -1,8 +1,8 @@
+import { JobDetails } from "../job/type";
 import JobOverview from "./JobOverview";
 import JobPostDetails from "./JobPostDetails";
 
-const JobPost = ({jobData}: any) => {
-  console.log({jobData})
+const JobPost = ({ jobData }: JobDetails) => {
   return (
     <div className="job-post-company pt-120 pb-120">
       <div className="container">
@@ -34,18 +34,18 @@ const JobPost = ({jobData}: any) => {
                 <div className="small-section-tittle">
                   <h4>Job Description</h4>
                 </div>
-                <p>
-                  {jobData?.Description}
-                </p>
+                <p>{jobData?.description}</p>
               </div>
               <div className="post-details2  mb-50">
                 <div className="small-section-tittle">
                   <h4>Required Knowledge, Skills, and Abilities</h4>
                 </div>
                 <ul>
-                  {jobData?.knowledge_description?.map((knowledgeData:any, index: any) => (
-                    <li key={index}>{knowledgeData}</li>
-                  ))}
+                  {jobData?.knowledge_description?.map(
+                    (knowledgeData: string, index: number) => (
+                      <li key={index}>{knowledgeData}</li>
+                    )
+                  )}
                 </ul>
               </div>
               <div className="post-details2  mb-50">
@@ -53,16 +53,18 @@ const JobPost = ({jobData}: any) => {
                   <h4>Education + Experience</h4>
                 </div>
                 <ul>
-                  {jobData?.education_description?.map((educationData:any, index: any) => (
-                    <li key={index}>{educationData}</li>
-                  ))}
+                  {jobData?.education_description?.map(
+                    (educationData: string, index: number) => (
+                      <li key={index}>{educationData}</li>
+                    )
+                  )}
                 </ul>
               </div>
             </div>
           </div>
           <div className="col-xl-4 col-lg-4">
-            <JobOverview jobData={jobData}/>
-            <JobPostDetails jobData={jobData}/>
+            <JobOverview jobData={jobData} />
+            <JobPostDetails jobData={jobData} />
           </div>
         </div>
       </div>

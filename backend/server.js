@@ -19,7 +19,6 @@ app.use(cors());
 app.post('/apply', async (req, res) => {
   try {
     const applicationData = req.body;
-    console.log(applicationData);
     const newApplication = await Application.create(applicationData);
     res.status(201).json(newApplication);
   } catch (error) {

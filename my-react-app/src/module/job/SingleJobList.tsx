@@ -1,30 +1,23 @@
-import JobModel from "./ApplicationModel";
+import ApplicationModel from "./ApplicationModel";
+import { SingleJobProps } from "./type";
 
-interface SingleJobProps {
-  id: string;
-  img: string;
-  title: string;
-  location: string;
-  companyName: string;
-  description:string;
-}
-
-const SingleJobList = ({ id, img, title, location, companyName, description }: SingleJobProps) => {
+const SingleJobList = ({
+  id,
+  title,
+  showModal,
+  setShowModal,
+  companyName,
+  location,
+  description,
+}: SingleJobProps) => {
   return (
     <div className="single-job-items mb-30">
       <div className="job-items">
-        <div className="company-img">
-          <a href={`/job-details/${id}`}>
-            <img src={img} alt="" />
-          </a>
-        </div>
         <div className="job-tittle">
           <a href={`/job-details/${id}`}>
             <h4>{title}</h4>
           </a>
-          <p>
-            {description}
-          </p>
+          <p>{description}</p>
           <ul>
             <li>{companyName}</li>
             <li>
@@ -36,7 +29,10 @@ const SingleJobList = ({ id, img, title, location, companyName, description }: S
       </div>
       <div className="items-link f-right">
         <a href={`/job-details/${id}`}>Explore</a>
-        <JobModel />
+        <button type="button" onClick={() => setShowModal(true)}>
+          Apply Now
+        </button>
+        <ApplicationModel showModal={showModal} setShowModal={setShowModal} />
       </div>
     </div>
   );

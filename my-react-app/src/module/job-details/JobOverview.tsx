@@ -1,4 +1,6 @@
-const JobOverview = ({jobData}: any) => {
+import { JobDetails } from "../job/type";
+
+const JobOverview = ({ jobData }: JobDetails) => {
   return (
     <div className="post-details3  mb-50">
       <div className="small-section-tittle">
