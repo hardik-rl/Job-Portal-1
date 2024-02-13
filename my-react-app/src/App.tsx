@@ -1,4 +1,4 @@
-import { Route, Routes, BrowserRouter as Router } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 
 import Preloader from "./components/Preloader";
 import Job from "./module/job/Job";
@@ -15,9 +15,8 @@ import "../assets/css/style.css";
 import JobDetails from "./module/job-details/JobDetails";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ToastContainer } from "react-toastify";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import clsx from "clsx";
-// import HandShape from "../assets/img/hand.svg";
 
 const queryClient = new QueryClient({
   defaultOptions: {
