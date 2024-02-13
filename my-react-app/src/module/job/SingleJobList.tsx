@@ -1,33 +1,41 @@
-import { useNavigate } from "react-router-dom";
-import JobModel from "./JobModel";
+import { useState } from "react";
+import ApplicationModel from "./ApplicationModel";
 
 interface SingleJobProps {
+  id: string;
+  img: string;
   title: string;
   location: string;
   showModal: boolean;
   setShowModal: (show: boolean) => void;
+  companyName: string;
+  description: string;
 }
 
 const SingleJobList = ({
+  id,
+  img,
   title,
   location,
-  showModal,
-  setShowModal,
+  companyName,
+  description,
 }: SingleJobProps) => {
-  const navigate = useNavigate();
+  const [showModal, setShowModal] = useState(false);
   return (
     <div className="single-job-items mb-30">
       <div className="job-items">
+        <div className="company-img">
+          <a href={`/job-details/${id}`}>
+            <img src={img} alt="" />
+          </a>
+        </div>
         <div className="job-tittle">
-          <a href="/job-details">
+          <a href={`/job-details/${id}`}>
             <h4>{title}</h4>
           </a>
-          <p>
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industry's standard dummy text
-            ever since the 1500s.
-          </p>
+          <p>{description}</p>
           <ul>
+            <li>{companyName}</li>
             <li>
               <i className="fas fa-map-marker-alt"></i>
               {location}
@@ -35,14 +43,12 @@ const SingleJobList = ({
           </ul>
         </div>
       </div>
-      <div className="items-link f-right single-job-items__btn">
-        <button type="button" onClick={() => navigate("/job-details")}>
-          Explore
-        </button>
+      <div className="items-link f-right">
+        <a href={`/job-details/${id}`}>Explore</a>
         <button type="button" onClick={() => setShowModal(true)}>
           Apply Now
         </button>
-        <JobModel showModal={showModal} setShowModal={setShowModal} />
+        <ApplicationModel showModal={showModal} setShowModal={setShowModal} />
       </div>
     </div>
   );

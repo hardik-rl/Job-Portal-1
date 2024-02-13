@@ -13,15 +13,12 @@ const PORT = process.env.PORT || 9900;
 
 app.use(express.json());
 
-app.use(cors({
-  origin: 'http://localhost:5173' 
-}));
+app.use(cors());
 
 // add application
 app.post('/apply', async (req, res) => {
   try {
-    const applicationData = req.body; 
-    console.log(applicationData);
+    const applicationData = req.body;
     const newApplication = await Application.create(applicationData);
     res.status(201).json(newApplication);
   } catch (error) {

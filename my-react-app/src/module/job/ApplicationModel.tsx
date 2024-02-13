@@ -1,12 +1,15 @@
 import FormControl from "../../components/FormControl";
 import FormLabel from "../../components/FormLabel";
+import axios from "axios";
+import { useMutation } from "@tanstack/react-query";
+import { toast } from "react-toastify";
 
 interface ModelProps {
   showModal: boolean;
   setShowModal: (show: boolean) => void;
 }
 
-const JobModel = ({ showModal, setShowModal }: ModelProps) => {
+const ApplicationModal = ({ showModal, setShowModal }: ModelProps) => {
   const handleCloseModal = () => {
     setShowModal(false);
   };
@@ -15,6 +18,46 @@ const JobModel = ({ showModal, setShowModal }: ModelProps) => {
     e.preventDefault();
     handleCloseModal();
   };
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const addJobApplication = async (data:any) => {
+    const response = await axios.post(`http://localhost:3000/apply`, data);
+    return response.data;
+  };
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const data:any = {
+    "job_id": "65c27c92ac4f8ffb8f2496f4",
+    "first_name": "FN",
+    "last_name": "LN",
+    "email": "email",
+    "pan_number": 123445,
+    "mobile_number": 28237748292,
+    "education": "education",
+    "ctc": 42293,
+    "expected_ctc": 49283,
+    "notice_period": 2,
+    "total_work_experience": 3,
+    "gender": "Male",
+    "state": "Gujarat",
+    "resume_file": "slkd"
+  }
+
+  const { mutate: applyJobMutate, isPending: applyJobIsPending } = useMutation({
+    mutationFn: () => addJobApplication(data),
+    onSuccess: () => {
+      toast.success('Application added successfully');
+    }
+  });
+
+
+  const onClickSubmit = () => {
+    applyJobMutate();
+  }
+
+  if (applyJobIsPending) {
+    return <h1>Loading</h1>
+  }
 
   return (
     <>
@@ -187,7 +230,7 @@ const JobModel = ({ showModal, setShowModal }: ModelProps) => {
                   </form>
                 </div>
                 <div className="modal-footer">
-                  <button type="button" className="btn btn-primary">
+                  <button type="button" className="btn btn-primary" onClick={onClickSubmit}>
                     Submit
                   </button>
                 </div>
@@ -201,4 +244,4 @@ const JobModel = ({ showModal, setShowModal }: ModelProps) => {
   );
 };
 
-export default JobModel;
+export default ApplicationModal;

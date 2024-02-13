@@ -5565,7 +5565,7 @@ form.search-box .search-form a {
   .single-job-items__btn .items-link {
     padding-top: 0px;
   }
-  .single-job-items__btn a{
+  .single-job-items__btn a {
     margin-bottom: 0 !important;
   }
   .single-job-items__btn {
@@ -6428,4 +6428,37 @@ form.search-box .search-form a {
 
 .online-cv.section-overly::before {
   background-color: #101010c2;
+}
+
+.custom-pagination {
+  display: flex;
+  justify-content: center;
+}
+.custom-pagination a {
+  border: 1px solid #08578e;
+  color: #08578e;
+  position: relative;
+  display: block;
+  padding: 0.5rem 0.75rem;
+  margin-left: -1px;
+  line-height: 1.25;
+  background-color: #fff;
+  border: 1px solid #dee2e6;
+  cursor: pointer;
+}
+.custom-pagination .previous a {
+  margin-left: 0;
+  border-top-left-radius: 0.25rem;
+  border-bottom-left-radius: 0.25rem;
+}
+
+.custom-pagination .next a {
+  border-top-right-radius: 0.25rem;
+  border-bottom-right-radius: 0.25rem;
+}
+
+.custom-pagination .paginate-active a {
+  color: white;
+  background-color: #08578e;
+
 }

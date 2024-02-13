@@ -1,5 +1,5 @@
 import { ModelProps } from "../../shared/components/type";
-import JobModel from "./JobModel";
+import ApplicationModel from "./ApplicationModel";
 
 const OnlineResume = ({ showModal, setShowModal }: ModelProps) => {
   return (
@@ -13,10 +13,7 @@ const OnlineResume = ({ showModal, setShowModal }: ModelProps) => {
                 <p className="pera2">
                   {" "}
                   Can't find your approeriate role, Don't worry upload your
-                  resume here 
-
-
-                  
+                  resume here
                 </p>
                 <button
                   onClick={() => setShowModal(true)}
@@ -29,7 +26,7 @@ const OnlineResume = ({ showModal, setShowModal }: ModelProps) => {
           </div>
         </div>
       </div>
-      <JobModel showModal={showModal} setShowModal={setShowModal} />
+      <ApplicationModel showModal={showModal} setShowModal={setShowModal} />
     </>
   );
 };
