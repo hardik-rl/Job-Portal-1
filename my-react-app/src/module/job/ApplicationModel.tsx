@@ -1,8 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import FormControl from "../../components/FormControl";
 import FormLabel from "../../components/FormLabel";
 import axios from "axios";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-toastify";
+import { useFormik } from "formik";
 
 interface ModelProps {
   showModal: boolean;
@@ -14,50 +16,102 @@ const ApplicationModal = ({ showModal, setShowModal }: ModelProps) => {
     setShowModal(false);
   };
 
-  const handleSubmit = (e: { preventDefault: () => void }) => {
-    e.preventDefault();
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const addJobApplication = async (data: any) => {
+    const response = await axios.post(`http://localhost:3000/apply`, data);
+    console.log(response, "res");
+    return response.data;
+  };
+  const { mutate: applyJobMutate, isPending: applyJobIsPending } = useMutation({
+    mutationFn: (data) => addJobApplication(data),
+    onSuccess: () => {
+      toast.success("Application added successfully");
+    },
+  });
+
+  const formik = useFormik({
+    initialValues: {
+      job_id: "65c27c92ac4f8ffb8f2496f4",
+      first_name: "",
+      last_name: "",
+      email: "",
+      pan_number: "",
+      mobile_number: "",
+      education: "",
+      ctc: "",
+      expected_ctc: "",
+      notice_period: "",
+      total_work_experience: "",
+      gender: "",
+      state: "",
+      resume_file: "",
+    },
+    onSubmit: (values: any) => {
+      applyJobMutate(values);
+    },
+  });
+
+  const handleOnChangeEvent = (event: any) => {
+    formik.setFieldValue(event?.target.name, Number(event.target.value));
+  };
+
+  const handleSelectOnChangeEvent = (event: any) => {
+    const { name, value } = event.target;
+    formik.setFieldValue(name, value);
+  };
+
+  const handleSubmitEvent = () => {
+    applyJobMutate(formik.values);
+    formik.resetForm();
     handleCloseModal();
   };
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const addJobApplication = async (data:any) => {
-    const response = await axios.post(`http://localhost:3000/apply`, data);
-    return response.data;
-  };
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const data:any = {
-    "job_id": "65c27c92ac4f8ffb8f2496f4",
-    "first_name": "FN",
-    "last_name": "LN",
-    "email": "email",
-    "pan_number": 123445,
-    "mobile_number": 28237748292,
-    "education": "education",
-    "ctc": 42293,
-    "expected_ctc": 49283,
-    "notice_period": 2,
-    "total_work_experience": 3,
-    "gender": "Male",
-    "state": "Gujarat",
-    "resume_file": "slkd"
-  }
-
-  const { mutate: applyJobMutate, isPending: applyJobIsPending } = useMutation({
-    mutationFn: () => addJobApplication(data),
-    onSuccess: () => {
-      toast.success('Application added successfully');
-    }
-  });
-
-
-  const onClickSubmit = () => {
-    applyJobMutate();
-  }
-
   if (applyJobIsPending) {
-    return <h1>Loading</h1>
+    return <h1>Loading</h1>;
   }
+
+  const statesDataList = [
+    { value: "SelectState", label: "Select State" },
+    { value: "Andra Pradesh", label: "Andra Pradesh" },
+    { value: "Arunachal Pradesh", label: "Arunachal Pradesh" },
+    { value: "Assam", label: "Assam" },
+    { value: "Bihar", label: "Bihar" },
+    { value: "Chhattisgarh", label: "Chhattisgarh" },
+    { value: "Goa", label: "Goa" },
+    { value: "Gujarat", label: "Gujarat" },
+    { value: "Haryana", label: "Haryana" },
+    { value: "Himachal Pradesh", label: "Himachal Pradesh" },
+    { value: "Jammu and Kashmir", label: "Jammu and Kashmir" },
+    { value: "Jharkhand", label: "Jharkhand" },
+    { value: "Karnataka", label: "Karnataka" },
+    { value: "Kerala", label: "Kerala" },
+    { value: "Madya Pradesh", label: "Madya Pradesh" },
+    { value: "Maharashtra", label: "Maharashtra" },
+    { value: "Manipur", label: "Manipur" },
+    { value: "Meghalaya", label: "Meghalaya" },
+    { value: "Mizoram", label: "Mizoram" },
+    { value: "Nagaland", label: "Nagaland" },
+    { value: "Orissa", label: "Orissa" },
+    { value: "Punjab", label: "Punjab" },
+    { value: "Rajasthan", label: "Rajasthan" },
+    { value: "Sikkim", label: "Sikkim" },
+    { value: "Tamil Nadu", label: "Tamil Nadu" },
+    { value: "Telangana", label: "Telangana" },
+    { value: "Tripura", label: "Tripura" },
+    { value: "Uttaranchal", label: "Uttaranchal" },
+    { value: "Uttar Pradesh", label: "Uttar Pradesh" },
+    { value: "West Bengal", label: "West Bengal" },
+    {
+      value: "Andaman and Nicobar Islands",
+      label: "Andaman and Nicobar Islands",
+    },
+    { value: "Chandigarh", label: "Chandigarh" },
+    { value: "Dadar and Nagar Haveli", label: "Dadar and Nagar Haveli" },
+    { value: "Daman and Diu", label: "Daman and Diu" },
+    { value: "Delhi", label: "Delhi" },
+    { value: "Lakshadeep", label: "Lakshadeep" },
+    { value: "Pondicherry", label: "Pondicherry" },
+  ];
 
   return (
     <>
@@ -89,57 +143,110 @@ const ApplicationModal = ({ showModal, setShowModal }: ModelProps) => {
                   </button>
                 </div>
                 <div className="modal-body">
-                  <form onSubmit={handleSubmit}>
+                  <form onSubmit={formik.handleSubmit}>
                     <div className="form-row">
                       <div className="form-group col-md-4">
                         <FormLabel name="First Name" htmlFor="htmlFor" />
-                        <FormControl id="firstname" type="text" />
+                        <FormControl
+                          onChange={formik.handleChange}
+                          value={formik.values.first_name}
+                          id="first_name"
+                          type="text"
+                          name="first_name"
+                        />
                       </div>
                       <div className="form-group col-md-4">
                         <FormLabel name="Last Name" htmlFor="lastname" />
-                        <FormControl id="lastname" type="text" />
+                        <FormControl
+                          onChange={formik.handleChange}
+                          value={formik.values.last_name}
+                          id="last_name"
+                          type="text"
+                          name="last_name"
+                        />
                       </div>
 
                       <div className="form-group col-md-4">
                         <FormLabel name="Email" htmlFor="youremail" />
-                        <FormControl id="youremail" type="email" />
+                        <FormControl
+                          onChange={formik.handleChange}
+                          value={formik.values.email}
+                          id="email"
+                          type="text"
+                          name="email"
+                        />
                       </div>
 
                       <div className="form-group col-md-4">
-                        <FormLabel name="Pancard number" htmlFor="pancard" />
-                        <FormControl id="pancard" type="text" />
+                        <FormLabel name="Pancard number" htmlFor="pan_number" />
+                        <FormControl
+                          onChange={(event: any) => handleOnChangeEvent(event)}
+                          value={formik.values.pan_number}
+                          id="pan_number"
+                          type="text"
+                          name="pan_number"
+                        />
                       </div>
-
                       <div className="form-group col-md-4">
                         <FormLabel
                           name="Mobile number"
                           htmlFor="mobilenumber"
                         />
-                        <FormControl id="mobilenumber" type="number" />
+                        <FormControl
+                          onChange={(event: any) => handleOnChangeEvent(event)}
+                          value={formik.values.mobile_number}
+                          id="mobile_number"
+                          type="number"
+                          name="mobile_number"
+                        />
                       </div>
 
                       <div className="form-group col-md-4">
                         <FormLabel name="Education" htmlFor="education" />
-                        <FormControl id="education" type="text" />
+                        <FormControl
+                          onChange={formik.handleChange}
+                          value={formik.values.education}
+                          id="education"
+                          type="text"
+                          name="education"
+                        />
                       </div>
 
                       <div className="form-group col-md-4">
                         <label htmlFor="ctc">CTC (In Laksh)</label>
-                        <FormLabel name="First Name" htmlFor="htmlFor" />
-                        <FormControl id="ctc" type="text" />
+                        <FormLabel name="" htmlFor="ctc" />
+                        <FormControl
+                          onChange={(event: any) => handleOnChangeEvent(event)}
+                          value={formik.values.ctc}
+                          id="ctc"
+                          type="number"
+                          name="ctc"
+                        />
                       </div>
 
                       <div className="form-group col-md-4">
                         <FormLabel name="Expected CTC" htmlFor="expctc" />
-                        <FormControl id="expctc" type="text" />
+                        <FormControl
+                          onChange={(event: any) => handleOnChangeEvent(event)}
+                          value={formik.values.expected_ctc}
+                          id="expctc"
+                          type="number"
+                          name="expected_ctc"
+                        />
                       </div>
 
                       <div className="form-group col-md-4">
                         <FormLabel
                           name="Notice Period"
-                          htmlFor="noticeperiod"
+                          htmlFor="notice_period"
                         />
-                        <FormControl id="noticeperiod" type="text" />
+                        <FormControl
+                          onChange={(event: any) => handleOnChangeEvent(event)}
+                          value={formik.values.notice_period}
+                          id="notice_period"
+                          type="text"
+                          name="notice_period"
+                        />
                       </div>
 
                       <div className="form-group col-md-4">
@@ -147,12 +254,24 @@ const ApplicationModal = ({ showModal, setShowModal }: ModelProps) => {
                           name="Total Work Experience"
                           htmlFor="workexperience"
                         />
-                        <FormControl id="workexperience" type="text" />
+                        <FormControl
+                          onChange={(event: any) => handleOnChangeEvent(event)}
+                          value={formik.values.total_work_experience}
+                          id="workexperience"
+                          type="text"
+                          name="total_work_experience"
+                        />
                       </div>
 
                       <div className="form-group col-md-4">
                         <FormLabel name="Gender" htmlFor="gendar" />
-                        <FormControl id="gendar" type="text" />
+                        <FormControl
+                          onChange={formik.handleChange}
+                          value={formik.values.gender}
+                          id="gendar"
+                          type="text"
+                          name="gender"
+                        />
                       </div>
 
                       <div className="form-group col-md-4">
@@ -160,61 +279,15 @@ const ApplicationModal = ({ showModal, setShowModal }: ModelProps) => {
                         <select
                           className="form-control"
                           id="inputState"
-                          // style={{display: "none"}}
+                          value={formik.values.state}
+                          name="state"
+                          onChange={handleSelectOnChangeEvent}
                         >
-                          <option value="SelectState">Select State</option>
-                          <option value="Andra Pradesh">Andra Pradesh</option>
-                          <option value="Arunachal Pradesh">
-                            Arunachal Pradesh
-                          </option>
-                          <option value="Assam">Assam</option>
-                          <option value="Bihar">Bihar</option>
-                          <option value="Chhattisgarh">Chhattisgarh</option>
-                          <option value="Goa">Goa</option>
-                          <option value="Gujarat">Gujarat</option>
-                          <option value="Haryana">Haryana</option>
-                          <option value="Himachal Pradesh">
-                            Himachal Pradesh
-                          </option>
-                          <option value="Jammu and Kashmir">
-                            Jammu and Kashmir
-                          </option>
-                          <option value="Jharkhand">Jharkhand</option>
-                          <option value="Karnataka">Karnataka</option>
-                          <option value="Kerala">Kerala</option>
-                          <option value="Madya Pradesh">Madya Pradesh</option>
-                          <option value="Maharashtra">Maharashtra</option>
-                          <option value="Manipur">Manipur</option>
-                          <option value="Meghalaya">Meghalaya</option>
-                          <option value="Mizoram">Mizoram</option>
-                          <option value="Nagaland">Nagaland</option>
-                          <option value="Orissa">Orissa</option>
-                          <option value="Punjab">Punjab</option>
-                          <option value="Rajasthan">Rajasthan</option>
-                          <option value="Sikkim">Sikkim</option>
-                          <option value="Tamil Nadu">Tamil Nadu</option>
-                          <option value="Telangana">Telangana</option>
-                          <option value="Tripura">Tripura</option>
-                          <option value="Uttaranchal">Uttaranchal</option>
-                          <option value="Uttar Pradesh">Uttar Pradesh</option>
-                          <option value="West Bengal">West Bengal</option>
-                          <option
-                            // disabled=""
-                            style={{ backgroundColor: "#aaa", color: "#fff" }}
-                          >
-                            UNION Territories
-                          </option>
-                          <option value="Andaman and Nicobar Islands">
-                            Andaman and Nicobar Islands
-                          </option>
-                          <option value="Chandigarh">Chandigarh</option>
-                          <option value="Dadar and Nagar Haveli">
-                            Dadar and Nagar Haveli
-                          </option>
-                          <option value="Daman and Diu">Daman and Diu</option>
-                          <option value="Delhi">Delhi</option>
-                          <option value="Lakshadeep">Lakshadeep</option>
-                          <option value="Pondicherry">Pondicherry</option>
+                          {statesDataList.map((state) => (
+                            <option key={state.value} value={state.value}>
+                              {state.label}
+                            </option>
+                          ))}
                         </select>
                       </div>
 
@@ -230,7 +303,11 @@ const ApplicationModal = ({ showModal, setShowModal }: ModelProps) => {
                   </form>
                 </div>
                 <div className="modal-footer">
-                  <button type="button" className="btn btn-primary" onClick={onClickSubmit}>
+                  <button
+                    type="submit"
+                    className="btn btn-primary"
+                    onClick={handleSubmitEvent}
+                  >
                     Submit
                   </button>
                 </div>
