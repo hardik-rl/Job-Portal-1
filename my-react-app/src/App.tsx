@@ -15,6 +15,7 @@ import "../assets/css/style.css";
 import JobDetails from "./module/job-details/JobDetails";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ToastContainer } from "react-toastify";
+import Login from "../admin/auth/Login";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -31,6 +32,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Job />} />
         <Route path="/job-details/:id" element={<JobDetails />} />
+        <Route path="/admin" element={<Login />} />
       </Routes>
       <ToastContainer />
     </QueryClientProvider>
