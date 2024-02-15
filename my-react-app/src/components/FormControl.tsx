@@ -2,7 +2,7 @@ interface FormControlProps {
   id: string;
   type: string;
   name: string;
-  onChange: any;
+  onChange: React.ChangeEventHandler<HTMLInputElement>;
   value: string | number;
 }
 const FormControl = ({ id, type, onChange, value, name }: FormControlProps) => {

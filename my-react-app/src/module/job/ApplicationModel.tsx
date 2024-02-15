@@ -15,7 +15,6 @@ const ApplicationModal = ({ showModal, setShowModal }: ModelProps) => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const addJobApplication = async (data: any) => {
     const response = await axios.post(`http://localhost:3000/apply`, data);
-    console.log(response, "res");
     return response.data;
   };
   const { mutate: applyJobMutate, isPending: applyJobIsPending } = useMutation({

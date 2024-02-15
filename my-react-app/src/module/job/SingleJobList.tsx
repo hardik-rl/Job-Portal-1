@@ -6,6 +6,7 @@ const SingleJobList = ({
   title,
   showModal,
   setShowModal,
+  companyName,
   location,
   description,
 }: SingleJobProps) => {
@@ -18,6 +19,7 @@ const SingleJobList = ({
           </a>
           <p>{description}</p>
           <ul>
+            <li>{companyName}</li>
             <li>
               <i className="fas fa-map-marker-alt"></i>
               {location}
