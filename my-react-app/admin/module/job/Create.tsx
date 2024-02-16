@@ -1,6 +1,6 @@
-import FormControl from "../shared/FormControl";
+import FormControl from "../../shared/FormControl";
 
-const CreateNewJob = () => {
+const Create = () => {
   const handleSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault();
   };
@@ -139,4 +139,4 @@ const CreateNewJob = () => {
   );
 };
 
-export default CreateNewJob;
+export default Create;

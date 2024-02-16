@@ -52,14 +52,14 @@ const SideBar = () => {
         <nav className="app-nav app-nav-main flex-grow-1">
           <ul className="app-menu list-unstyled accordion" id="menu-accordion">
             <NavLink
-              href="#0"
+              href="list"
               text="Candidates List"
               icon={<CardList />}
               isActive={activeLink === "#0"}
               onClick={() => handleNavLinkClick("#0")}
             />
             <NavLink
-              href="#0"
+              href="create"
               text="Create New Job"
               icon={<Plus />}
               isActive={activeLink === "#1"}
