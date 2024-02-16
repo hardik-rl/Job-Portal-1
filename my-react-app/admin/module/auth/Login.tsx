@@ -1,8 +1,8 @@
-import "../../assets/css/portal.css";
-import FormControl from "../shared/FormControl";
-import Footer from "../shared/Footer";
 
-import logo from "../../assets/img/admin/grp-logo.png";
+import FormControl from "../../shared/FormControl";
+import Footer from "../../shared/Footer";
+
+import logo from "../../../assets/img/admin/grp-logo.png";
 import { Link } from "react-router-dom";
 
 const Login = () => {
