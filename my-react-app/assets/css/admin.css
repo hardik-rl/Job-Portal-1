@@ -1,0 +1,9 @@
+.app-sidepanel {
+  z-index: 1040;
+}
+.app-nav .nav-item.active .nav-link{
+  color: #15a362;
+  background: #edfdf6;
+  border-left: 3px solid #15a362;
+  font-weight: 500;
+}

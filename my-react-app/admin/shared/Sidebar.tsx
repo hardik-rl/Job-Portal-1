@@ -1,5 +1,10 @@
+import { Link } from "react-router-dom";
+import "../../assets/css/admin.css";
+
 import logo from "../../assets/img/admin/grp-logo.png";
+
 import { CardList, Plus } from "../shared/Icon";
+import { useState } from "react";
 
 type NavLinkType = {
   href: string;
@@ -7,29 +12,31 @@ type NavLinkType = {
   text: string;
 };
 
-const NavLink = ({ href, icon, text }: NavLinkType) => {
+const NavLink = ({
+  href,
+  icon,
+  text,
+  isActive,
+  onClick,
+}: NavLinkType & { isActive: boolean; onClick: () => void }) => {
+  const activeClassName = isActive ? "active" : "";
   return (
-    <li className="nav-item">
-      <a className="nav-link" href={href}>
+    <li className={`nav-item ${activeClassName}`}>
+      <Link className="nav-link" to={href} onClick={onClick}>
         <span className="nav-icon">{icon}</span>
         <span className="nav-link-text">{text}</span>
-      </a>
+      </Link>
     </li>
   );
 };
 
-const AppNav = () => {
-  return (
-    <nav className="app-nav app-nav-main flex-grow-1">
-      <ul className="app-menu list-unstyled accordion" id="menu-accordion">
-        <NavLink href="#0" text="Candidates List" icon={<CardList />} />
-        <NavLink href="#0" text="Create New Job" icon={<Plus />} />
-      </ul>
-    </nav>
-  );
-};
-
 const SideBar = () => {
+  const [activeLink, setActiveLink] = useState("#0");
+
+  const handleNavLinkClick = (href: string) => {
+    setActiveLink(href);
+  };
+
   return (
     <div id="app-sidepanel" className="app-sidepanel sidepanel-visible">
       <div id="sidepanel-drop" className="sidepanel-drop"></div>
@@ -42,7 +49,24 @@ const SideBar = () => {
             <img className="logo-icon me-2" src={logo} alt="logo" />
           </a>
         </div>
-        <AppNav />
+        <nav className="app-nav app-nav-main flex-grow-1">
+          <ul className="app-menu list-unstyled accordion" id="menu-accordion">
+            <NavLink
+              href="#0"
+              text="Candidates List"
+              icon={<CardList />}
+              isActive={activeLink === "#0"}
+              onClick={() => handleNavLinkClick("#0")}
+            />
+            <NavLink
+              href="#0"
+              text="Create New Job"
+              icon={<Plus />}
+              isActive={activeLink === "#1"}
+              onClick={() => handleNavLinkClick("#1")}
+            />
+          </ul>
+        </nav>
       </div>
     </div>
   );
