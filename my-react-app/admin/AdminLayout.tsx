@@ -1,17 +1,15 @@
 import "../assets/css/portal.css";
 
 import { Outlet } from "react-router-dom";
-// import Footer from "./shared/Footer";
-// import Sidebar from "./shared/Sidebar";
-// import Header from "./shared/Header";
+import Sidebar from "./shared/Sidebar";
+import Header from "./shared/Header";
 
 const AdminLayout = () => {
   return (
-    <div className="">
+    <div className="app">
+      <Header />
       <Outlet />
-      {/* <Header />
-      <Sidebar /> */}
-      {/* <Footer /> */}
+      <Sidebar />
     </div>
   );
 };

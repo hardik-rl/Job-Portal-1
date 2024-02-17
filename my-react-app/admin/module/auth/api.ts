@@ -1,5 +1,5 @@
+import { setToken } from "../../../src/shared/helpers/utils";
 import api from "../../shared/api";
-import { setToken } from "../../shared/helpers/utils";
 
 import { LoginFormProps } from "./types";
 

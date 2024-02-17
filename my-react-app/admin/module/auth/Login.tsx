@@ -1,23 +1,26 @@
+import logo from "../../../assets/img/admin/grp-logo.png";
 import FormControl from "../../shared/FormControl";
 import Footer from "../../shared/Footer";
-
-import logo from "../../../assets/img/admin/grp-logo.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import { useMutation } from "@tanstack/react-query";
 import { loginSchema } from "./validation";
 import { LoginFormProps } from "./types";
 import { signin } from "./api";
+import { toast } from "react-toastify";
 
 const Login = () => {
+  const navigate = useNavigate();
+
   const { mutate: loginFn } = useMutation(
     (data: LoginFormProps) => signin(data),
     {
       onSuccess: () => {
-        console.log("login success");
+        toast.success("Login Successfully");
+        navigate("/admin/list")
       },
       onError: () => {
-        console.log("login err");
+        toast.error("Admin is Not Valid");
       },
     }
   );

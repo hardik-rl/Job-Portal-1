@@ -1,6 +1,5 @@
 import axios, { AxiosError, AxiosResponse } from "axios";
-import { clientConfig, handleAxiosError } from "../helpers/utils";
-
+import { clientConfig, handleAxiosError } from "../../../src/shared/helpers/utils";
 
 const api = axios.create({
   baseURL: `${import.meta.env.VITE_BACKEND_URL}/`,
