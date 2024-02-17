@@ -1,46 +1,18 @@
 import { Link } from "react-router-dom";
+import { categoryList } from "./api";
+import { useQuery } from "@tanstack/react-query";
+import { toast } from "react-toastify";
 
 const Details = () => {
-  const data = [
-    {
-      name: "Mark Jones",
-      detailLink: "/admin/view",
-      details: {
-        firstName: "Mark",
-        lastName: "Jones",
-        email: "mark@gmail.com",
-        pancardNumber: "QWRFJKKJKJJ",
-        mobileNumber: "9898989867",
-        education: "BE",
-        ctc: 16,
-        expectedCTC: 20,
-        noticePeriod: 120,
-        totalWorkExperience: "7 Years",
-        gender: "Male",
-        state: "Gujarat",
-        resumeLink: "https://morth.nic.in/sites/default/files/dd12-13_0.pdf",
-      },
+  const { data } = useQuery(["categoryList"], categoryList, {
+    onSuccess: (data) => {
+      toast.success("success", data);
     },
-    {
-      name: "Kelly Dev",
-      detailLink: "/admin/view",
-      details: {
-        firstName: "Kelly",
-        lastName: "Dev",
-        email: "kelly@gmail.com",
-        pancardNumber: "PQR456789",
-        mobileNumber: "9876549876",
-        education: "B.Tech",
-        ctc: 15,
-        expectedCTC: 18,
-        noticePeriod: 60,
-        totalWorkExperience: "8 Years",
-        gender: "Female",
-        state: "Karnataka",
-        resumeLink: "https://example.com/kelly_resume.pdf",
-      },
+    onError: () => {
+      toast.error("err");
     },
-  ];
+  });
+  const categoryData = data && data.category_applications;
 
   return (
     <div className="app-wrapper">
@@ -69,16 +41,15 @@ const Details = () => {
                 </tr>
               </thead>
               <tbody>
-                {data.map((candidate, index) => (
-                  <tr key={index}>
-                    <td>{candidate.name}</td>
-                    <td>
-                      <Link to={candidate.detailLink}>
-                        View Candidate Detail
-                      </Link>
-                    </td>
-                  </tr>
-                ))}
+                {categoryData &&
+                  categoryData.map((item, index: any) => (
+                    <tr key={index}>
+                      <td>{item.first_name}</td>
+                      <td>
+                        <Link to={item.job_id}>View Candidate Detail</Link>
+                      </td>
+                    </tr>
+                  ))}
               </tbody>
             </table>
           </div>
