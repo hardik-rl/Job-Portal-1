@@ -1,6 +1,10 @@
 import { Link } from "react-router-dom";
+import { categoryView } from "./api";
+import { useQuery } from "@tanstack/react-query";
 
 const View = () => {
+  const { data } = useQuery(["categoryView"], categoryView);
+  const categoryViewData = data?.data;
   return (
     <div className="app-wrapper">
       <div className="app-content pt-3 p-md-3 p-lg-4">
@@ -20,19 +24,50 @@ const View = () => {
           </div>
 
           <div className="g-4 mb-4">
-            <p><b>First Name :</b> Mark</p>
-            <p><b>Last Name :</b> Jones</p>
-            <p><b>Email :</b> <a href="mailto:mark@gmail.com">mark@gmail.com</a></p>
-            <p><b>Pancard number :</b> QWRFJKKJKJJ</p>
-            <p><b>Mobile number :</b> 9898989867</p>
-            <p><b>Education :</b> BE</p>
-            <p><b>CTC (In Lakh) :</b> 16</p>
-            <p><b>Expected CTC :</b> 20</p>
-            <p><b>Notice Period (Days) :</b> 120</p>
-            <p><b>Total Work Experience :</b> 7 Year</p>
-            <p><b>Gender :</b> Male</p>
-            <p><b>State :</b> Gujrat</p>
-            <p><b>Resume :</b> <a href="https://morth.nic.in/sites/default/files/dd12-13_0.pdf">Click Here</a></p>
+            <p>
+              <b>First Name :</b> {categoryViewData?.first_name}
+            </p>
+            <p>
+              <b>Last Name :</b> {categoryViewData?.last_name}
+            </p>
+            <p>
+              <b>Email :</b>{" "}
+              <a href="mailto:mark@gmail.com">{categoryViewData?.email}</a>
+            </p>
+            <p>
+              <b>Pancard number :</b> {categoryViewData?.pan_number}
+            </p>
+            <p>
+              <b>Mobile number :</b> {categoryViewData?.mobile_number}
+            </p>
+            <p>
+              <b>Education :</b> {categoryViewData?.education}
+            </p>
+            <p>
+              <b>CTC (In Lakh) :</b> {categoryViewData?.ctc}
+            </p>
+            <p>
+              <b>Expected CTC :</b> {categoryViewData?.expected_ctc}
+            </p>
+            <p>
+              <b>Notice Period (Days) :</b> {categoryViewData?.notice_period}
+            </p>
+            <p>
+              <b>Total Work Experience :</b>{" "}
+              {categoryViewData?.total_work_experience}
+            </p>
+            <p>
+              <b>Gender :</b> {categoryViewData?.gender}
+            </p>
+            <p>
+              <b>State :</b> {categoryViewData?.state}
+            </p>
+            <p>
+              <b>Resume :</b>{" "}
+              <a href="https://morth.nic.in/sites/default/files/dd12-13_0.pdf">
+                Click Here
+              </a>
+            </p>
           </div>
         </div>
       </div>

@@ -1,19 +1,10 @@
 import { Link } from "react-router-dom";
 import { categoryList } from "./api";
 import { useQuery } from "@tanstack/react-query";
-import { toast } from "react-toastify";
 
 const Details = () => {
-  const { data } = useQuery(["categoryList"], categoryList, {
-    onSuccess: (data) => {
-      toast.success("success", data);
-    },
-    onError: () => {
-      toast.error("err");
-    },
-  });
+  const { data } = useQuery(["categoryList"], categoryList);
   const categoryData = data && data.category_applications;
-
   return (
     <div className="app-wrapper">
       <div className="app-content pt-3 p-md-3 p-lg-4">
