@@ -1,6 +1,47 @@
 import { Link } from "react-router-dom";
 
 const Details = () => {
+  const data = [
+    {
+      name: "Mark Jones",
+      detailLink: "/admin/view",
+      details: {
+        firstName: "Mark",
+        lastName: "Jones",
+        email: "mark@gmail.com",
+        pancardNumber: "QWRFJKKJKJJ",
+        mobileNumber: "9898989867",
+        education: "BE",
+        ctc: 16,
+        expectedCTC: 20,
+        noticePeriod: 120,
+        totalWorkExperience: "7 Years",
+        gender: "Male",
+        state: "Gujarat",
+        resumeLink: "https://morth.nic.in/sites/default/files/dd12-13_0.pdf",
+      },
+    },
+    {
+      name: "Kelly Dev",
+      detailLink: "/admin/view",
+      details: {
+        firstName: "Kelly",
+        lastName: "Dev",
+        email: "kelly@gmail.com",
+        pancardNumber: "PQR456789",
+        mobileNumber: "9876549876",
+        education: "B.Tech",
+        ctc: 15,
+        expectedCTC: 18,
+        noticePeriod: 60,
+        totalWorkExperience: "8 Years",
+        gender: "Female",
+        state: "Karnataka",
+        resumeLink: "https://example.com/kelly_resume.pdf",
+      },
+    },
+  ];
+
   return (
     <div className="app-wrapper">
       <div className="app-content pt-3 p-md-3 p-lg-4">
@@ -28,24 +69,16 @@ const Details = () => {
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>Mark Jones</td>
-                  <td>
-                    <Link to="/admin/view">View Candidate Detail</Link>
-                  </td>
-                </tr>
-                <tr>
-                  <td>Jacob Dev</td>
-                  <td>
-                    <Link to="/admin/view">View Candidate Detail</Link>
-                  </td>
-                </tr>
-                <tr>
-                  <td>Kelly Dev</td>
-                  <td>
-                    <Link to="/admin/view">View Candidate Detail</Link>
-                  </td>
-                </tr>
+                {data.map((candidate, index) => (
+                  <tr key={index}>
+                    <td>{candidate.name}</td>
+                    <td>
+                      <Link to={candidate.detailLink}>
+                        View Candidate Detail
+                      </Link>
+                    </td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </div>
