@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const connectDb = async() => {
   try {
-    const connect = await mongoose.connect('mongodb://localhost:27017/job-portal')
+    const connect = await mongoose.connect(process.env.MONGODB_URI);
     console.log('Connected to database');
 
   }
