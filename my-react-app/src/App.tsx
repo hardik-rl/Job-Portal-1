@@ -38,7 +38,7 @@ function App() {
         <Route path="/" element={<Job />} />
         <Route path="/job-details/:id" element={<JobDetails />} />
         <Route path="/admin/*" element={<AdminLayout />}>
-          <Route index element={<Login />} />
+          <Route path="login" element={<Login />} />
           <Route path="create" element={<Create />} />
           <Route path="list" element={<List />} />
           <Route path="details" element={<Details />} />
