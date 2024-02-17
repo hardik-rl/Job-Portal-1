@@ -1,11 +1,17 @@
 const mongoose = require('mongoose');
 const Job = require('./JobModel');
+const JobCategory = require('./JobCategoryModel');
 
 const ApplicationSchema = new mongoose.Schema({
   job_id: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,
     ref: Job
+  },
+  category_id: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+    ref: JobCategory
   },
   first_name: String,
   last_name: String,

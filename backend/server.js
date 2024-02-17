@@ -5,6 +5,8 @@ const connectDb = require('./config/dbConnection');
 const Job = require('./models/JobModel');
 const JobLocation = require('./models/JobLocationModel');
 const Application = require('./models/ApplicationModel');
+const adminRoutes = require('./routes/AdminRoutes.js');
+const bodyParser = require('body-parser');
 
 connectDb();
 const app = express();
@@ -12,8 +14,13 @@ const app = express();
 const PORT = process.env.PORT || 9900;
 
 app.use(express.json());
-
 app.use(cors());
+
+//middleware
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
+app.use('/admin', adminRoutes);
 
 // add application
 app.post('/apply', async (req, res) => {
