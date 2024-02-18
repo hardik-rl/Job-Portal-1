@@ -10,3 +10,6 @@
 .textgreen {
   color: #15a362;
 }
+.page-utilities .col-auto {
+  min-width: 333px;
+}

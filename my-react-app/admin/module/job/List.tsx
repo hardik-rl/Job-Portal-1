@@ -1,10 +1,36 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
 import { JobDataItem } from "./types";
 import { categoryCard } from "./api";
+import { useEffect, useState } from "react";
+import ReactSelect from "react-select";
 
 const List = () => {
-  const { data: jobData } = useQuery<JobDataItem[]>(["jobData"], categoryCard);
+  const [selectedCategory, setSelectedCategory] = useState<string>("");
+  const { data: jobData, refetch } = useQuery<JobDataItem[]>(
+    ["jobData", selectedCategory],
+    () => categoryCard(selectedCategory),
+    {
+      enabled: false,
+    }
+  );
+
+  const options =
+    jobData?.map((option: any) => ({
+      value: option.category,
+      label: option.category,
+    })) || [];
+
+  const handleCategoryChange = (selectedOption: any) => {
+    const newCategory = selectedOption?.value || "";
+    setSelectedCategory(newCategory);
+  };
+
+  useEffect(() => {
+    refetch();
+  }, [selectedCategory, refetch]);
+
   return (
     <div className="app-wrapper">
       <div className="app-content pt-3 p-md-3 p-lg-4">
@@ -17,10 +43,15 @@ const List = () => {
               <div className="page-utilities">
                 <div className="row g-2 justify-content-start justify-content-md-end align-items-center">
                   <div className="col-auto">
-                    <select className="form-select" name="select" id="select1">
-                      <option value="">Any - All Jobs</option>
-                      <option value="">Accounts &amp; Finance</option>
-                    </select>
+                    <ReactSelect
+                      options={options}
+                      value={{
+                        value: selectedCategory,
+                        label: selectedCategory || "Any - All Jobs",
+                      }}
+                      onChange={handleCategoryChange}
+                      isClearable
+                    />
                   </div>
                 </div>
               </div>

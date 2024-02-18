@@ -2,8 +2,8 @@ import api from "../../shared/api";
 
 import { JobDataItem } from "./types";
 
-export const categoryCard: () => Promise<JobDataItem[]> = async () => {
-  const response = await api.get("/get-categories");
+export const categoryCard = async (category: string): Promise<JobDataItem[]> => {
+  const response = await api.get(`/get-categories?filter=${category}`);
   return response.data;
 };
 
