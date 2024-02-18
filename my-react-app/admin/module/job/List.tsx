@@ -1,15 +1,10 @@
+import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
+import { JobDataItem } from "./types";
+import { categoryCard } from "./api";
 
 const List = () => {
-  const jobData = [
-    { category: "All Candidates", value: 120 },
-    { category: "HR", value: 10, link: "/admin/details" },
-    { category: "Marketing", value: 8, link: "/admin/details" },
-    { category: "Productions", value: 4, link: "/admin/details" },
-    { category: "R & D", value: 2, link: "/admin/details" },
-    { category: "Logistics", value: 50, link: "/admin/details" },
-    { category: "Others", value: 100, link: "/admin/details" },
-  ];
+  const { data: jobData } = useQuery<JobDataItem[]>(["jobData"], categoryCard);
   return (
     <div className="app-wrapper">
       <div className="app-content pt-3 p-md-3 p-lg-4">
@@ -32,23 +27,31 @@ const List = () => {
             </div>
           </div>
           <div className="row g-4 mb-4">
-            {jobData.map((item, index) => (
-              <div key={index} className="col-6 col-lg-3">
-                <div className="app-card app-card-stat shadow-sm h-100 d-block">
-                  {item.link ? (
-                    <Link to={item.link} className="app-card-body p-3 p-lg-4">
-                      <h4 className="stats-type mb-1">{item.category}</h4>
-                      <div className="stats-figure">{item.value}</div>
-                    </Link>
-                  ) : (
-                    <div className="app-card-body p-3 p-lg-4">
-                      <h4 className="stats-type mb-1">{item.category}</h4>
-                      <div className="stats-figure">{item.value}</div>
-                    </div>
-                  )}
+            {jobData &&
+              jobData.map((item: any, index: any) => (
+                <div key={index} className="col-6 col-lg-3">
+                  <div className="app-card app-card-stat shadow-sm h-100 d-block">
+                    {item.applicationCount > 0 ? (
+                      <Link
+                        to={`/admin/details/${item._id}`}
+                        className="app-card-body p-3 p-lg-4"
+                      >
+                        <h4 className="stats-type mb-1">{item.category}</h4>
+                        <div className="stats-figure">
+                          {item.applicationCount}
+                        </div>
+                      </Link>
+                    ) : (
+                      <div className="app-card-body p-3 p-lg-4">
+                        <h4 className="stats-type mb-1">{item.category}</h4>
+                        <div className="stats-figure">
+                          {item.applicationCount}
+                        </div>
+                      </div>
+                    )}
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
           </div>
         </div>
       </div>

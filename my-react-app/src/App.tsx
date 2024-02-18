@@ -45,8 +45,8 @@ function App() {
           <Route path='admin/*' element={withAuthenticationRequired(AdminLayout)}>
           <Route path="create" element={<Create />} />
           <Route path="list" element={<List />} />
-          <Route path="details" element={<Details />} />
-          <Route path="view" element={<View />} />
+          <Route path="details/:categoryId" element={<Details />} />
+          <Route path="view/:viewId" element={<View />} />
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>

@@ -1,10 +1,13 @@
-import { Link } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { categoryView } from "./api";
 import { useQuery } from "@tanstack/react-query";
 
 const View = () => {
-  const { data } = useQuery(["categoryView"], categoryView);
-  const categoryViewData = data?.data;
+  const navigate = useNavigate();
+  const { viewId } = useParams();
+  const { data } = useQuery(["categoryView"], () => categoryView(viewId));
+  const categoryViewData = data;
+
   return (
     <div className="app-wrapper">
       <div className="app-content pt-3 p-md-3 p-lg-4">
@@ -12,7 +15,9 @@ const View = () => {
           <nav aria-label="breadcrumb bg-white mb-5">
             <ol className="breadcrumb">
               <li className="breadcrumb-item">
-                <Link to="/admin/details">&lt; Back to Candidate List</Link>
+                <button className="bg-transparent border-0 textgreen" onClick={()=> navigate(-1)}>
+                  &lt; Back to Candidate List
+                </button>
               </li>
             </ol>
           </nav>

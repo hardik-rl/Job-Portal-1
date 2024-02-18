@@ -1,10 +1,13 @@
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { categoryList } from "./api";
 import { useQuery } from "@tanstack/react-query";
 
 const Details = () => {
-  const { data } = useQuery(["categoryList"], categoryList);
+  const { categoryId } = useParams();
+  const { data } = useQuery(["categoryList"], ()=> categoryList(categoryId));
+
   const categoryData = data && data.category_applications;
+
   return (
     <div className="app-wrapper">
       <div className="app-content pt-3 p-md-3 p-lg-4">
@@ -37,7 +40,9 @@ const Details = () => {
                     <tr key={index}>
                       <td>{item.first_name}</td>
                       <td>
-                        <Link to={item.job_id}>View Candidate Detail</Link>
+                        <Link to={`/admin/view/${item._id}`}>
+                          View Candidate Detail
+                        </Link>
                       </td>
                     </tr>
                   ))}
