@@ -1,4 +1,4 @@
-import FormControl from "../../shared/FormControl";
+import FormControl from "../../../shared/FormControl";
 
 const Create = () => {
   const handleSubmit = (e: { preventDefault: () => void }) => {

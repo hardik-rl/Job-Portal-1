@@ -5,12 +5,9 @@ import logo from "../../assets/img/admin/grp-logo.png";
 
 import { CardList, Plus } from "../shared/Icon";
 import { useState } from "react";
+import clsx from "clsx";
 
-type NavLinkType = {
-  href: string;
-  icon: JSX.Element;
-  text: string;
-};
+import { NavLinkType } from "./types";
 
 const NavLink = ({
   href,
@@ -30,7 +27,7 @@ const NavLink = ({
   );
 };
 
-const SideBar = () => {
+const SideBar = ({ sidebarOpen, handleClose }: any) => {
   const [activeLink, setActiveLink] = useState("#0");
 
   const handleNavLinkClick = (href: string) => {
@@ -38,12 +35,19 @@ const SideBar = () => {
   };
 
   return (
-    <div id="app-sidepanel" className="app-sidepanel sidepanel-visible">
+    <div
+      id="app-sidepanel"
+      className={clsx({ "sidepanel-visible": sidebarOpen }, "app-sidepanel")}
+    >
       <div id="sidepanel-drop" className="sidepanel-drop"></div>
       <div className="sidepanel-inner d-flex flex-column">
-        <a href="#" id="sidepanel-close" className="sidepanel-close d-xl-none">
-          ×
-        </a>
+        <button
+          id="sidepanel-close"
+          className="sidepanel-close d-xl-none"
+          onClick={handleClose}
+        >
+          &times;
+        </button>
         <div className="app-branding">
           <a className="app-logo" href="index.html">
             <img className="logo-icon me-2" src={logo} alt="logo" />
@@ -64,6 +68,13 @@ const SideBar = () => {
               icon={<Plus />}
               isActive={activeLink === "#1"}
               onClick={() => handleNavLinkClick("#1")}
+            />
+            <NavLink
+              href="job-list"
+              text="Job List"
+              icon={<CardList />}
+              isActive={activeLink === "#2"}
+              onClick={() => handleNavLinkClick("#2")}
             />
           </ul>
         </nav>

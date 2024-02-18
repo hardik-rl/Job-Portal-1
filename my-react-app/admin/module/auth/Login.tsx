@@ -1,11 +1,40 @@
-
+import logo from "../../../assets/img/admin/grp-logo.png";
 import FormControl from "../../shared/FormControl";
 import Footer from "../../shared/Footer";
-
-import logo from "../../../assets/img/admin/grp-logo.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useFormik } from "formik";
+import { useMutation } from "@tanstack/react-query";
+import { loginSchema } from "./validation";
+import { LoginFormProps } from "./types";
+import { signin } from "./api";
+import { toast } from "react-toastify";
 
 const Login = () => {
+  const navigate = useNavigate();
+
+  const { mutate: loginFn } = useMutation(
+    (data: LoginFormProps) => signin(data),
+    {
+      onSuccess: () => {
+        toast.success("Login Successfully");
+        navigate("/admin/list")
+      },
+      onError: () => {
+        toast.error("Admin is Not Valid");
+      },
+    }
+  );
+
+  const formik = useFormik({
+    initialValues: {
+      email: "",
+      password: "",
+    },
+    onSubmit: (values: LoginFormProps) => {
+      loginFn(values);
+    },
+    validationSchema: loginSchema,
+  });
   return (
     <div className="row g-0 app-auth-wrapper">
       <div className="col-12 auth-main-col text-center p-5">
@@ -18,24 +47,27 @@ const Login = () => {
             </div>
             <h2 className="auth-heading text-center mb-5">Log in to Portal</h2>
             <div className="auth-form-container text-start">
-              <form className="auth-form login-form">
+              <form
+                className="auth-form login-form"
+                onSubmit={formik.handleSubmit}
+              >
                 <div className="email mb-3">
                   <FormControl
-                    onChange={() => console.log("onChange")}
-                    value={""}
+                    onChange={formik.handleChange}
+                    value={formik.values.email}
                     id="signin-email"
                     type="text"
-                    name="signin-email"
+                    name="email"
                     placeholder="Email"
                   />
                 </div>
                 <div className="password mb-3">
                   <FormControl
-                    onChange={() => console.log("onChange")}
-                    value={""}
+                    onChange={formik.handleChange}
+                    value={formik.values.password}
                     id="signin-password"
                     type="password"
-                    name="signin-password"
+                    name="password"
                     placeholder="Password"
                   />
                   <div className="extra mt-3 row justify-content-between">

@@ -7,3 +7,15 @@
   border-left: 3px solid #15a362;
   font-weight: 500;
 }
+.textgreen {
+  color: #15a362;
+}
+.page-utilities .col-auto {
+  min-width: 333px;
+}
+.sidepanel-toggler,
+.sidepanel-close {
+  border: 0;
+  background: transparent;
+  color: #15a362;
+}
