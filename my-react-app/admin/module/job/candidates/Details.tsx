@@ -1,5 +1,5 @@
 import { Link, useParams } from "react-router-dom";
-import { categoryList } from "./api";
+import { categoryList } from "../api";
 import { useQuery } from "@tanstack/react-query";
 
 const Details = () => {

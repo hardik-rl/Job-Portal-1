@@ -17,10 +17,12 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Login from "../admin/module/auth/Login";
 import AdminLayout from "../admin/AdminLayout";
-import List from "../admin/module/job/List";
-import Create from "../admin/module/job/Create";
-import Details from "../admin/module/job/Details";
-import View from "../admin/module/job/View";
+import List from "../admin/module/job/candidates/List";
+import CandidatesList from "../admin/module/job/candidates";
+import JobList from "../admin/module/job/job-list";
+import Details from "../admin/module/job/candidates/Details";
+import View from "../admin/module/job/candidates/View";
+import JobListView from "../admin/module/job/job-list/View";
 
 import withAuthenticationRequired from "./shared/utils/withAuthenticationRequired";
 import withoutAuthenticationRequired from "./shared/utils/withoutAuthenticationRequired";
@@ -39,11 +41,16 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <Preloader />
       <Routes>
-          <Route path="/" element={<Job />} />
-          <Route path="job-details/:id" element={<JobDetails />} />
-          <Route path="admin/login" element={withoutAuthenticationRequired(Login)} />
-          <Route path='admin/*' element={withAuthenticationRequired(AdminLayout)}>
-          <Route path="create" element={<Create />} />
+        <Route path="/" element={<Job />} />
+        <Route path="job-details/:id" element={<JobDetails />} />
+        <Route
+          path="admin/login"
+          element={withoutAuthenticationRequired(Login)}
+        />
+        <Route path="admin/*" element={withAuthenticationRequired(AdminLayout)}>
+          <Route path="create" element={<CandidatesList />} />
+          <Route path="job-list" element={<JobList />} />
+          <Route path="job-list/view/33" element={<JobListView />} />
           <Route path="list" element={<List />} />
           <Route path="details/:categoryId" element={<Details />} />
           <Route path="view/:viewId" element={<View />} />

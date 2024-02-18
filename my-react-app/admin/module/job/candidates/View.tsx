@@ -1,5 +1,5 @@
 import { useParams, useNavigate } from "react-router-dom";
-import { categoryView } from "./api";
+import { categoryView } from "../api";
 import { useQuery } from "@tanstack/react-query";
 
 const View = () => {

@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
-import { JobDataItem } from "./types";
-import { categoryCard } from "./api";
+import { JobDataItem } from "../types";
+import { categoryCard } from "../api";
 import { useEffect, useState } from "react";
 import ReactSelect from "react-select";
 

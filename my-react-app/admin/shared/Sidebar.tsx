@@ -69,6 +69,13 @@ const SideBar = ({ sidebarOpen, handleClose }: any) => {
               isActive={activeLink === "#1"}
               onClick={() => handleNavLinkClick("#1")}
             />
+            <NavLink
+              href="job-list"
+              text="Job List"
+              icon={<CardList />}
+              isActive={activeLink === "#2"}
+              onClick={() => handleNavLinkClick("#2")}
+            />
           </ul>
         </nav>
       </div>
