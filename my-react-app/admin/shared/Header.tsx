@@ -1,7 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { HMenu } from "../shared/Icon";
 import adminLogo from "../../assets/img/admin/user.png";
 
-const Header = () => {
+const Header = ({ handleOnClick }: any) => {
+
   return (
     <>
       <header className="app-header fixed-top">
@@ -10,14 +12,13 @@ const Header = () => {
             <div className="app-header-content">
               <div className="row justify-content-between align-items-center">
                 <div className="col-auto">
-                  <a
+                  <button
                     id="sidepanel-toggler"
                     className="sidepanel-toggler d-inline-block d-xl-none"
-                    href="#"
+                    onClick={handleOnClick}
                   >
-                    {/* Add your SVG or icon component for the menu here */}
                     <HMenu />
-                  </a>
+                  </button>
                 </div>
                 <div className="search-mobile-trigger d-sm-none col">
                   {/* Add your search icon or trigger content here */}

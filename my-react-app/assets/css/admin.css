@@ -13,3 +13,9 @@
 .page-utilities .col-auto {
   min-width: 333px;
 }
+.sidepanel-toggler,
+.sidepanel-close {
+  border: 0;
+  background: transparent;
+  color: #15a362;
+}
