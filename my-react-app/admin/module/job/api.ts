@@ -16,3 +16,14 @@ export const categoryView = async (id: string | undefined) => {
   const res = await api.get(`/get-application/${id}`);
   return res.data;
 };
+
+
+export const getJob = async () => {
+  const res = await api.get("/get-jobs");
+  return res;
+};
+export const addJob = async (data:any) => {
+  const res = await api.post("/add-job", data);
+  console.log(res);
+  return res;
+};

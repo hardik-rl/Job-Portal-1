@@ -1,6 +1,9 @@
 import { Link } from "react-router-dom";
+// import { getJob } from "../api";
+// import { useQuery } from "@tanstack/react-query";
 
 const Create = () => {
+  // const { data } = useQuery(["getJob"], getJob);
   return (
     <div className="app-wrapper">
       <div className="app-content pt-3 p-md-3 p-lg-4">
