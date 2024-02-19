@@ -7,6 +7,7 @@ const authMiddleware = require('../middleware/AuthMiddleware');
 const JobCategory = require('../models/JobCategoryModel');
 const Application = require('../models/ApplicationModel');
 const Job = require('../models/JobModel');
+const path = require('path');
 
 router.post('/login', async (req, res) => {
   const { email, password } = req.body;
@@ -37,11 +38,15 @@ router.post('/login', async (req, res) => {
   }
 });
 
+router.get('/pdf/:filename', authMiddleware, (req, res) => {
+  const { filename } = req.params;
+  const filePath = path.join(__dirname, '../uploads', filename);
+  res.sendFile(filePath);
+});
+
 router.get('/get-categories', authMiddleware, async (req, res) => {
   try {
     const { filter } = req.query;
-
-    console.log({filter});
     
     let aggregationPipeline = [];
 
@@ -118,6 +123,46 @@ router.post('/add-job', authMiddleware, async(req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 });
+
+// Edit Job API
+router.put('/edit-job/:id', authMiddleware, async (req, res) => {
+  try {
+    const jobId = req.params.id;
+    const updatedData = req.body;
+    
+    // Find the job by ID and update its data
+    const updatedJob = await Job.findByIdAndUpdate(jobId, updatedData, { new: true });
+
+    if (!updatedJob) {
+      return res.status(404).json({ error: 'Job not found' });
+    }
+
+    res.status(200).json(updatedJob);
+  } catch (error) {
+    console.error('Error editing job:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// Delete Job API
+router.delete('/delete-job/:id', authMiddleware, async (req, res) => {
+  try {
+    const jobId = req.params.id;
+    
+    // Find the job by ID and delete it
+    const deletedJob = await Job.findByIdAndDelete(jobId);
+
+    if (!deletedJob) {
+      return res.status(404).json({ error: 'Job not found' });
+    }
+
+    res.status(200).json({ message: 'Job deleted successfully' });
+  } catch (error) {
+    console.error('Error deleting job:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
 
 router.get('/get-jobs', authMiddleware, async(req, res) => {
   // get all job

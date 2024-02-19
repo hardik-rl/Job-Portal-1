@@ -12,6 +12,11 @@ const jobSchema = new mongoose.Schema({
   company_description: String,
   company_website: String,
   company_email: String,
+  category_id:{
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+    ref: JobCategory
+  }, 
   job_location_id: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,
