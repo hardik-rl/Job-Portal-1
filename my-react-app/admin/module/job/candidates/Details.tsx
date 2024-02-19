@@ -15,7 +15,7 @@ const Details = () => {
           <nav aria-label="breadcrumb bg-white mb-5">
             <ol className="breadcrumb">
               <li className="breadcrumb-item">
-                <Link to="/admin/list">&lt; Back to Candidates List</Link>
+                <Link to="/admin/candidates-list">&lt; Back to Candidates List</Link>
               </li>
             </ol>
           </nav>
