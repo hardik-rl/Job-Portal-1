@@ -18,12 +18,11 @@ export const categoryView = async (id: string | undefined) => {
 };
 
 
-export const getJob = async () => {
+export const getAllJob = async () => {
   const res = await api.get("/get-jobs");
-  return res;
+  return res.data;
 };
 export const addJob = async (data:any) => {
   const res = await api.post("/add-job", data);
-  console.log(res);
   return res;
 };
