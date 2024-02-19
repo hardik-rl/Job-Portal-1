@@ -29,6 +29,7 @@ const Create = () => {
     },
     onSubmit: (values: JobFormType) => {
       jobListMutate(values);
+      formik.resetForm();
     },
   });
 
