@@ -1,8 +1,16 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { HMenu } from "../shared/Icon";
 import adminLogo from "../../assets/img/admin/user.png";
+import { useState } from "react";
+import clsx from "clsx";
+import { removeToken } from "../../src/shared/helpers/utils";
 
 const Header = ({ handleOnClick }: any) => {
+  const [dropdown, setDropdown] = useState(false);
+  const logoutHandle = () => {
+    setDropdown(false);
+    removeToken();
+  };
 
   return (
     <>
@@ -20,29 +28,26 @@ const Header = ({ handleOnClick }: any) => {
                     <HMenu />
                   </button>
                 </div>
-                <div className="search-mobile-trigger d-sm-none col">
-                  {/* Add your search icon or trigger content here */}
-                </div>
                 <div className="app-utilities col-auto">
                   <div className="app-utility-item app-user-dropdown dropdown">
-                    <a
-                      className="dropdown-toggle"
-                      id="user-dropdown-toggle"
-                      data-bs-toggle="dropdown"
-                      href="#"
-                      role="button"
-                      aria-expanded="false"
+                    <button
+                      className="bg-transparent border-0 dropdown-toggle"
+                      onClick={() => setDropdown(!dropdown)}
                     >
                       <img src={adminLogo} alt="user" />
-                    </a>
+                    </button>
                     <ul
-                      className="dropdown-menu"
+                      className={clsx(dropdown && "show", "dropdown-menu")}
                       aria-labelledby="user-dropdown-toggle"
                     >
                       <li>
-                        <a className="dropdown-item" href="login.html">
+                        <button
+                          className="bg-transparent border-0 textgreen px-3"
+                          onClick={() => logoutHandle()}
+                        >
+                          {" "}
                           Log Out
-                        </a>
+                        </button>
                       </li>
                     </ul>
                   </div>

@@ -6,6 +6,7 @@ const Admin = require('../models/AdminModel');
 const authMiddleware = require('../middleware/AuthMiddleware');
 const JobCategory = require('../models/JobCategoryModel');
 const Application = require('../models/ApplicationModel');
+const Job = require('../models/JobModel');
 
 router.post('/login', async (req, res) => {
   const { email, password } = req.body;
@@ -102,8 +103,30 @@ router.get('/get-application/:application_id', authMiddleware, async(req, res) =
 
     res.json(applications);
   } catch (err) {
-      console.error(err);
-      res.status(500).json({ error: 'Internal Server Error' });
+    console.error(err);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+router.post('/add-job', authMiddleware, async(req, res) => {
+  try {
+    const jobData = req.body;
+    const newJob = await Job.create(jobData);
+    res.status(201).json(newJob);
+  } catch (error) {
+    console.error('Error creating application:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+router.get('/get-jobs', authMiddleware, async(req, res) => {
+  // get all job
+  try {
+    const jobs = await Job.find({});
+    res.json(jobs);
+  } catch (error) {
+    console.error('Error fetching jobs:', error);
+    res.status(500).json({ error: 'Internal server error' });
   }
 });
 
