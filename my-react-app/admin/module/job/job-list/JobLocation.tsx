@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import ReactSelect from "react-select";
 
-const JobLocation = () => {
+const JobCategories = () => {
   const customStyles = {
     indicatorContainer:(base: any) =>({
       ...base,
@@ -30,9 +30,9 @@ const JobLocation = () => {
     { value: "indore", label: "Indore" },
     { value: "dahej", label: "Dahej" },
   ];
-  return <ReactSelect styles={customStyles} options={options} components={{
+  return <ReactSelect placeholder="Select Job Location" styles={customStyles} options={options} components={{
     IndicatorSeparator: () => null
   }}/>;
 };
 
-export default JobLocation;
+export default JobCategories;

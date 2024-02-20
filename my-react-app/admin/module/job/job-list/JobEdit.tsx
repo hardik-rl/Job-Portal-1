@@ -1,7 +1,13 @@
+import { useQuery } from "@tanstack/react-query";
 import FormControl from "../../../../src/components/FormControl";
 import FormLabel from "../../../../src/components/FormLabel";
+import { editJob } from "../api";
 
 const JobEdit = ({ showModal, setShowModal }: any) => {
+  // const { data } = useQuery(["categoryView"], () => editJob(viewId));
+  // const categoryViewData = data;
+  // console.log(data);
+
   return (
     <div>
       {showModal && (

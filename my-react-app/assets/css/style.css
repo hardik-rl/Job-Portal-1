@@ -4859,10 +4859,10 @@ form.search-box {
   box-shadow: 0px 6px 29px 0px rgba(36, 43, 94, 0.08);
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  /* justify-content: space-between; */
 }
 form.search-box .input-form {
-  width: 45%;
+  max-width: 250px;
   position: relative;
 }
 @media (max-width: 767px) {
@@ -4921,9 +4921,7 @@ form.search-box .input-form::before {
     display: none;
   }
 }
-form.search-box .select-form {
-  width: 34%;
-}
+
 @media (max-width: 767px) {
   form.search-box .select-form {
     width: 100%;
@@ -4969,7 +4967,7 @@ form.search-box .select-form .nice-select::after {
   right: 29px;
 }
 form.search-box .search-form {
-  width: 21%;
+  min-width: 200px;
 }
 @media (max-width: 767px) {
   form.search-box .search-form {
