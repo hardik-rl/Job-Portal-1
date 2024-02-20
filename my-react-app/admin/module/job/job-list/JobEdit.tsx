@@ -1,8 +1,7 @@
-
 import FormControl from "../../../../src/components/FormControl";
 import FormLabel from "../../../../src/components/FormLabel";
 
-const JobEdite = ({showModal, setShowModal}:any) => {
+const JobEdit = ({ showModal, setShowModal }: any) => {
   return (
     <div>
       {showModal && (
@@ -27,7 +26,7 @@ const JobEdite = ({showModal, setShowModal}:any) => {
                     className="close"
                     data-dismiss="modal"
                     aria-label="Close"
-                    onClick={()=> setShowModal(false)}
+                    onClick={() => setShowModal(false)}
                   >
                     <span aria-hidden="true">&times;</span>
                   </button>
@@ -38,7 +37,7 @@ const JobEdite = ({showModal, setShowModal}:any) => {
                       <div className="form-group col-md-4">
                         <FormLabel name="First Name" htmlFor="htmlFor" />
                         <FormControl
-                          onChange={()=>{}}
+                          onChange={() => {}}
                           // value={formik.values.first_name}
                           id="first_name"
                           value="first name"
@@ -49,7 +48,7 @@ const JobEdite = ({showModal, setShowModal}:any) => {
                       <div className="form-group col-md-4">
                         <FormLabel name="Last Name" htmlFor="lastname" />
                         <FormControl
-                          onChange={()=>{}}
+                          onChange={() => {}}
                           // value={formik.values.last_name}
                           id="last_name"
                           type="text"
@@ -61,7 +60,7 @@ const JobEdite = ({showModal, setShowModal}:any) => {
                       <div className="form-group col-md-4">
                         <FormLabel name="Email" htmlFor="youremail" />
                         <FormControl
-                          onChange={()=>{}}
+                          onChange={() => {}}
                           // value={formik.values.email}
                           id="email"
                           type="text"
@@ -73,7 +72,8 @@ const JobEdite = ({showModal, setShowModal}:any) => {
                       <div className="form-group col-md-4">
                         <FormLabel name="Pancard number" htmlFor="pan_number" />
                         <FormControl
-                          onChange={(event: any) => handleOnChangeEvent(event)}
+                          onChange={() => {}}
+                          // onChange={(event: any) => handleOnChangeEvent(event)}
                           // value={formik.values.pan_number}
                           id="pan_number"
                           type="text"
@@ -87,7 +87,8 @@ const JobEdite = ({showModal, setShowModal}:any) => {
                           htmlFor="mobilenumber"
                         />
                         <FormControl
-                          onChange={(event: any) => handleOnChangeEvent(event)}
+                          onChange={() => {}}
+                          // onChange={(event: any) => handleOnChangeEvent(event)}
                           // value={formik.values.mobile_number}
                           id="mobile_number"
                           type="number"
@@ -99,7 +100,7 @@ const JobEdite = ({showModal, setShowModal}:any) => {
                       <div className="form-group col-md-4">
                         <FormLabel name="Education" htmlFor="education" />
                         <FormControl
-                          onChange={()=>{}}
+                          onChange={() => {}}
                           // value={formik.values.education}
                           id="education"
                           type="text"
@@ -112,7 +113,7 @@ const JobEdite = ({showModal, setShowModal}:any) => {
                         <label htmlFor="ctc">CTC (In Laksh)</label>
                         <FormLabel name="" htmlFor="ctc" />
                         <FormControl
-                         onChange={()=>{}}
+                          onChange={() => {}}
                           // onChange={(event: any) => handleOnChangeEvent(event)}
                           // value={formik.values.ctc}
                           id="ctc"
@@ -125,7 +126,7 @@ const JobEdite = ({showModal, setShowModal}:any) => {
                       <div className="form-group col-md-4">
                         <FormLabel name="Expected CTC" htmlFor="expctc" />
                         <FormControl
-                         onChange={()=>{}}
+                          onChange={() => {}}
                           // onChange={(event: any) => handleOnChangeEvent(event)}
                           // value={formik.values.expected_ctc}
                           id="expctc"
@@ -141,7 +142,7 @@ const JobEdite = ({showModal, setShowModal}:any) => {
                           htmlFor="notice_period"
                         />
                         <FormControl
-                         onChange={()=>{}}
+                          onChange={() => {}}
                           // onChange={(event: any) => handleOnChangeEvent(event)}
                           // value={formik.values.notice_period}
                           id="notice_period"
@@ -157,7 +158,7 @@ const JobEdite = ({showModal, setShowModal}:any) => {
                           htmlFor="workexperience"
                         />
                         <FormControl
-                         onChange={()=>{}}
+                          onChange={() => {}}
                           // onChange={(event: any) => handleOnChangeEvent(event)}
                           // value={formik.values.total_work_experience}
                           id="workexperience"
@@ -170,7 +171,7 @@ const JobEdite = ({showModal, setShowModal}:any) => {
                       <div className="form-group col-md-4">
                         <FormLabel name="Gender" htmlFor="gendar" />
                         <FormControl
-                          onChange={()=>{}}
+                          onChange={() => {}}
                           value="male"
                           // value={formik.values.gender}
                           id="gendar"
@@ -224,7 +225,7 @@ const JobEdite = ({showModal, setShowModal}:any) => {
         </>
       )}
     </div>
-  )
-}
+  );
+};
 
-export default JobEdite;
+export default JobEdit;
