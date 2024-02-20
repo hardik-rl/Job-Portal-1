@@ -163,12 +163,23 @@ router.delete('/delete-job/:id', authMiddleware, async (req, res) => {
   }
 });
 
-
+// get all job
 router.get('/get-jobs', authMiddleware, async(req, res) => {
-  // get all job
   try {
     const jobs = await Job.find({});
     res.json(jobs);
+  } catch (error) {
+    console.error('Error fetching jobs:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// get specific job
+router.get('/get-job/:id', authMiddleware, async(req, res) => {
+  const jobId = req.params.id;
+  try {
+    const job = await Job.findById(jobId);
+    res.json(job);
   } catch (error) {
     console.error('Error fetching jobs:', error);
     res.status(500).json({ error: 'Internal server error' });
