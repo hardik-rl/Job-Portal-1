@@ -4,6 +4,7 @@ import FormLabel from "../../../../src/components/FormLabel";
 import { updateJob } from "../api";
 import { toast } from "react-toastify";
 import { AxiosError } from "axios";
+import { useFormik } from "formik";
 
 const JobEdit = ({ showModal, setShowModal, selectedItemId }: any) => {
   const { mutate: updateJobFn } = useMutation(() => updateJob(selectedItemId), {
@@ -17,11 +18,21 @@ const JobEdit = ({ showModal, setShowModal, selectedItemId }: any) => {
       });
     },
   });
+  const formik = useFormik({
+    initialValues: {
+      company_name: "",
+      company_email: "",
+      company_description: "",
+      education_description: "",
+      job_nature: "",
+      vacancy: 0,
+    },
+    onSubmit: (values: any) => {
+      updateJobFn(values);
+      setShowModal(false);
+    },
+  });
 
-  const updateJobOnClick = () => {
-    setShowModal(false);
-    updateJobFn();
-  };
   return (
     <div>
       {showModal && (
@@ -52,17 +63,16 @@ const JobEdit = ({ showModal, setShowModal, selectedItemId }: any) => {
                   </button>
                 </div>
                 <div className="modal-body">
-                  <form>
+                  <form onSubmit={formik.handleSubmit}>
                     <div className="form-row">
                       <div className="form-group col-md-4">
                         <FormLabel name="Company  Name" htmlFor="htmlFor" />
                         <FormControl
-                          onChange={() => {}}
-                          // value={formik.values.first_name}
+                          onChange={formik.handleChange}
+                          value={formik.values.company_name}
                           id="company_name"
-                          value="company name"
                           type="text"
-                          name="company name"
+                          name="company_name"
                         />
                       </div>
                       {/* <div className="form-group col-md-4">
@@ -80,25 +90,25 @@ const JobEdit = ({ showModal, setShowModal, selectedItemId }: any) => {
                       <div className="form-group col-md-4">
                         <FormLabel name="Company Email" htmlFor="youremail" />
                         <FormControl
-                          onChange={() => {}}
-                          // value={formik.values.email}
+                          onChange={formik.handleChange}
+                          value={formik.values.company_email}
                           id="company_email"
                           type="email"
-                          value="email"
                           name="company_email"
                         />
                       </div>
 
                       <div className="form-group col-md-4">
-                        <FormLabel name="Company Description" htmlFor="pan_number" />
+                        <FormLabel
+                          name="Company Description"
+                          htmlFor="pan_number"
+                        />
                         <FormControl
-                          onChange={() => {}}
-                          // onChange={(event: any) => handleOnChangeEvent(event)}
-                          // value={formik.values.pan_number}
+                          onChange={formik.handleChange}
+                          value={formik.values.company_description}
                           id="company_description"
                           type="text"
-                          value="Company Description"
-                          name="Company Description"
+                          name="company_description"
                         />
                       </div>
                       <div className="form-group col-md-4">
@@ -107,25 +117,22 @@ const JobEdit = ({ showModal, setShowModal, selectedItemId }: any) => {
                           htmlFor="mobilenumber"
                         />
                         <FormControl
-                          onChange={() => {}}
-                          // onChange={(event: any) => handleOnChangeEvent(event)}
-                          // value={formik.values.mobile_number}
-                          id="Education Description"
+                          onChange={formik.handleChange}
+                          value={formik.values.education_description}
+                          id="education_description"
                           type="number"
-                          value="Education Description"
-                          name="Education Description"
+                          name="education_description"
                         />
                       </div>
 
                       <div className="form-group col-md-4">
                         <FormLabel name="Job Nature" htmlFor="education" />
                         <FormControl
-                          onChange={() => {}}
-                          // value={formik.values.education}
-                          id="Job Nature"
+                          onChange={formik.handleChange}
+                          value={formik.values.job_nature}
+                          id="job_nature"
                           type="text"
-                          value="Job Nature"
-                          name="Job Nature"
+                          name="job_nature"
                         />
                       </div>
 
@@ -133,13 +140,11 @@ const JobEdit = ({ showModal, setShowModal, selectedItemId }: any) => {
                         {/* <label htmlFor="Vacancy">CTC (In Laksh)</label> */}
                         <FormLabel name="Vacancy" htmlFor="ctc" />
                         <FormControl
-                          onChange={() => {}}
-                          // onChange={(event: any) => handleOnChangeEvent(event)}
-                          // value={formik.values.ctc}
-                          id="Vacancy"
+                          onChange={formik.handleChange}
+                          value={formik.values.vacancy}
+                          id="vacancy"
                           type="number"
-                          name="Vacancy"
-                          value="Vacancy"
+                          name="vacancy"
                         />
                       </div>
 
@@ -223,16 +228,16 @@ const JobEdit = ({ showModal, setShowModal, selectedItemId }: any) => {
                         />
                       </div> */}
                     </div>
+
+                    <div className="modal-footer">
+                      <button
+                        type="submit"
+                        className="btn-primary px-2 py-1 border-0"
+                      >
+                        Submit
+                      </button>
+                    </div>
                   </form>
-                </div>
-                <div className="modal-footer">
-                  <button
-                    type="submit"
-                    className="btn-primary px-2 py-1 border-0"
-                    onClick={updateJobOnClick}
-                  >
-                    Submit
-                  </button>
                 </div>
               </div>
             </div>
