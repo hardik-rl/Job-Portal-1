@@ -6,10 +6,19 @@ import JobDelete from "../job-list/JobDelete";
 import { useState } from "react";
 
 const Create = () => {
-  const { data } = useQuery(["getAllJob"], getAllJob);
+  const { data, refetch } = useQuery(["getAllJob"], getAllJob);
   const jobListData = data;
   const [showModal, setShowModal] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);
+  const [selectedItemId, setSelectedItemId] = useState("");
+
+  const handleEditClick = () => {
+    setShowModal(true);
+  };
+  const handleDeleteClick = (id: any) => {
+    setDeleteModal(true);
+    setSelectedItemId(id);
+  };
 
   return (
     <>
@@ -49,13 +58,13 @@ const Create = () => {
                         <td className="d-flex">
                           <button
                             className="ml-2 btn-primary p-2"
-                            onClick={() => setShowModal(true)}
+                            onClick={handleEditClick}
                           >
                             Edit
                           </button>
                           <button
                             className="ml-2 btn-danger p-2"
-                            onClick={() => setDeleteModal(true)}
+                            onClick={() => handleDeleteClick(item._id)}
                           >
                             Delete
                           </button>
@@ -69,7 +78,12 @@ const Create = () => {
         </div>
       </div>
       <JobEdit setShowModal={setShowModal} showModal={showModal} />
-      <JobDelete setDeleteModal={setDeleteModal} deleteModal={deleteModal} />
+      <JobDelete
+        refetch={refetch}
+        selectedItemId={selectedItemId}
+        setDeleteModal={setDeleteModal}
+        deleteModal={deleteModal}
+      />
     </>
   );
 };

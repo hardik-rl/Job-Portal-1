@@ -28,6 +28,10 @@ export const addJob = async (data:any) => {
 };
 
 export const editJob = async (id:number|string) => {
-  const res = await api.post(`/edit-job${id}`);
+  const res = await api.post(`/edit-job/${id}`);
+  return res;
+};
+export const deleteJob = async (id:number|string) => {
+  const res = await api.delete(`/delete-job/${id}`);
   return res;
 };

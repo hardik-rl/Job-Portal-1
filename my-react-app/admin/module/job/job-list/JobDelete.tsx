@@ -1,4 +1,35 @@
-const JobDelete = ({ deleteModal, setDeleteModal }: any) => {
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { useMutation } from "@tanstack/react-query";
+import { deleteJob } from "../api";
+import { toast } from "react-toastify";
+import { AxiosError } from "axios";
+
+const JobDelete = ({
+  deleteModal,
+  selectedItemId,
+  setDeleteModal,
+  refetch,
+}: any) => {
+  const { mutate: deleteProductFn } = useMutation(
+    () => deleteJob(selectedItemId),
+    {
+      onSuccess: () => {
+        toast.success("Job Deleted Successfully.");
+        refetch();
+      },
+      onError: (error: AxiosError<{ message: string }>) => {
+        toast(error.response?.data.message, {
+          type: "error",
+        });
+      },
+    }
+  );
+
+  const deleteJobOnClick = () => {
+    setDeleteModal(false);
+    deleteProductFn();
+  };
+
   return (
     <div>
       {deleteModal && (
@@ -36,8 +67,8 @@ const JobDelete = ({ deleteModal, setDeleteModal }: any) => {
                 <div className="modal-footer">
                   <button
                     type="submit"
+                    onClick={deleteJobOnClick}
                     className="btn-danger px-2 py-1 border-0"
-                    // onClick={handleSubmitEvent}
                   >
                     Delete
                   </button>
