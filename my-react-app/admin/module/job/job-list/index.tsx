@@ -12,8 +12,9 @@ const Create = () => {
   const [deleteModal, setDeleteModal] = useState(false);
   const [selectedItemId, setSelectedItemId] = useState("");
 
-  const handleEditClick = () => {
+  const handleEditClick = (id: any) => {
     setShowModal(true);
+    setSelectedItemId(id);
   };
   const handleDeleteClick = (id: any) => {
     setDeleteModal(true);
@@ -58,7 +59,7 @@ const Create = () => {
                         <td className="d-flex">
                           <button
                             className="ml-2 btn-primary p-2"
-                            onClick={handleEditClick}
+                            onClick={()=> handleEditClick(item._id)}
                           >
                             Edit
                           </button>
@@ -77,7 +78,7 @@ const Create = () => {
           </div>
         </div>
       </div>
-      <JobEdit setShowModal={setShowModal} showModal={showModal} />
+      <JobEdit selectedItemId={selectedItemId} setShowModal={setShowModal} showModal={showModal} />
       <JobDelete
         refetch={refetch}
         selectedItemId={selectedItemId}

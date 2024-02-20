@@ -10,7 +10,7 @@ const JobDelete = ({
   setDeleteModal,
   refetch,
 }: any) => {
-  const { mutate: deleteProductFn } = useMutation(
+  const { mutate: deleteJobFn } = useMutation(
     () => deleteJob(selectedItemId),
     {
       onSuccess: () => {
@@ -27,7 +27,7 @@ const JobDelete = ({
 
   const deleteJobOnClick = () => {
     setDeleteModal(false);
-    deleteProductFn();
+    deleteJobFn();
   };
 
   return (

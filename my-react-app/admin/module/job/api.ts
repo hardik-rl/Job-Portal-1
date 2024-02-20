@@ -27,8 +27,8 @@ export const addJob = async (data:any) => {
   return res;
 };
 
-export const editJob = async (id:number|string) => {
-  const res = await api.post(`/edit-job/${id}`);
+export const updateJob = async (id:number|string) => {
+  const res = await api.put(`/edit-job/${id}`);
   return res;
 };
 export const deleteJob = async (id:number|string) => {
