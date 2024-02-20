@@ -1,10 +1,11 @@
 // seed.js
 const JobCategory = require('../models/JobCategoryModel');
 const connectDb = require('../config/dbConnection');
+require('dotenv').config();
 
 connectDb();
 
-// Insert Category static data
+//Insert Category static data
 try {
   JobCategory.insertMany([
     { name: 'Account and Finance' },
