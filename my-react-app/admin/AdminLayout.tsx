@@ -7,12 +7,15 @@ import { useState } from "react";
 
 const AdminLayout = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+
   const handleOnClick = () => {
     setSidebarOpen(!sidebarOpen)
   }
+
   const handleClose = () => {
     setSidebarOpen(false)
   }
+  
   return (
     <div className="app">
       <Header handleOnClick={handleOnClick}/>

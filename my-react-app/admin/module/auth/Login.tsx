@@ -6,14 +6,14 @@ import { useFormik } from "formik";
 import { useMutation } from "@tanstack/react-query";
 import { loginSchema } from "./validation";
 import { LoginFormProps } from "./types";
-import { signin } from "./api";
+import { login } from "./api";
 import { toast } from "react-toastify";
 
 const Login = () => {
   const navigate = useNavigate();
 
   const { mutate: loginFn } = useMutation(
-    (data: LoginFormProps) => signin(data),
+    (data: LoginFormProps) => login(data),
     {
       onSuccess: () => {
         toast.success("Login Successfully");
@@ -25,7 +25,7 @@ const Login = () => {
     }
   );
 
-  const formik = useFormik({
+  const { handleSubmit, values, handleChange} = useFormik({
     initialValues: {
       email: "",
       password: "",
@@ -35,6 +35,7 @@ const Login = () => {
     },
     validationSchema: loginSchema,
   });
+
   return (
     <div className="row g-0 app-auth-wrapper">
       <div className="col-12 auth-main-col text-center p-5">
@@ -45,16 +46,16 @@ const Login = () => {
                 <img className="logo-icon me-2" src={logo} alt="logo" />
               </Link>
             </div>
-            <h2 className="auth-heading text-center mb-5">Log in to Portal</h2>
+            <h2 className="auth-heading text-center mb-5">Admin Login to Job Portal</h2>
             <div className="auth-form-container text-start">
               <form
                 className="auth-form login-form"
-                onSubmit={formik.handleSubmit}
+                onSubmit={handleSubmit}
               >
                 <div className="email mb-3">
                   <FormControl
-                    onChange={formik.handleChange}
-                    value={formik.values.email}
+                    onChange={handleChange}
+                    value={values.email}
                     id="signin-email"
                     type="text"
                     name="email"
@@ -63,14 +64,14 @@ const Login = () => {
                 </div>
                 <div className="password mb-3">
                   <FormControl
-                    onChange={formik.handleChange}
-                    value={formik.values.password}
+                    onChange={handleChange}
+                    value={values.password}
                     id="signin-password"
                     type="password"
                     name="password"
                     placeholder="Password"
                   />
-                  <div className="extra mt-3 row justify-content-between">
+                  {/* <div className="extra mt-3 row justify-content-between">
                     <div className="col-6">
                       <div className="form-check">
                         <input
@@ -92,7 +93,7 @@ const Login = () => {
                         <Link to="#0">Forgot password?</Link>
                       </div>
                     </div>
-                  </div>
+                  </div> */}
                 </div>
                 <div className="text-center">
                   <button

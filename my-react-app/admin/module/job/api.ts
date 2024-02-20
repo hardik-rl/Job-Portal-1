@@ -17,6 +17,13 @@ export const categoryView = async (id: string | undefined) => {
   return res.data;
 };
 
+export const getPdf = async (fileName: string | undefined) => {
+  const res = await api.get(`/pdf/${fileName}`, {
+    responseType: 'blob',
+  });
+  return res.data;
+}
+
 
 export const getAllJob = async () => {
   const res = await api.get("/get-jobs");
@@ -31,7 +38,19 @@ export const updateJob = async (id:number|string) => {
   const res = await api.put(`/edit-job/${id}`);
   return res;
 };
+
 export const deleteJob = async (id:number|string) => {
   const res = await api.delete(`/delete-job/${id}`);
   return res;
 };
+
+export const getAllCategories = async () => {
+  const res = await api.get(`/jobs-categories`);
+  return res.data;
+};
+
+export const getAllLocations = async () => {
+  const res = await api.get(`/jobs-locations`);
+  return res.data;
+};
+
