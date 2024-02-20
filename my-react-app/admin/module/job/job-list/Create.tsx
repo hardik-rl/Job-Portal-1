@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import { JobFormType } from "../types";
 import JobLocation from "./JobLocation";
 import { ChangeEvent } from "react";
+import JobCategories from "./JobCategories";
 
 const Create = () => {
   const { mutate: jobListMutate } = useMutation({
@@ -96,6 +97,9 @@ const Create = () => {
 
               <div className="col-md-6 mb-3">
                 <JobLocation />
+                <div className="mt-2">
+                  <JobCategories />
+                </div>
               </div>
 
               <div className="col-md-6 mb-3">

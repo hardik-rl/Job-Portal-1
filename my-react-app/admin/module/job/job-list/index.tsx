@@ -1,6 +1,6 @@
 import { getAllJob } from "../api";
 import { useQuery } from "@tanstack/react-query";
-import JobEdite from "../job-list/JobEdite";
+import JobEdit from "./JobEdit";
 import JobDelete from "../job-list/JobDelete";
 
 import { useState } from "react";
@@ -68,7 +68,7 @@ const Create = () => {
           </div>
         </div>
       </div>
-      <JobEdite setShowModal={setShowModal} showModal={showModal} />
+      <JobEdit setShowModal={setShowModal} showModal={showModal} />
       <JobDelete setDeleteModal={setDeleteModal} deleteModal={deleteModal} />
     </>
   );

@@ -26,3 +26,8 @@ export const addJob = async (data:any) => {
   const res = await api.post("/add-job", data);
   return res;
 };
+
+export const editJob = async (id:number|string) => {
+  const res = await api.post(`/edit-job${id}`);
+  return res;
+};

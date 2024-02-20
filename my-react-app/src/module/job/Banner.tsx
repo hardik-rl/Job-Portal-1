@@ -1,3 +1,4 @@
+import JobCategories from "./JobCategories";
 import JobSelect from "./JobSelect";
 
 const Banner = () => {
@@ -14,14 +15,15 @@ const Banner = () => {
               </div>
             </div>
             <div className="row">
-              <div className="col-xl-8">
+              <div className="col-xl-auto">
                 <form action="#" className="search-box">
                   <div className="input-form">
                     <input type="text" placeholder="Please Search Job" />
                   </div>
                   <div className="select-form">
-                    <div className="select-itms">
+                    <div className="select-itms d-flex">
                       <JobSelect />
+                      <JobCategories />
                     </div>
                   </div>
                   <div className="search-form">

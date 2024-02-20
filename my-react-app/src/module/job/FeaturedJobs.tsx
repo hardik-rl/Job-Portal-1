@@ -66,7 +66,8 @@ const FeaturedJobs = ({ setShowModal, showModal }: ModalProps) => {
           nextLabel="Next"
           onPageChange={(event) => setPage(event.selected + 1)}
           pageRangeDisplayed={5}
-          pageCount={jobsData.totalPages}
+          // pageCount={jobsData.totalPages}
+          pageCount={6}
           previousLabel="Previous"
           renderOnZeroPageCount={null}
         />

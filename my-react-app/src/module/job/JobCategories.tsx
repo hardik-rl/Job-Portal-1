@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import ReactSelect from "react-select";
 
-const JobSelect = () => {
+const JobCategories = () => {
   const customStyles = {
     indicatorContainer:(base: any) =>({
       ...base,
@@ -13,8 +13,8 @@ const JobSelect = () => {
       height: 70,
       minHeight: 70,
       border: 0,
-      borderRadius: 0,
       minWidth: 200,
+      borderRadius: 0,
       '&:hover' : {
         boxShadow: 'none',
         borderColor: '#fff',
@@ -32,9 +32,9 @@ const JobSelect = () => {
     { value: "indore", label: "Indore" },
     { value: "dahej", label: "Dahej" },
   ];
-  return <ReactSelect placeholder="Select Job Location" styles={customStyles} options={options} components={{
+  return <ReactSelect placeholder="Select Categories" styles={customStyles} options={options} components={{
     IndicatorSeparator: () => null
   }}/>;
 };
 
-export default JobSelect;
+export default JobCategories;
