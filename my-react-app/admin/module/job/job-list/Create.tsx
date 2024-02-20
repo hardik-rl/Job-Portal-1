@@ -5,6 +5,7 @@ import { useFormik } from "formik";
 import { toast } from "react-toastify";
 import { JobFormType } from "../types";
 import JobLocation from "./JobLocation";
+import { ChangeEvent } from "react";
 
 const Create = () => {
   const { mutate: jobListMutate } = useMutation({
@@ -19,7 +20,7 @@ const Create = () => {
       description: "",
       education_description: "",
       knowledge_description: "",
-      job_location_id: "",
+      job_location_id: "65c27c87c2db50470bcd4f18",
       vacancy: "",
       nature: "",
       company_name: "",
@@ -27,10 +28,16 @@ const Create = () => {
       company_website: "",
       company_email: "",
     },
-    onSubmit: (values: JobFormType) => {
+    onSubmit: async (values: JobFormType) => {
       jobListMutate(values);
+      formik.resetForm();
     },
   });
+
+  const handleSelectOnChangeEvent = (event: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+    formik.setFieldValue(name, value);
+  };
 
   return (
     <div className="app-wrapper">
@@ -48,7 +55,7 @@ const Create = () => {
                   type="text"
                   id="title"
                   onChange={formik.handleChange}
-                  value={formik.title}
+                  value={formik.values.title}
                   name="title"
                   placeholder="Enter Job Title"
                 />
@@ -60,7 +67,7 @@ const Create = () => {
                   id="description"
                   name="description"
                   onChange={formik.handleChange}
-                  value={formik.description}
+                  value={formik.values.description}
                   placeholder="Enter Job Description"
                 ></textarea>
               </div>
@@ -70,7 +77,7 @@ const Create = () => {
                   className="form-control"
                   id="knowledge_description"
                   name="knowledge_description"
-                  value={formik.knowledge_description}
+                  value={formik.values.knowledge_description}
                   onChange={formik.handleChange}
                   placeholder="Enter Required Knowledge, Skills, and Abilities"
                 ></textarea>
@@ -81,7 +88,7 @@ const Create = () => {
                   className="form-control"
                   id="education_description"
                   name="education_description"
-                  value={formik.education_description}
+                  value={formik.values.education_description}
                   onChange={formik.handleChange}
                   placeholder="Enter Education + Experience"
                 ></textarea>
@@ -93,10 +100,10 @@ const Create = () => {
 
               <div className="col-md-6 mb-3">
                 <FormControl
-                  value={formik.vacancy}
+                  value={formik.values.vacancy}
                   id="vacancy"
                   name="vacancy"
-                  onChange={formik.handleChange}
+                  onChange={handleSelectOnChangeEvent}
                   type="text"
                   placeholder="Enter Total Number of Vacancy"
                 />
@@ -105,7 +112,7 @@ const Create = () => {
               <div className="col-md-6 mb-3">
                 <FormControl
                   type="text"
-                  value={formik.nature}
+                  value={formik.values.nature}
                   id="nature"
                   name="nature"
                   onChange={formik.handleChange}
@@ -116,7 +123,7 @@ const Create = () => {
               <div className="col-md-6 mb-3">
                 <FormControl
                   type="text"
-                  value={formik.company_name}
+                  value={formik.values.company_name}
                   id="company_name"
                   name="company_name"
                   onChange={formik.handleChange}
@@ -126,7 +133,7 @@ const Create = () => {
               <div className="col-md-6 mb-3">
                 <textarea
                   className="form-control"
-                  value={formik.company_description}
+                  value={formik.values.company_description}
                   id="company_description"
                   name="company_description"
                   onChange={formik.handleChange}
@@ -137,7 +144,7 @@ const Create = () => {
               <div className="col-md-6 mb-3">
                 <FormControl
                   type="text"
-                  value={formik.company_website}
+                  value={formik.values.company_website}
                   id="company_website"
                   name="company_website"
                   onChange={formik.handleChange}
@@ -148,7 +155,7 @@ const Create = () => {
               <div className="col-md-6 mb-3">
                 <FormControl
                   type="email"
-                  value={formik.company_email}
+                  value={formik.values.company_email}
                   id="company_email"
                   name="company_email"
                   onChange={formik.handleChange}

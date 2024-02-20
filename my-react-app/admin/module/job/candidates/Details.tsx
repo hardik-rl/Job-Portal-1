@@ -1,13 +1,12 @@
 import { Link, useParams } from "react-router-dom";
 import { categoryList } from "../api";
 import { useQuery } from "@tanstack/react-query";
+import { JobApplicationType } from "../types";
 
 const Details = () => {
   const { categoryId } = useParams();
   const { data } = useQuery(["categoryList"], ()=> categoryList(categoryId));
-
   const categoryData = data && data.category_applications;
-
   return (
     <div className="app-wrapper">
       <div className="app-content pt-3 p-md-3 p-lg-4">
@@ -36,7 +35,7 @@ const Details = () => {
               </thead>
               <tbody>
                 {categoryData &&
-                  categoryData.map((item, index: any) => (
+                  categoryData.map((item: JobApplicationType, index: number) => (
                     <tr key={index}>
                       <td>{item.first_name}</td>
                       <td>
