@@ -1,12 +1,37 @@
-import { useQuery } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import FormControl from "../../../../src/components/FormControl";
 import FormLabel from "../../../../src/components/FormLabel";
-import { editJob } from "../api";
+import { updateJob } from "../api";
+import { toast } from "react-toastify";
+import { AxiosError } from "axios";
+import { useFormik } from "formik";
 
-const JobEdit = ({ showModal, setShowModal }: any) => {
-  // const { data } = useQuery(["categoryView"], () => editJob(viewId));
-  // const categoryViewData = data;
-  // console.log(data);
+const JobEdit = ({ showModal, setShowModal, selectedItemId }: any) => {
+  const { mutate: updateJobFn } = useMutation(() => updateJob(selectedItemId), {
+    onSuccess: () => {
+      toast.success("Job Edited Successfully.");
+      // refetch();
+    },
+    onError: (error: AxiosError<{ message: string }>) => {
+      toast(error.response?.data.message, {
+        type: "error",
+      });
+    },
+  });
+  const formik = useFormik({
+    initialValues: {
+      company_name: "",
+      company_email: "",
+      company_description: "",
+      education_description: "",
+      job_nature: "",
+      vacancy: 0,
+    },
+    onSubmit: (values: any) => {
+      updateJobFn(values);
+      setShowModal(false);
+    },
+  });
 
   return (
     <div>
@@ -25,7 +50,7 @@ const JobEdit = ({ showModal, setShowModal }: any) => {
               <div className="modal-content">
                 <div className="modal-header">
                   <h5 className="modal-title" id="exampleModalLabel">
-                    Accounts & Finance
+                    Job Edit
                   </h5>
                   <button
                     type="button"
@@ -38,20 +63,19 @@ const JobEdit = ({ showModal, setShowModal }: any) => {
                   </button>
                 </div>
                 <div className="modal-body">
-                  <form>
+                  <form onSubmit={formik.handleSubmit}>
                     <div className="form-row">
                       <div className="form-group col-md-4">
-                        <FormLabel name="First Name" htmlFor="htmlFor" />
+                        <FormLabel name="Company  Name" htmlFor="htmlFor" />
                         <FormControl
-                          onChange={() => {}}
-                          // value={formik.values.first_name}
-                          id="first_name"
-                          value="first name"
+                          onChange={formik.handleChange}
+                          value={formik.values.company_name}
+                          id="company_name"
                           type="text"
-                          name="first_name"
+                          name="company_name"
                         />
                       </div>
-                      <div className="form-group col-md-4">
+                      {/* <div className="form-group col-md-4">
                         <FormLabel name="Last Name" htmlFor="lastname" />
                         <FormControl
                           onChange={() => {}}
@@ -61,75 +85,70 @@ const JobEdit = ({ showModal, setShowModal }: any) => {
                           value="last name"
                           name="last_name"
                         />
-                      </div>
+                      </div> */}
 
                       <div className="form-group col-md-4">
-                        <FormLabel name="Email" htmlFor="youremail" />
+                        <FormLabel name="Company Email" htmlFor="youremail" />
                         <FormControl
-                          onChange={() => {}}
-                          // value={formik.values.email}
-                          id="email"
-                          type="text"
-                          value="email"
-                          name="email"
+                          onChange={formik.handleChange}
+                          value={formik.values.company_email}
+                          id="company_email"
+                          type="email"
+                          name="company_email"
                         />
                       </div>
 
                       <div className="form-group col-md-4">
-                        <FormLabel name="Pancard number" htmlFor="pan_number" />
+                        <FormLabel
+                          name="Company Description"
+                          htmlFor="pan_number"
+                        />
                         <FormControl
-                          onChange={() => {}}
-                          // onChange={(event: any) => handleOnChangeEvent(event)}
-                          // value={formik.values.pan_number}
-                          id="pan_number"
+                          onChange={formik.handleChange}
+                          value={formik.values.company_description}
+                          id="company_description"
                           type="text"
-                          value="pan"
-                          name="pan_number"
+                          name="company_description"
                         />
                       </div>
                       <div className="form-group col-md-4">
                         <FormLabel
-                          name="Mobile number"
+                          name="Education Description"
                           htmlFor="mobilenumber"
                         />
                         <FormControl
-                          onChange={() => {}}
-                          // onChange={(event: any) => handleOnChangeEvent(event)}
-                          // value={formik.values.mobile_number}
-                          id="mobile_number"
+                          onChange={formik.handleChange}
+                          value={formik.values.education_description}
+                          id="education_description"
                           type="number"
-                          value="mobile_number"
-                          name="mobile_number"
+                          name="education_description"
                         />
                       </div>
 
                       <div className="form-group col-md-4">
-                        <FormLabel name="Education" htmlFor="education" />
+                        <FormLabel name="Job Nature" htmlFor="education" />
                         <FormControl
-                          onChange={() => {}}
-                          // value={formik.values.education}
-                          id="education"
+                          onChange={formik.handleChange}
+                          value={formik.values.job_nature}
+                          id="job_nature"
                           type="text"
-                          value="education"
-                          name="education"
+                          name="job_nature"
                         />
                       </div>
 
                       <div className="form-group col-md-4">
-                        <label htmlFor="ctc">CTC (In Laksh)</label>
-                        <FormLabel name="" htmlFor="ctc" />
+                        {/* <label htmlFor="Vacancy">CTC (In Laksh)</label> */}
+                        <FormLabel name="Vacancy" htmlFor="ctc" />
                         <FormControl
-                          onChange={() => {}}
-                          // onChange={(event: any) => handleOnChangeEvent(event)}
-                          // value={formik.values.ctc}
-                          id="ctc"
+                          onChange={formik.handleChange}
+                          value={formik.values.vacancy}
+                          id="vacancy"
                           type="number"
-                          name="ctc"
-                          value="ctc"
+                          name="vacancy"
                         />
                       </div>
 
-                      <div className="form-group col-md-4">
+                      {/* <div className="form-group col-md-4">
                         <FormLabel name="Expected CTC" htmlFor="expctc" />
                         <FormControl
                           onChange={() => {}}
@@ -140,9 +159,9 @@ const JobEdit = ({ showModal, setShowModal }: any) => {
                           value="expected_ctc"
                           name="expected_ctc"
                         />
-                      </div>
+                      </div> */}
 
-                      <div className="form-group col-md-4">
+                      {/* <div className="form-group col-md-4">
                         <FormLabel
                           name="Notice Period"
                           htmlFor="notice_period"
@@ -156,9 +175,9 @@ const JobEdit = ({ showModal, setShowModal }: any) => {
                           type="text"
                           name="notice_period"
                         />
-                      </div>
+                      </div> */}
 
-                      <div className="form-group col-md-4">
+                      {/* <div className="form-group col-md-4">
                         <FormLabel
                           name="Total Work Experience"
                           htmlFor="workexperience"
@@ -172,9 +191,9 @@ const JobEdit = ({ showModal, setShowModal }: any) => {
                           value="workexp"
                           name="total_work_experience"
                         />
-                      </div>
+                      </div> */}
 
-                      <div className="form-group col-md-4">
+                      {/* <div className="form-group col-md-4">
                         <FormLabel name="Gender" htmlFor="gendar" />
                         <FormControl
                           onChange={() => {}}
@@ -184,9 +203,9 @@ const JobEdit = ({ showModal, setShowModal }: any) => {
                           type="text"
                           name="gender"
                         />
-                      </div>
+                      </div> */}
 
-                      <div className="form-group col-md-4">
+                      {/* <div className="form-group col-md-4">
                         <label htmlFor="inputState">State</label>
                         <select
                           className="form-control"
@@ -196,33 +215,29 @@ const JobEdit = ({ showModal, setShowModal }: any) => {
                           // onChange={handleSelectOnChangeEvent}
                         >
                           <option>State</option>
-                          {/* {statesDataList.map((state) => (
-                            <option key={state.value} value={state.value}>
-                              {state.label}
-                            </option>
-                          ))} */}
-                        </select>
-                      </div>
 
-                      <div className="form-group col-md-4">
+                        </select>
+                      </div> */}
+
+                      {/* <div className="form-group col-md-4">
                         <label htmlFor="resume">Add Resume</label>
                         <input
                           type="file"
                           className="form-control"
                           id="resume"
                         />
-                      </div>
+                      </div> */}
+                    </div>
+
+                    <div className="modal-footer">
+                      <button
+                        type="submit"
+                        className="btn-primary px-2 py-1 border-0"
+                      >
+                        Submit
+                      </button>
                     </div>
                   </form>
-                </div>
-                <div className="modal-footer">
-                  <button
-                    type="submit"
-                    className="btn-primary px-2 py-1 border-0"
-                    // onClick={handleSubmitEvent}
-                  >
-                    Submit
-                  </button>
                 </div>
               </div>
             </div>

@@ -113,7 +113,7 @@ const ApplicationModal = ({ showModal, setShowModal }: ModelProps) => {
       {showModal && (
         <>
           <div
-            className="modal fade modal-toggle"
+            className="modal fade modal-toggle show"
             id="exampleModal"
             data-backdrop="static"
             data-keyboard="false"
