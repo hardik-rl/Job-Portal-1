@@ -17,7 +17,7 @@ const ApplicationModal = ({ showModal, setShowModal }: ModelProps) => {
     const response = await axios.post(`http://localhost:3000/apply`, data);
     return response.data;
   };
-  const { mutate: applyJobMutate, isPending: applyJobIsPending } = useMutation({
+  const { mutate: applyJobMutate, isLoading: applyJobIsLoading } = useMutation({
     mutationFn: (data) => addJobApplication(data),
     onSuccess: () => {
       toast.success("Application added successfully");
@@ -26,7 +26,8 @@ const ApplicationModal = ({ showModal, setShowModal }: ModelProps) => {
 
   const formik = useFormik({
     initialValues: {
-      job_id: "65c27c92ac4f8ffb8f2496f4",
+      job_id: "65d3b0997aadf0d1c0a84656",
+      category_id: "65d3afb700fb52fa58d4aad7",
       first_name: "",
       last_name: "",
       email: "",
@@ -61,7 +62,7 @@ const ApplicationModal = ({ showModal, setShowModal }: ModelProps) => {
     handleCloseModal();
   };
 
-  if (applyJobIsPending) {
+  if (applyJobIsLoading) {
     return <h1>Loading</h1>;
   }
 

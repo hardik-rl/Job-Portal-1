@@ -3,10 +3,17 @@ import { categoryList } from "../api";
 import { useQuery } from "@tanstack/react-query";
 import { JobApplicationType } from "../types";
 
-const Details = () => {
+const JobCategoryUser = () => {
   const { categoryId } = useParams();
-  const { data } = useQuery(["categoryList"], ()=> categoryList(categoryId));
-  const categoryData = data && data.category_applications;
+
+  const { data: categoryData } = useQuery({
+    queryKey: ["job-category-user"],
+    queryFn: () => categoryList(categoryId),
+    select: (res) => {
+      return res.category_applications;
+    }
+  });
+
   return (
     <div className="app-wrapper">
       <div className="app-content pt-3 p-md-3 p-lg-4">
@@ -35,11 +42,11 @@ const Details = () => {
               </thead>
               <tbody>
                 {categoryData &&
-                  categoryData.map((item: JobApplicationType, index: number) => (
+                  categoryData.map((category: JobApplicationType, index: number) => (
                     <tr key={index}>
-                      <td>{item.first_name}</td>
+                      <td>{category.first_name}</td>
                       <td>
-                        <Link to={`/admin/view/${item._id}`}>
+                        <Link to={`/admin/job-category-user-application/${category._id}`}>
                           View Candidate Detail
                         </Link>
                       </td>
@@ -54,4 +61,4 @@ const Details = () => {
   );
 };
 
-export default Details;
+export default JobCategoryUser;

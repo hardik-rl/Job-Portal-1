@@ -11,7 +11,8 @@ export interface JobFormType {
   education_description: string;
   knowledge_description: string;
   job_location_id: string;
-  vacancy: string;
+  category_id: string;
+  vacancy: number;
   nature: string;
   company_name: string;
   company_description: string;

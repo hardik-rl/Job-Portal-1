@@ -17,16 +17,15 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Login from "../admin/module/auth/Login";
 import AdminLayout from "../admin/AdminLayout";
-import CandidatesList from "../admin/module/job/candidates";
+import JobCategoryList from "../admin/module/job/candidates/JobCateoryList";
 import JobList from "../admin/module/job/job-list";
-import Details from "../admin/module/job/candidates/Details";
-import View from "../admin/module/job/candidates/View";
+import JobCategoryUserApplication from "../admin/module/job/candidates/JobCategoryUserApplication";
 import JobListView from "../admin/module/job/job-list/View";
-
 import withAuthenticationRequired from "./shared/utils/withAuthenticationRequired";
 import withoutAuthenticationRequired from "./shared/utils/withoutAuthenticationRequired";
 import NotFound from "./shared/components/NotFound";
-import CreateJob from "../admin/module/job/job-list/Create";
+import CreateNewJob from "../admin/module/job/job-list/CreateNewJob";
+import JobCategoryUser from "../admin/module/job/candidates/JobCategoryUser";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -48,12 +47,14 @@ function App() {
           element={withoutAuthenticationRequired(Login)}
         />
         <Route path="admin/*" element={withAuthenticationRequired(AdminLayout)}>
-          <Route path="candidates-list" element={<CandidatesList />} />
+          <Route path="job-category-list" element={<JobCategoryList />} />
+          <Route path="job-category-user/:categoryId" element={<JobCategoryUser />} />
+          <Route path="job-category-user-application/:categoryId" element={<JobCategoryUserApplication />} />
+          
+          <Route path="create-new-job" element={<CreateNewJob />} />
+
           <Route path="job-list" element={<JobList />} />
           <Route path="job-list/view/33" element={<JobListView />} />
-          <Route path="create-job" element={<CreateJob />} />
-          <Route path="details/:categoryId" element={<Details />} />
-          <Route path="view/:viewId" element={<View />} />
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>

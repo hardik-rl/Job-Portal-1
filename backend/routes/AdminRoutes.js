@@ -186,6 +186,31 @@ router.get('/get-job/:id', authMiddleware, async(req, res) => {
   }
 });
 
+// get all job locations
+router.get('/jobs-locations', authMiddleware, async (req, res) => {
+  try {
+    const jobLocations = await JobLocation.find({});
+
+    res.json(jobLocations);
+  } catch (error) {
+    console.error('Error fetching job location:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// get all job categories
+router.get('/jobs-categories', authMiddleware, async (req, res) => {
+  try {
+    const jobCategories = await JobCategory.find({});
+
+    res.json(jobCategories);
+  } catch (error) {
+    console.error('Error fetching job categories:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+
 router.get('/protected', authMiddleware, (req, res) => {
   res.json({ message: 'This is a protected route', user: req.user });
 });

@@ -28,37 +28,48 @@ app.use('/admin', adminRoutes);
 // ----------------------
 
 // Set up multer storage
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, 'uploads/'); // Uploads will be stored in the 'uploads/' directory
-  },
-  filename: function (req, file, cb) {
-    cb(null, Date.now() + '-' + file.originalname); // Rename the file to avoid overwriting
-  }
-});
+// const storage = multer.diskStorage({
+//   destination: function (req, file, cb) {
+//     cb(null, 'uploads/'); // Uploads will be stored in the 'uploads/' directory
+//   },
+//   filename: function (req, file, cb) {
+//     cb(null, Date.now() + '-' + file.originalname); // Rename the file to avoid overwriting
+//   }
+// });
 
-// Define file filter
-const fileFilter = (req, file, cb) => {
-  // Allow only certain file types (e.g., pdf, docx)
-  if (file.mimetype === 'application/pdf') {
-    cb(null, true);
-  } else {
-    cb(new Error('Invalid file type. Only PDF documents are allowed.'));
-  }
-};
+// // Define file filter
+// const fileFilter = (req, file, cb) => {
+//   // Allow only certain file types (e.g., pdf, docx)
+//   if (file.mimetype === 'application/pdf') {
+//     cb(null, true);
+//   } else {
+//     cb(new Error('Invalid file type. Only PDF documents are allowed.'));
+//   }
+// };
 
-// Initialize multer upload middleware
-const upload = multer({ storage: storage, fileFilter: fileFilter });
-app.post('/apply', upload.single('resume_file'), async (req, res) => {
+// // Initialize multer upload middleware
+// const upload = multer({ storage: storage, fileFilter: fileFilter });
+// app.post('/apply', upload.single('resume_file'), async (req, res) => {
+//   try {
+//     const applicationData = req.body;
+//     const filePath = req.file.path;
+    
+//     const newApplication = await Application.create({
+//       ...applicationData,
+//       resume_file: filePath 
+//     });
+    
+//     res.status(201).json(newApplication);
+//   } catch (error) {
+//     console.error('Error creating application:', error);
+//     res.status(500).json({ error: 'Internal server error' });
+//   }
+// });
+
+app.post('/apply', async (req, res) => {
   try {
     const applicationData = req.body;
-    const filePath = req.file.path;
-    
-    const newApplication = await Application.create({
-      ...applicationData,
-      resume_file: filePath 
-    });
-    
+    const newApplication = await Application.create(applicationData);
     res.status(201).json(newApplication);
   } catch (error) {
     console.error('Error creating application:', error);
@@ -78,7 +89,7 @@ app.get('/jobs-locations', async (req, res) => {
   }
 });
 
-// get all job locations
+// get all job categories
 app.get('/jobs-categories', async (req, res) => {
   try {
     const jobCategories = await JobCategory.find({});

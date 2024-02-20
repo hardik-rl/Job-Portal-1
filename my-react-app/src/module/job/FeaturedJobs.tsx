@@ -20,8 +20,6 @@ const FeaturedJobs = ({ setShowModal, showModal }: ModalProps) => {
 
   useEffect(() => {
     if (!jobsData) return;
-
-    console.log(jobsData);
   }, [jobsData]);
 
   if (isLoadingJobsData) {
@@ -66,8 +64,7 @@ const FeaturedJobs = ({ setShowModal, showModal }: ModalProps) => {
           nextLabel="Next"
           onPageChange={(event) => setPage(event.selected + 1)}
           pageRangeDisplayed={5}
-          // pageCount={jobsData.totalPages}
-          pageCount={6}
+          pageCount={jobsData.totalPages}
           previousLabel="Previous"
           renderOnZeroPageCount={null}
         />

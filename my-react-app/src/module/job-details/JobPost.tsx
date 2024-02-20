@@ -20,11 +20,7 @@ const JobPost = ({ jobData }: JobDetails) => {
                   <h4>Required Knowledge, Skills, and Abilities</h4>
                 </div>
                 <ul>
-                  {jobData?.knowledge_description?.map(
-                    (knowledgeData: string, index: number) => (
-                      <li key={index}>{knowledgeData}</li>
-                    )
-                  )}
+                  {jobData?.knowledge_description}
                 </ul>
               </div>
               <div className="post-details2  mb-50">
@@ -32,11 +28,7 @@ const JobPost = ({ jobData }: JobDetails) => {
                   <h4>Education + Experience</h4>
                 </div>
                 <ul>
-                  {jobData?.education_description?.map(
-                    (educationData: string, index: number) => (
-                      <li key={index}>{educationData}</li>
-                    )
-                  )}
+                  {jobData?.education_description}
                 </ul>
               </div>
             </div>
