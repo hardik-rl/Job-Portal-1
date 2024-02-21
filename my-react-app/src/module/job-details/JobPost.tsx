@@ -20,7 +20,7 @@ const JobPost = ({ jobData }: JobDetails) => {
                   <h4>Required Knowledge, Skills, and Abilities</h4>
                 </div>
                 <ul>
-                  {jobData?.knowledge_description}
+                <li>{jobData?.knowledge_description}</li>
                 </ul>
               </div>
               <div className="post-details2  mb-50">
@@ -28,7 +28,7 @@ const JobPost = ({ jobData }: JobDetails) => {
                   <h4>Education + Experience</h4>
                 </div>
                 <ul>
-                  {jobData?.education_description}
+                  <li>{jobData?.education_description}</li>
                 </ul>
               </div>
             </div>

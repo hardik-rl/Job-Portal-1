@@ -6460,3 +6460,7 @@ form.search-box .search-form a {
   background-color: #08578e;
 
 }
+
+.apply-btn2:hover a {
+  color: #fff;
+}

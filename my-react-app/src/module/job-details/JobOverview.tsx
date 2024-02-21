@@ -8,9 +8,6 @@ const JobOverview = ({ jobData }: JobDetails) => {
       </div>
       <ul>
         <li>
-          Posted date : <span>12 Aug 2019</span>
-        </li>
-        <li>
           Location : <span>{jobData?.job_location_id?.name}</span>
         </li>
         <li>
@@ -18,12 +15,6 @@ const JobOverview = ({ jobData }: JobDetails) => {
         </li>
         <li>
           Job nature : <span>{jobData?.nature}</span>
-        </li>
-        <li>
-          Salary : <span>${jobData?.annual_salary} yearly</span>
-        </li>
-        <li>
-          Application date : <span>12 Sep 2020</span>
         </li>
       </ul>
       <div className="apply-btn2">
