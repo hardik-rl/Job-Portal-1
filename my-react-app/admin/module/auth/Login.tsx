@@ -17,7 +17,7 @@ const Login = () => {
     {
       onSuccess: () => {
         toast.success("Login Successfully");
-        navigate("/admin/candidates-list")
+        navigate("/admin/job-category-list")
       },
       onError: () => {
         toast.error("Admin is Not Valid");

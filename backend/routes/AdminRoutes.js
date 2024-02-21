@@ -7,6 +7,7 @@ const authMiddleware = require('../middleware/AuthMiddleware');
 const JobCategory = require('../models/JobCategoryModel');
 const Application = require('../models/ApplicationModel');
 const Job = require('../models/JobModel');
+const JobLocation = require('../models/JobLocationModel');
 const path = require('path');
 
 router.post('/login', async (req, res) => {

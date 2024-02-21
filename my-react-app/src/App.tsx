@@ -18,7 +18,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Login from "../admin/module/auth/Login";
 import AdminLayout from "../admin/AdminLayout";
 import JobCategoryList from "../admin/module/job/candidates/JobCateoryList";
-import JobList from "../admin/module/job/job-list";
+import JobList from "../admin/module/job/job-list/JobList";
 import JobCategoryUserApplication from "../admin/module/job/candidates/JobCategoryUserApplication";
 import JobListView from "../admin/module/job/job-list/View";
 import withAuthenticationRequired from "./shared/utils/withAuthenticationRequired";
