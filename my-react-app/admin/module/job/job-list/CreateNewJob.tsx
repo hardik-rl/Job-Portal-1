@@ -211,7 +211,7 @@ const CreateNewJob = () => {
 
               <button
                 type="submit"
-                className="btn btn-primary w-auto text-white p-3 m-auto mt-5"
+                className="btn-primary w-auto text-white p-3 m-auto mt-5"
               >
                 Create New Job
               </button>

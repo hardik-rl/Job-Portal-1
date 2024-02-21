@@ -64,7 +64,7 @@ const Create = () => {
                             Edit
                           </button>
                           <button
-                            className="ml-2 btn-danger p-2"
+                            className="ml-2 btn-danger p-2 border-0 rounded-2"
                             onClick={() => handleDeleteClick(item._id)}
                           >
                             Delete

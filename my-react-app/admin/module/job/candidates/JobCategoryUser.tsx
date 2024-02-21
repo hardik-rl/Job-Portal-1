@@ -18,10 +18,10 @@ const JobCategoryUser = () => {
     <div className="app-wrapper">
       <div className="app-content pt-3 p-md-3 p-lg-4">
         <div className="container-xl">
-          <nav aria-label="breadcrumb bg-white mb-5">
-            <ol className="breadcrumb">
-              <li className="breadcrumb-item">
-                <Link to="/admin/candidates-list">&lt; Back to Candidates List</Link>
+          <nav aria-label="breadcrumb mb-5">
+            <ol className="breadcrumb bg-transparent p-0">
+              <li className="breadcrumb-item ">
+                <Link to="/admin/job-category-list" className="textgreen">&lt; Back to Candidates List</Link>
               </li>
             </ol>
           </nav>
@@ -46,7 +46,7 @@ const JobCategoryUser = () => {
                     <tr key={index}>
                       <td>{category.first_name}</td>
                       <td>
-                        <Link to={`/admin/job-category-user-application/${category._id}`}>
+                        <Link className="textgreen" to={`/admin/job-category-user-application/${category._id}`}>
                           View Candidate Detail
                         </Link>
                       </td>

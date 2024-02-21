@@ -2,13 +2,13 @@
   z-index: 1040;
 }
 .app-nav .nav-item.active .nav-link{
-  color: #15a362;
+  color: #15a362 !important;
   background: #edfdf6;
   border-left: 3px solid #15a362;
   font-weight: 500;
 }
 .textgreen {
-  color: #15a362;
+  color: #15a362 !important;
 }
 .page-utilities .col-auto {
   min-width: 333px;
@@ -23,4 +23,35 @@
 .app-utility-item .dropdown-menu.show {
   top: 36px !important;
   left: -120px;
+}
+.app-btn-primary,
+.btn-primary  {
+  border: transparent;
+  font-weight: 600;
+  border-radius: 6px;
+  padding: 0.5rem 1rem;
+  font-size: .875rem;
+}
+a {
+  color: inherit !important;
+}
+a:hover {
+  color: #128c54 !important;
+}
+button.btn-primary:hover {
+  background-color: #38b17a;
+}
+button.btn-primary {
+  background-color: #15a362;
+}
+
+.btn-link {
+  background-color: transparent;
+  border: 0;
+  color: #15a362 !important;
+  text-decoration: none;
+}
+.btn-link:hover {
+  text-decoration: none !important;
+  color: #128c54 !important;
 }
