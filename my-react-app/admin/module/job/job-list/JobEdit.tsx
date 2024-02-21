@@ -1,12 +1,12 @@
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import FormControl from "../../../../src/components/FormControl";
 import FormLabel from "../../../../src/components/FormLabel";
-import { getSpecificJob, updateJob } from "../api";
+import { updateJob } from "../api";
 import { toast } from "react-toastify";
 import { AxiosError } from "axios";
 import { useFormik } from "formik";
 
-const JobEdit = ({ showModal, setShowModal, selectedItemId }: any) => {
+const JobEdit = ({ setShowModal, selectedItemId, refetch }: any) => {
   const { mutate: updateJobFn } = useMutation(() => updateJob(selectedItemId), {
     onSuccess: () => {
       toast.success("Job Edited Successfully.");
@@ -18,16 +18,6 @@ const JobEdit = ({ showModal, setShowModal, selectedItemId }: any) => {
       });
     },
   });
-
-  const { data: jobData } = useQuery({
-    queryKey: ["get-specific-job"],
-    queryFn: () => getSpecificJob(selectedItemId),
-    // select: (res) => {
-    //   return res.category_applications;
-    // }
-  });
-
-  console.log(jobData);
 
   const formik = useFormik({
     initialValues: {

@@ -5,7 +5,6 @@ import { toast } from "react-toastify";
 import { AxiosError } from "axios";
 
 const JobDelete = ({
-  deleteModal,
   selectedItemId,
   setDeleteModal,
   refetch,
