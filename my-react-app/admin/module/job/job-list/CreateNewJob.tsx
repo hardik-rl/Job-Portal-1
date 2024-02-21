@@ -21,7 +21,7 @@ const CreateNewJob = () => {
     getAllCategories()
   );
 
-  
+
 
   const jobCategoryOptions =
     jobCategoryData?.map((category: any) => ({
@@ -148,6 +148,10 @@ const CreateNewJob = () => {
                 <div className="mt-2">
                   <ReactSelect
                     name="job-categories"
+                    options={jobCategoryOptions}
+                    defaultInputValue="Any - All Jobs"
+                    // inputValue=""
+                    // value={{value: values.job_location_id, label: "Any - All Jobs"}}
                     onChange={handleCategoryChange}
                     value={categorySelect}
                     options={jobCategoryOptions}
