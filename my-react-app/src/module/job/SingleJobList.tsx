@@ -38,6 +38,7 @@ const SingleJobList = ({
           <button type="button" onClick={onClickApply}>
             Apply Now
           </button>
+          {/* <ApplicationModel showModal={showModal} setShowModal={setShowModal} /> */}
         </div>
       </div>
     </>
