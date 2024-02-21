@@ -60,10 +60,7 @@ const ApplicationModal = ({setShowModal, applyJobData }: any) => {
         toast.error("Please upload consent form");
         return;
       }
-      console.log(formData);
-      for (const pair of formData.entries()) {
-        console.log(pair[0] + ': ' + pair[1]);
-    }
+      
       applyJobMutate(formData);
     },
   });

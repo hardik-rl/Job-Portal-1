@@ -64,12 +64,10 @@ const CreateNewJob = () => {
     });
 
   const handleCategoryChange = (event:any) => {
-    console.log(event);
     setCategorySelect(event);
   }
 
   const handleLocationChange = (event: any) => {
-    console.log(event);
     setLocationSelect(event);
   }
 
