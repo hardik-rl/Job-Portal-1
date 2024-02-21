@@ -22,7 +22,6 @@ const CreateNewJob = () => {
   );
 
 
-
   const jobCategoryOptions =
     jobCategoryData?.map((category: any) => ({
       value: category._id,

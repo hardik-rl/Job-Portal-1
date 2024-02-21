@@ -1,7 +1,7 @@
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import FormControl from "../../../../src/components/FormControl";
 import FormLabel from "../../../../src/components/FormLabel";
-import { getSpecificJob, updateJob } from "../api";
+import { updateJob } from "../api";
 import { toast } from "react-toastify";
 import { AxiosError } from "axios";
 import { useFormik } from "formik";
