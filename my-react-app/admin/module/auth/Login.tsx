@@ -1,6 +1,5 @@
 import logo from "../../../assets/img/admin/grp-logo.png";
 import FormControl from "../../shared/FormControl";
-import Footer from "../../shared/Footer";
 import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import { useMutation } from "@tanstack/react-query";
@@ -106,7 +105,6 @@ const Login = () => {
               </form>
             </div>
           </div>
-          <Footer />
         </div>
       </div>
     </div>
