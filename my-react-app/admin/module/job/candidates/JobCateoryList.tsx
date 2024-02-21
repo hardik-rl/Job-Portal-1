@@ -5,8 +5,11 @@ import { JobDataItem } from "../types";
 import { categoryCard } from "../api";
 import { useEffect, useState } from "react";
 import ReactSelect from "react-select";
+import Loader from "../../../shared/Loader";
 
 const JobCategoryList = () => {
+  const [loading, setLoading] = useState(false);
+
   const [selectedCategory, setSelectedCategory] = useState<string>("");
 
   const { data: jobCategoryData, refetch } = useQuery<JobDataItem[]>(
@@ -14,7 +17,11 @@ const JobCategoryList = () => {
     () => categoryCard(selectedCategory),
     {
       enabled: false,
+      onSuccess: () => {
+        setLoading(false);
+      },
     }
+
   );
 
   const options =
@@ -29,6 +36,7 @@ const JobCategoryList = () => {
 
   useEffect(() => {
     refetch();
+    setLoading(true);
   }, [selectedCategory, refetch]);
 
   return (
@@ -58,31 +66,43 @@ const JobCategoryList = () => {
             </div>
           </div>
           <div className="row g-4 mb-4">
-            {jobCategoryData &&
-              jobCategoryData.map((category: any, index: any) => (
-                <div key={index} className="col-6 col-lg-3">
-                  <div className="app-card app-card-stat shadow-sm h-100 d-block">
-                    {category.applicationCount > 0 ? (
-                      <Link
-                        to={`/admin/job-category-user/${category._id}`}
-                        className="app-card-body p-3 p-lg-4"
-                      >
-                        <h4 className="stats-type mb-1">{category.category}</h4>
-                        <div className="stats-figure">
-                          {category.applicationCount}
-                        </div>
-                      </Link>
-                    ) : (
-                      <div className="app-card-body p-3 p-lg-4">
-                        <h4 className="stats-type mb-1">{category.category}</h4>
-                        <div className="stats-figure">
-                          {category.applicationCount}
-                        </div>
+            {loading ? (
+              <div className="d-flex justify-content-center">
+                <Loader />
+              </div>
+            ) : (
+              <>
+                {jobCategoryData &&
+                  jobCategoryData.map((category: any, index: any) => (
+                    <div key={index} className="col-6 col-lg-3">
+                      <div className="app-card app-card-stat shadow-sm h-100 d-block">
+                        {category.applicationCount > 0 ? (
+                          <Link
+                            to={`/admin/job-category-user/${category._id}`}
+                            className="app-card-body p-3 p-lg-4"
+                          >
+                            <h4 className="stats-type mb-1">
+                              {category.category}
+                            </h4>
+                            <div className="stats-figure">
+                              {category.applicationCount}
+                            </div>
+                          </Link>
+                        ) : (
+                          <div className="app-card-body p-3 p-lg-4">
+                            <h4 className="stats-type mb-1">
+                              {category.category}
+                            </h4>
+                            <div className="stats-figure">
+                              {category.applicationCount}
+                            </div>
+                          </div>
+                        )}
                       </div>
-                    )}
-                  </div>
-                </div>
-              ))}
+                    </div>
+                  ))}
+              </>
+            )}
           </div>
         </div>
       </div>

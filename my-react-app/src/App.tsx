@@ -31,7 +31,7 @@ const queryClient = new QueryClient({
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <Preloader />
+      {/* <Preloader /> */}
       <Routes>
         <Route path="/" element={<ClientSideLayout />}>
           <Route path="/" element={<Job />} />

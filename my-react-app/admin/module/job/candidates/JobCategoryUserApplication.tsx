@@ -35,8 +35,8 @@ const JobCategoryUserApplication = () => {
     <div className="app-wrapper">
       <div className="app-content pt-3 p-md-3 p-lg-4">
         <div className="container-xl">
-          <nav aria-label="breadcrumb bg-white mb-5">
-            <ol className="breadcrumb">
+          <nav aria-label="breadcrumb mb-5">
+            <ol className="breadcrumb bg-transparent p-0">
               <li className="breadcrumb-item">
                 <button className="bg-transparent border-0 textgreen" onClick={()=> navigate(-1)}>
                   &lt; Back to Candidate List
@@ -91,11 +91,8 @@ const JobCategoryUserApplication = () => {
               <b>State :</b> {applicationData?.state}
             </p>
             <p>
-              <button onClick={handleViewResume}>Click Here</button>
               <b>Resume :</b>{" "}
-              <a href="https://morth.nic.in/sites/default/files/dd12-13_0.pdf">
-                Click Here
-              </a>
+              <button className="btn-link" onClick={handleViewResume}>Click Here</button>
             </p>
           </div>
         </div>
