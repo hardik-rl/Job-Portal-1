@@ -5,9 +5,12 @@ import axios from "axios";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import { useFormik } from "formik";
-import { ModelProps } from "../../shared/components/type";
+import { useState } from "react";
 
-const ApplicationModal = ({ showModal, setShowModal }: ModelProps) => {
+const ApplicationModal = ({setShowModal, applyJobData }: any) => {
+  const [file, setFile] = useState<any>(null);
+  const [fileName, setFileName] = useState<any>(null);
+
   const handleCloseModal = () => {
     setShowModal(false);
   };
@@ -20,14 +23,15 @@ const ApplicationModal = ({ showModal, setShowModal }: ModelProps) => {
   const { mutate: applyJobMutate, isLoading: applyJobIsLoading } = useMutation({
     mutationFn: (data) => addJobApplication(data),
     onSuccess: () => {
+      setShowModal(false);  
       toast.success("Application added successfully");
     },
   });
 
   const formik = useFormik({
     initialValues: {
-      job_id: "65d3b0997aadf0d1c0a84656",
-      category_id: "65d3afb700fb52fa58d4aad7",
+      job_id: "",
+      category_id: "",
       first_name: "",
       last_name: "",
       email: "",
@@ -43,7 +47,24 @@ const ApplicationModal = ({ showModal, setShowModal }: ModelProps) => {
       resume_file: "",
     },
     onSubmit: (values: any) => {
-      applyJobMutate(values);
+      const formData:any = new FormData();
+      Object.keys(values).forEach((key) => {
+        if(!['resume_file', 'job_id', 'category_id'].includes(key)) {
+          formData.append(key, values[key]);
+        }
+      });
+      formData.append('resume_file', file);
+      formData.append('job_id', applyJobData.job_id);
+      formData.append('category_id', applyJobData.category_id);
+      if (!fileName) {
+        toast.error("Please upload consent form");
+        return;
+      }
+      console.log(formData);
+      for (const pair of formData.entries()) {
+        console.log(pair[0] + ': ' + pair[1]);
+    }
+      applyJobMutate(formData);
     },
   });
 
@@ -56,11 +77,48 @@ const ApplicationModal = ({ showModal, setShowModal }: ModelProps) => {
     formik.setFieldValue(name, value);
   };
 
-  const handleSubmitEvent = () => {
-    applyJobMutate(formik.values);
-    formik.resetForm();
-    handleCloseModal();
+  // const handleSubmitEvent = () => {
+  //   applyJobMutate(formik.values);
+  //   formik.resetForm();
+  //   handleCloseModal();
+  // };
+
+  const resetFileAndFileName = () => {
+    setFile(null);
+    setFileName(null);
   };
+
+  const handleFileChange = async (e:any) => {
+    e.preventDefault();
+  
+    const fileObj = e.target.files && e.target.files[0];
+    if (!fileObj) {
+      return;
+    }
+
+    // check file size
+    if (fileObj.size > 25000000) {
+      toast.error("Please select file under 25MB");
+      resetFileAndFileName();
+      e.target.value = null;
+      return;
+    }
+
+    //check file types
+    if (fileObj.type !== "application/pdf") {
+      toast.error(
+        "Invalid file format. Supported Format: .JPEG, .JPG, .PDF, .PNG"
+      );
+      resetFileAndFileName();
+      e.target.value = null;
+      return;
+    }
+
+    setFile(fileObj);
+    setFileName(fileObj.name);
+    e.target.value = null;
+  };
+
 
   if (applyJobIsLoading) {
     return <h1>Loading</h1>;
@@ -111,208 +169,208 @@ const ApplicationModal = ({ showModal, setShowModal }: ModelProps) => {
 
   return (
     <>
-      {showModal && (
-        <>
-          <div
-            className="modal fade modal-toggle show"
-            id="exampleModal"
-            data-backdrop="static"
-            data-keyboard="false"
-            tabIndex={-1}
-            aria-labelledby="staticBackdropLabel"
-            aria-hidden="true"
-          >
-            <div className="modal-dialog modal-lg">
-              <div className="modal-content">
-                <div className="modal-header">
-                  <h5 className="modal-title" id="exampleModalLabel">
-                    Accounts & Finance
-                  </h5>
-                  <button
-                    type="button"
-                    className="close"
-                    data-dismiss="modal"
-                    aria-label="Close"
-                    onClick={handleCloseModal}
-                  >
-                    <span aria-hidden="true">&times;</span>
-                  </button>
+      <div
+        className="modal fade modal-toggle show"
+        id="exampleModal"
+        data-backdrop="static"
+        data-keyboard="false"
+        tabIndex={-1}
+        aria-labelledby="staticBackdropLabel"
+        aria-hidden="true"
+      >
+        <div className="modal-dialog modal-lg">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title" id="exampleModalLabel">
+                Accounts & Finance
+              </h5>
+              <button
+                type="button"
+                className="close"
+                data-dismiss="modal"
+                aria-label="Close"
+                onClick={handleCloseModal}
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div className="modal-body">
+              <form onSubmit={formik.handleSubmit}>
+                <div className="form-row">
+                  <div className="form-group col-md-4">
+                    <FormLabel name="First Name" htmlFor="htmlFor" />
+                    <FormControl
+                      onChange={formik.handleChange}
+                      value={formik.values.first_name}
+                      id="first_name"
+                      type="text"
+                      name="first_name"
+                    />
+                  </div>
+                  <div className="form-group col-md-4">
+                    <FormLabel name="Last Name" htmlFor="lastname" />
+                    <FormControl
+                      onChange={formik.handleChange}
+                      value={formik.values.last_name}
+                      id="last_name"
+                      type="text"
+                      name="last_name"
+                    />
+                  </div>
+
+                  <div className="form-group col-md-4">
+                    <FormLabel name="Email" htmlFor="youremail" />
+                    <FormControl
+                      onChange={formik.handleChange}
+                      value={formik.values.email}
+                      id="email"
+                      type="text"
+                      name="email"
+                    />
+                  </div>
+
+                  <div className="form-group col-md-4">
+                    <FormLabel name="Pancard number" htmlFor="pan_number" />
+                    <FormControl
+                      onChange={(event: any) => handleOnChangeEvent(event)}
+                      value={formik.values.pan_number}
+                      id="pan_number"
+                      type="text"
+                      name="pan_number"
+                    />
+                  </div>
+                  <div className="form-group col-md-4">
+                    <FormLabel
+                      name="Mobile number"
+                      htmlFor="mobilenumber"
+                    />
+                    <FormControl
+                      onChange={(event: any) => handleOnChangeEvent(event)}
+                      value={formik.values.mobile_number}
+                      id="mobile_number"
+                      type="number"
+                      name="mobile_number"
+                    />
+                  </div>
+
+                  <div className="form-group col-md-4">
+                    <FormLabel name="Education" htmlFor="education" />
+                    <FormControl
+                      onChange={formik.handleChange}
+                      value={formik.values.education}
+                      id="education"
+                      type="text"
+                      name="education"
+                    />
+                  </div>
+
+                  <div className="form-group col-md-4">
+                    <label htmlFor="ctc">CTC (In Laksh)</label>
+                    <FormLabel name="" htmlFor="ctc" />
+                    <FormControl
+                      onChange={(event: any) => handleOnChangeEvent(event)}
+                      value={formik.values.ctc}
+                      id="ctc"
+                      type="number"
+                      name="ctc"
+                    />
+                  </div>
+
+                  <div className="form-group col-md-4">
+                    <FormLabel name="Expected CTC" htmlFor="expctc" />
+                    <FormControl
+                      onChange={(event: any) => handleOnChangeEvent(event)}
+                      value={formik.values.expected_ctc}
+                      id="expctc"
+                      type="number"
+                      name="expected_ctc"
+                    />
+                  </div>
+
+                  <div className="form-group col-md-4">
+                    <FormLabel
+                      name="Notice Period"
+                      htmlFor="notice_period"
+                    />
+                    <FormControl
+                      onChange={(event: any) => handleOnChangeEvent(event)}
+                      value={formik.values.notice_period}
+                      id="notice_period"
+                      type="text"
+                      name="notice_period"
+                    />
+                  </div>
+
+                  <div className="form-group col-md-4">
+                    <FormLabel
+                      name="Total Work Experience"
+                      htmlFor="workexperience"
+                    />
+                    <FormControl
+                      onChange={(event: any) => handleOnChangeEvent(event)}
+                      value={formik.values.total_work_experience}
+                      id="workexperience"
+                      type="text"
+                      name="total_work_experience"
+                    />
+                  </div>
+
+                  <div className="form-group col-md-4">
+                    <FormLabel name="Gender" htmlFor="gendar" />
+                    <FormControl
+                      onChange={formik.handleChange}
+                      value={formik.values.gender}
+                      id="gendar"
+                      type="text"
+                      name="gender"
+                    />
+                  </div>
+
+                  <div className="form-group col-md-4">
+                    <label htmlFor="inputState">State</label>
+                    <select
+                      className="form-control"
+                      id="inputState"
+                      value={formik.values.state}
+                      name="state"
+                      onChange={handleSelectOnChangeEvent}
+                    >
+                      {statesDataList.map((state) => (
+                        <option key={state.value} value={state.value}>
+                          {state.label}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+
+                  <div className="form-group col-md-4">
+                    <label htmlFor="resume">Add Resume</label>
+                    <input
+                      className="form-control"
+                      type="file"
+                      id="resume"
+                      accept="application/pdf"
+                      onChange={(e) => handleFileChange(e)}
+                    />
+                    {/* <input
+                      type="file"
+                      className="form-control"
+                      id="resume"
+                    /> */}
+                  </div>
                 </div>
-                <div className="modal-body">
-                  <form onSubmit={formik.handleSubmit}>
-                    <div className="form-row">
-                      <div className="form-group col-md-4">
-                        <FormLabel name="First Name" htmlFor="htmlFor" />
-                        <FormControl
-                          onChange={formik.handleChange}
-                          value={formik.values.first_name}
-                          id="first_name"
-                          type="text"
-                          name="first_name"
-                        />
-                      </div>
-                      <div className="form-group col-md-4">
-                        <FormLabel name="Last Name" htmlFor="lastname" />
-                        <FormControl
-                          onChange={formik.handleChange}
-                          value={formik.values.last_name}
-                          id="last_name"
-                          type="text"
-                          name="last_name"
-                        />
-                      </div>
-
-                      <div className="form-group col-md-4">
-                        <FormLabel name="Email" htmlFor="youremail" />
-                        <FormControl
-                          onChange={formik.handleChange}
-                          value={formik.values.email}
-                          id="email"
-                          type="text"
-                          name="email"
-                        />
-                      </div>
-
-                      <div className="form-group col-md-4">
-                        <FormLabel name="Pancard number" htmlFor="pan_number" />
-                        <FormControl
-                          onChange={(event: any) => handleOnChangeEvent(event)}
-                          value={formik.values.pan_number}
-                          id="pan_number"
-                          type="text"
-                          name="pan_number"
-                        />
-                      </div>
-                      <div className="form-group col-md-4">
-                        <FormLabel
-                          name="Mobile number"
-                          htmlFor="mobilenumber"
-                        />
-                        <FormControl
-                          onChange={(event: any) => handleOnChangeEvent(event)}
-                          value={formik.values.mobile_number}
-                          id="mobile_number"
-                          type="number"
-                          name="mobile_number"
-                        />
-                      </div>
-
-                      <div className="form-group col-md-4">
-                        <FormLabel name="Education" htmlFor="education" />
-                        <FormControl
-                          onChange={formik.handleChange}
-                          value={formik.values.education}
-                          id="education"
-                          type="text"
-                          name="education"
-                        />
-                      </div>
-
-                      <div className="form-group col-md-4">
-                        <label htmlFor="ctc">CTC (In Laksh)</label>
-                        <FormLabel name="" htmlFor="ctc" />
-                        <FormControl
-                          onChange={(event: any) => handleOnChangeEvent(event)}
-                          value={formik.values.ctc}
-                          id="ctc"
-                          type="number"
-                          name="ctc"
-                        />
-                      </div>
-
-                      <div className="form-group col-md-4">
-                        <FormLabel name="Expected CTC" htmlFor="expctc" />
-                        <FormControl
-                          onChange={(event: any) => handleOnChangeEvent(event)}
-                          value={formik.values.expected_ctc}
-                          id="expctc"
-                          type="number"
-                          name="expected_ctc"
-                        />
-                      </div>
-
-                      <div className="form-group col-md-4">
-                        <FormLabel
-                          name="Notice Period"
-                          htmlFor="notice_period"
-                        />
-                        <FormControl
-                          onChange={(event: any) => handleOnChangeEvent(event)}
-                          value={formik.values.notice_period}
-                          id="notice_period"
-                          type="text"
-                          name="notice_period"
-                        />
-                      </div>
-
-                      <div className="form-group col-md-4">
-                        <FormLabel
-                          name="Total Work Experience"
-                          htmlFor="workexperience"
-                        />
-                        <FormControl
-                          onChange={(event: any) => handleOnChangeEvent(event)}
-                          value={formik.values.total_work_experience}
-                          id="workexperience"
-                          type="text"
-                          name="total_work_experience"
-                        />
-                      </div>
-
-                      <div className="form-group col-md-4">
-                        <FormLabel name="Gender" htmlFor="gendar" />
-                        <FormControl
-                          onChange={formik.handleChange}
-                          value={formik.values.gender}
-                          id="gendar"
-                          type="text"
-                          name="gender"
-                        />
-                      </div>
-
-                      <div className="form-group col-md-4">
-                        <label htmlFor="inputState">State</label>
-                        <select
-                          className="form-control"
-                          id="inputState"
-                          value={formik.values.state}
-                          name="state"
-                          onChange={handleSelectOnChangeEvent}
-                        >
-                          {statesDataList.map((state) => (
-                            <option key={state.value} value={state.value}>
-                              {state.label}
-                            </option>
-                          ))}
-                        </select>
-                      </div>
-
-                      <div className="form-group col-md-4">
-                        <label htmlFor="resume">Add Resume</label>
-                        <input
-                          type="file"
-                          className="form-control"
-                          id="resume"
-                        />
-                      </div>
-                    </div>
-                  </form>
-                </div>
-                <div className="modal-footer">
-                  <button
-                    type="submit"
-                    className="btn btn-primary"
-                    onClick={handleSubmitEvent}
-                  >
-                    Submit
-                  </button>
-                </div>
-              </div>
+                <button
+                  type="submit"
+                  className="btn btn-primary"
+                >
+                  Submit
+                </button>
+              </form>
             </div>
           </div>
-          <div className="modal-backdrop fade show"></div>
-        </>
-      )}
+        </div>
+      </div>
+      <div className="modal-backdrop fade show"></div>
     </>
   );
 };

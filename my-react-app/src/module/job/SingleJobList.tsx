@@ -1,15 +1,22 @@
-import ApplicationModel from "./ApplicationModel";
+// import ApplicationModel from "./ApplicationModel";
 import { SingleJobProps } from "./type";
 
 const SingleJobList = ({
   id,
   title,
-  showModal,
+  categoryId,
   setShowModal,
   companyName,
   location,
   description,
+  setApplyJobData
 }: SingleJobProps) => {
+
+  const onClickApply = () => {
+    setApplyJobData({job_id: id, category_id: categoryId})
+    setShowModal(true);
+  }
+
   return (
     <div className="single-job-items mb-30">
       <div className="job-items">
@@ -29,10 +36,10 @@ const SingleJobList = ({
       </div>
       <div className="items-link f-right">
         <a href={`/job-details/${id}`}>Explore</a>
-        <button type="button" onClick={() => setShowModal(true)}>
+        <button type="button" onClick={onClickApply}>
           Apply Now
         </button>
-        <ApplicationModel showModal={showModal} setShowModal={setShowModal} />
+        {/* <ApplicationModel showModal={showModal} setShowModal={setShowModal} /> */}
       </div>
     </div>
   );

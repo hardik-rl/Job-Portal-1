@@ -1,3 +1,5 @@
+import React from "react";
+
 export type JobData = {
   annual_salary: number;
   category_id: {
@@ -66,16 +68,23 @@ export type JobDetails = {
 
 
 export type ModalProps = {
-  showModal: boolean;
   setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
+  setApplyJobData: React.Dispatch<React.SetStateAction<{
+    job_id: string;
+    category_id: string;
+  }>>
 }
 
 export type SingleJobProps = {
   id: string;
   title: string;
   location: string;
-  showModal: boolean;
   setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
   companyName: string;
   description: string;
+  categoryId: string;
+  setApplyJobData: React.Dispatch<React.SetStateAction<{
+    job_id: string;
+    category_id: string;
+  }>>
 }
