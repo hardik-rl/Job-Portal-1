@@ -1,11 +1,11 @@
 import { getAllJob } from "../api";
 import { useQuery } from "@tanstack/react-query";
 import JobEdit from "./JobEdit";
-import JobDelete from "../job-list/JobDelete";
+import JobDelete from "./JobDelete";
 
 import { useState } from "react";
 
-const Create = () => {
+const JobList = () => {
   const { data, refetch } = useQuery(["getAllJob"], getAllJob);
   const jobListData = data;
   const [showModal, setShowModal] = useState(false);
@@ -59,7 +59,7 @@ const Create = () => {
                         <td className="d-flex">
                           <button
                             className="ml-2 btn-primary p-2"
-                            onClick={()=> handleEditClick(item._id)}
+                            onClick={() => handleEditClick(item._id)}
                           >
                             Edit
                           </button>
@@ -78,15 +78,24 @@ const Create = () => {
           </div>
         </div>
       </div>
-      <JobEdit selectedItemId={selectedItemId} setShowModal={setShowModal} showModal={showModal} />
-      <JobDelete
-        refetch={refetch}
-        selectedItemId={selectedItemId}
-        setDeleteModal={setDeleteModal}
-        deleteModal={deleteModal}
-      />
+      {showModal && (
+        <JobEdit
+          refetch={refetch}
+          selectedItemId={selectedItemId}
+          setShowModal={setShowModal}
+          showModal={showModal}
+        />
+      )}
+      {deleteModal && (
+        <JobDelete
+          refetch={refetch}
+          selectedItemId={selectedItemId}
+          setDeleteModal={setDeleteModal}
+          deleteModal={deleteModal}
+        />
+      )}
     </>
   );
 };
 
-export default Create;
+export default JobList;

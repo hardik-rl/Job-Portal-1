@@ -1,12 +1,10 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import FormControl from "../../../shared/FormControl";
-import { addJob, categoryCard, getAllCategories } from "../api";
+import { addJob, getAllCategories, getAllLocations } from "../api";
 import { useFormik } from "formik";
 import { toast } from "react-toastify";
 import { JobFormType } from "../types";
-import JobLocation from "./JobLocation";
 import { ChangeEvent } from "react";
-import JobCategories from "./JobCategories";
 import ReactSelect from "react-select";
 
 const CreateNewJob = () => {
@@ -17,7 +15,7 @@ const CreateNewJob = () => {
     },
   });
 
-  const { data: jobCategoryData } = useQuery(["job-category-list"], () =>
+  const { data: jobCategoryData, isLoading: jobCategoryDataIsLoading } = useQuery(["job-category-list"], () =>
     getAllCategories()
   );
 
@@ -27,8 +25,8 @@ const CreateNewJob = () => {
       label: category.name,
     })) || [];
 
-  const { data: jobLocationData } = useQuery(["job-category-list"], () =>
-    getAllCategories()
+  const { data: jobLocationData, isLoading: jobLocationDataIsLoading } = useQuery(["job-location-list"], () =>
+    getAllLocations()
   );
 
   const jobLocationOptions =
@@ -59,18 +57,22 @@ const CreateNewJob = () => {
       },
     });
 
-  const handleCategoryChange = (event:{value: string, name: string}) => {
-    setFieldValue('category_id', Number(event.value));
+  const handleCategoryChange = (event:any) => {
+    setFieldValue('category_id', event.value);
   }
 
-  const handleLocationChange = (event: {value: string, name: string}) => {
-    setFieldValue('location_id', Number(event.value));
+  const handleLocationChange = (event: any) => {
+    setFieldValue('location_id', event.value);
   }
 
   const handleSelectOnChangeEvent = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setFieldValue(name, Number(value));
   };
+
+  if (jobCategoryDataIsLoading || jobLocationDataIsLoading) {
+    return <h1>Loading</h1>
+  }
 
   return (
     <div className="app-wrapper">
@@ -131,14 +133,17 @@ const CreateNewJob = () => {
                 {/* <JobLocation /> */}
                 <ReactSelect
                   options={jobLocationOptions}
-                  value={{value: values.job_location_id, label: "Any - All Jobs"}}
+                  defaultInputValue="Any - All Locations"
+                  // value={{value: values.job_location_id, label: "Any - All Locations"}}
                   onChange={handleLocationChange}
                 />
                 <div className="mt-2">
                   {/* <JobCategories /> */}
                   <ReactSelect
                     options={jobCategoryOptions}
-                    value={{value: values.job_location_id, label: "Any - All Jobs"}}
+                    defaultInputValue="Any - All Jobs"
+                    // inputValue=""
+                    // value={{value: values.job_location_id, label: "Any - All Jobs"}}
                     onChange={handleCategoryChange}
                   />
                 </div>

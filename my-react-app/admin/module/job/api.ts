@@ -54,3 +54,7 @@ export const getAllLocations = async () => {
   return res.data;
 };
 
+export const getSpecificJob = async (id:number|string) => {
+  const res = await api.get(`/get-job/${id}`);
+  return res.data;
+}
