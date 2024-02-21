@@ -15,7 +15,7 @@ const AdminLayout = () => {
   const handleClose = () => {
     setSidebarOpen(false)
   }
-  
+
   return (
     <div className="app">
       <Header handleOnClick={handleOnClick}/>
