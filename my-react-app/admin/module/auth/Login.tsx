@@ -9,10 +9,14 @@ import { login } from "./api";
 import { toast } from "react-toastify";
 import { useState } from "react";
 import Loader from "../../shared/Loader";
+import useStyleLoad from "../../../src/shared/hooks/useStyleLoad";
+import Preloader from "../../../src/components/Preloader";
 
 const Login = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+
+  const { stylesLoaded } = useStyleLoad();
 
   const { mutate: loginFn } = useMutation(
     (data: LoginFormProps) => login(data),
@@ -39,6 +43,10 @@ const Login = () => {
     },
     validationSchema: loginSchema,
   });
+
+  if (!stylesLoaded) {
+    return <Preloader />
+  }
 
   return (
     <div className="app-auth-wrapper">

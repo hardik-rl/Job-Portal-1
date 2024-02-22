@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import "../../assets/css/admin.css";
 
 import logo from "../../assets/img/admin/grp-logo.png";
 

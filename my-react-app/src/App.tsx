@@ -1,7 +1,5 @@
 import { Route, Routes } from "react-router-dom";
-import Preloader from "./components/Preloader";
 import Job from "./module/job/Job";
-
 import JobDetails from "./module/job-details/JobDetails";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ToastContainer } from "react-toastify";
@@ -31,7 +29,6 @@ const queryClient = new QueryClient({
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      {/* <Preloader /> */}
       <Routes>
         <Route path="/" element={<ClientSideLayout />}>
           <Route path="/" element={<Job />} />

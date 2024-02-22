@@ -153,7 +153,6 @@ const CreateNewJob = () => {
                     // value={{value: values.job_location_id, label: "Any - All Jobs"}}
                     onChange={handleCategoryChange}
                     value={categorySelect}
-                    options={jobCategoryOptions}
                     components={{
                       IndicatorSeparator: () => null,
                     }}

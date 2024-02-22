@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { Outlet } from "react-router-dom";
-import Loader from "../../admin/shared/Loader";
+import { useEffect, useState } from 'react'
 
-const ClientSideLayout: React.FC = () => {
+function useStyleLoad() {
+
   const [stylesLoaded, setStylesLoaded] = useState(false);
 
   useEffect(() => {
@@ -14,25 +13,15 @@ const ClientSideLayout: React.FC = () => {
     };
 
     const cssFiles: string[] = [
-      "bootstrap.min.css",
-      "flaticon.css",
-      "price_rangs.css",
-      "slicknav.css",
-      "animate.min.css",
-      "magnific-popup.css",
-      "fontawesome-all.min.css",
-      "themify-icons.css",
-      "slick.css",
-      "style.css",
+      "admin.css",
+      "portal.css",
     ];
 
     const addedStyles: HTMLStyleElement[] = [];
 
     Promise.all(
       cssFiles.map(async (cssFile) => {
-        const module = await import(
-          `../../assets/css/${cssFile}` /* @vite-ignore */
-        );
+        const module = await import(`../../../assets/css/${cssFile}`/* @vite-ignore */);
         const styleElement = addStylesToHead(module.default);
         addedStyles.push(styleElement);
       })
@@ -47,11 +36,7 @@ const ClientSideLayout: React.FC = () => {
     };
   }, []);
 
-  if (!stylesLoaded) {
-    return <Loader />;
-  }
+  return { stylesLoaded }
+}
 
-  return <Outlet />;
-};
-
-export default ClientSideLayout;
+export default useStyleLoad
