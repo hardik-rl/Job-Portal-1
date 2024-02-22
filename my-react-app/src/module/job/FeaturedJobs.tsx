@@ -5,7 +5,7 @@ import ReactPaginate from "react-paginate";
 import { useEffect, useState } from "react";
 import { JobData, ModalProps } from "./type";
 
-const FeaturedJobs = ({ setShowModal, showModal }: ModalProps) => {
+const FeaturedJobs = ({ setShowModal, setApplyJobData }: ModalProps) => {
   const [page, setPage] = useState(1);
 
   const fetchJobs = async (page: number) => {
@@ -14,8 +14,11 @@ const FeaturedJobs = ({ setShowModal, showModal }: ModalProps) => {
   };
 
   const { data: jobsData, isLoading: isLoadingJobsData } = useQuery({
-    queryKey: ["jobData", page],
+    queryKey: ["all-job-data", page],
     queryFn: () => fetchJobs(page),
+    select: (res) => {
+      return res.jobs;
+    }
   });
 
   useEffect(() => {
@@ -38,18 +41,19 @@ const FeaturedJobs = ({ setShowModal, showModal }: ModalProps) => {
         </div>
         <div className="row justify-content-center">
           <div className="col-xl-10">
-            {jobsData?.jobs.length > 0 && !isLoadingJobsData && (
+            {jobsData?.length > 0 && !isLoadingJobsData && (
               <>
-                {jobsData?.jobs.map((data: JobData, index: number) => (
+                {jobsData?.map((job: JobData, index: number) => (
                   <span key={index}>
                     <SingleJobList
                       setShowModal={setShowModal}
-                      showModal={showModal}
-                      id={data?._id}
-                      title={data?.category_id?.name}
-                      description={data?.description}
-                      location={data?.job_location_id?.name}
-                      companyName={data?.company_id?.name}
+                      id={job?._id}
+                      title={job?.category_id?.name}
+                      categoryId={job?.category_id?._id}
+                      description={job?.description}
+                      location={job?.job_location_id?.name}
+                      companyName={job?.company_id?.name}
+                      setApplyJobData={setApplyJobData}
                     />
                   </span>
                 ))}

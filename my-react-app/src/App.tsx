@@ -25,6 +25,7 @@ import withAuthenticationRequired from "./shared/utils/withAuthenticationRequire
 import withoutAuthenticationRequired from "./shared/utils/withoutAuthenticationRequired";
 import NotFound from "./shared/components/NotFound";
 import CreateNewJob from "../admin/module/job/job-list/CreateNewJob";
+import UpdateJob from "../admin/module/job/job-list/UpdateJob";
 import JobCategoryUser from "../admin/module/job/candidates/JobCategoryUser";
 
 const queryClient = new QueryClient({
@@ -52,6 +53,7 @@ function App() {
           <Route path="job-category-user-application/:categoryId" element={<JobCategoryUserApplication />} />
           
           <Route path="create-new-job" element={<CreateNewJob />} />
+          <Route path="update-job/:jobId" element={<UpdateJob />} />
 
           <Route path="job-list" element={<JobList />} />
           <Route path="job-list/view/33" element={<JobListView />} />

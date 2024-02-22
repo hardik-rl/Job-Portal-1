@@ -4,8 +4,10 @@ import JobEdit from "./JobEdit";
 import JobDelete from "./JobDelete";
 
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const JobList = () => {
+  const navigate = useNavigate();
   const { data, refetch } = useQuery(["getAllJob"], getAllJob);
   const jobListData = data;
   const [showModal, setShowModal] = useState(false);
@@ -13,6 +15,7 @@ const JobList = () => {
   const [selectedItemId, setSelectedItemId] = useState("");
 
   const handleEditClick = (id: any) => {
+    navigate(`/admin/update-job/${id}`);
     setShowModal(true);
     setSelectedItemId(id);
   };
@@ -83,7 +86,6 @@ const JobList = () => {
           refetch={refetch}
           selectedItemId={selectedItemId}
           setShowModal={setShowModal}
-          showModal={showModal}
         />
       )}
       {deleteModal && (
@@ -91,7 +93,6 @@ const JobList = () => {
           refetch={refetch}
           selectedItemId={selectedItemId}
           setDeleteModal={setDeleteModal}
-          deleteModal={deleteModal}
         />
       )}
     </>

@@ -1,7 +1,7 @@
 import { ModelProps } from "../../shared/components/type";
 import ApplicationModel from "./ApplicationModel";
 
-const OnlineResume = ({ showModal, setShowModal }: ModelProps) => {
+const OnlineResume = ({ setShowModal }: ModelProps) => {
   return (
     <>
       <div className="online-cv cv-bg section-overly pt-90 pb-120">
@@ -26,7 +26,7 @@ const OnlineResume = ({ showModal, setShowModal }: ModelProps) => {
           </div>
         </div>
       </div>
-      <ApplicationModel showModal={showModal} setShowModal={setShowModal} />
+      {/* <ApplicationModel showModal={showModal} setShowModal={setShowModal} /> */}
     </>
   );
 };

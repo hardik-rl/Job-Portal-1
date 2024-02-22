@@ -34,8 +34,8 @@ export const addJob = async (data:any) => {
   return res;
 };
 
-export const updateJob = async (id:number|string) => {
-  const res = await api.put(`/edit-job/${id}`);
+export const updateJob = async (id:number|string, data:any) => {
+  const res = await api.put(`/edit-job/${id}`, data);
   return res;
 };
 
