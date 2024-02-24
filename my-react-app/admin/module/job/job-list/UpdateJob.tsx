@@ -148,7 +148,7 @@ const UpdateJob = () => {
         <div className="container-xl">
           <div className="row g-3 mb-4 align-items-center justify-content-between">
             <div className="col-auto">
-              <h1 className="app-page-title mb-0">Create New Jobs</h1>
+              <h1 className="app-page-title mb-0">Edit Jobs</h1>
             </div>
           </div>
           <div className="g-4 mb-4">
@@ -289,7 +289,7 @@ const UpdateJob = () => {
                 type="submit"
                 className="btn btn-primary w-auto text-white p-3 m-auto mt-5"
               >
-                Create New Job
+                Update
               </button>
             </form>
           </div>
