@@ -55,16 +55,23 @@ const JobDelete = ({
             </div>
             <div className="modal-body">
               <form>
-                <h4>Are You Sure Want to Delete</h4>
+                <p className="fs-5 text-dark">Are You Sure Want to Delete</p>
               </form>
             </div>
             <div className="modal-footer">
               <button
                 type="submit"
                 onClick={deleteJobOnClick}
-                className="btn-danger px-2 py-1 border-0"
+                className="btn btn-danger text-white"
               >
                 Delete
+              </button>
+              <button
+                type="submit"
+                onClick={()=> setDeleteModal(false)}
+                className="btn btn-secondary"
+              >
+                Cancel
               </button>
             </div>
           </div>

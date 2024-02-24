@@ -55,3 +55,16 @@ button.btn-primary {
   text-decoration: none !important;
   color: #128c54 !important;
 }
+.fade.modal-toggle {
+  display: block;
+  opacity: 1;
+  padding-top: 30px;
+}
+.close {
+  border: 0;
+  background-color: transparent;
+  font-size: 24px;
+}
+.text-dark {
+  color: #252930;
+}

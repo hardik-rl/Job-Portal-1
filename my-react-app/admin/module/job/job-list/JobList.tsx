@@ -62,7 +62,8 @@ const JobList = () => {
                         <td>{item.education_description}</td>
                         <td>{item.nature}</td>
                         <td>{item.vacancy}</td>
-                        <td className="d-flex gap-2">
+                        <td>
+                          <div className="d-flex gap-2">
                           <button
                             className="ml-2 btn-primary text-white p-2"
                             onClick={() => handleEditClick(item._id)}
@@ -75,6 +76,7 @@ const JobList = () => {
                           >
                             Delete
                           </button>
+                          </div>
                         </td>
                       </tr>
                     ))}
