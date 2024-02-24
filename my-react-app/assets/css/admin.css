@@ -1,7 +1,7 @@
 .app-sidepanel {
   z-index: 1040;
 }
-.app-nav .nav-item.active .nav-link{
+.app-nav .nav-item.active .nav-link {
   color: #15a362 !important;
   background: #edfdf6;
   border-left: 3px solid #15a362;
@@ -25,12 +25,12 @@
   left: -120px;
 }
 .app-btn-primary,
-.btn-primary  {
+.btn-primary {
   border: transparent;
   font-weight: 600;
   border-radius: 6px;
   padding: 0.5rem 1rem;
-  font-size: .875rem;
+  font-size: 0.875rem;
 }
 a {
   color: inherit !important;
@@ -67,4 +67,13 @@ button.btn-primary {
 }
 .text-dark {
   color: #252930;
+}
+
+.not-found {
+  margin-left: 250px;
+  height: calc(100vh - 56px);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }

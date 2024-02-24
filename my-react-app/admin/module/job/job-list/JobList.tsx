@@ -35,7 +35,7 @@ const JobList = () => {
               </div>
             </div>
 
-            <div className="g-4 mb-4">
+            <div className="g-4 mb-4 overflow-x-auto">
               <table className="table">
                 <thead>
                   <tr>
