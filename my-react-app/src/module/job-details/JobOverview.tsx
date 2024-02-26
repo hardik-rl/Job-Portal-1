@@ -1,6 +1,10 @@
-import { JobDetails } from "../job/type";
+import { JobData } from "../../../admin/shared/types";
+import moment from "moment";
 
-const JobOverview = ({ jobData }: JobDetails) => {
+type JobOverviewProps = {
+  jobData: JobData;
+};
+const JobOverview = ({ jobData }: JobOverviewProps) => {
   return (
     <div className="post-details3  mb-50">
       <div className="small-section-tittle">
@@ -23,7 +27,8 @@ const JobOverview = ({ jobData }: JobDetails) => {
           Salary : <span>${jobData?.annual_salary} yearly</span>
         </li>
         <li>
-          Application date : <span>12 Sep 2020</span>
+          Application date :{" "}
+          <span>{moment(jobData?.created_at).format("DD MMM YYYY")}</span>
         </li>
       </ul>
       <div className="apply-btn2">

@@ -1,23 +1,66 @@
-import { useState } from "react";
-import Banner from "./Banner";
+import { useEffect, useState } from "react";
 import FeaturedJobs from "./FeaturedJobs";
 import HowItWorks from "./HowItWorks";
 import OnlineResume from "./OnlineResume";
-import ApplicationModel from "./ApplicationModel";
+import axios from "axios";
+import { useQuery } from "@tanstack/react-query";
+import ClientBanner from "./ClientBanner";
+import ApplicationModal from "./ApplicationModal";
 
 const Job = () => {
-  const [showModal, setShowModal] = useState(false);
-  const [applyJobData, setApplyJobData] = useState({job_id:"", category_id: ""});
+  const [applyNowModal, setApplyNowModal] = useState(false);
+  
+  const [applyJobData, setApplyJobData] = useState({
+    job_id: "",
+    category_id: "",
+  });
+
+  const [jobListFilter, setJobListFilter] = useState({
+    searchFilter: "",
+    locationFilter: "",
+    categoryFilter: "",
+  });
+
+  const [page, setPage] = useState(1);
+
+  const fetchJobs = async (page: number) => {
+    const response = await axios.get(
+      `http://localhost:3000/jobs?page=${page}&search=${jobListFilter.searchFilter}&category=${jobListFilter.categoryFilter}&location=${jobListFilter.locationFilter}`
+    );
+    return response.data;
+  };
+
+  const { data: jobsData, isLoading: jobsDataIsLoading, refetch: jobDataRefetch } = useQuery({
+    queryKey: ["all-job-data", page],
+    queryFn: () => fetchJobs(page),
+    
+  });
+
+  useEffect(() => {
+    if(!!jobListFilter.searchFilter || (!!jobListFilter.categoryFilter || !!jobListFilter.locationFilter)) {
+      jobDataRefetch();
+    }
+    return;
+    
+  }, [jobListFilter, jobDataRefetch])
 
   return (
     <>
-      <Banner />
-      <FeaturedJobs setShowModal={setShowModal} setApplyJobData={setApplyJobData}/>
-      <OnlineResume setShowModal={setShowModal} />
+      <ClientBanner setJobListFilter={setJobListFilter} />
+      <FeaturedJobs
+        setApplyNowModal={setApplyNowModal}
+        setApplyJobData={setApplyJobData}
+        jobsData={jobsData}
+        jobsDataIsLoading={jobsDataIsLoading} 
+        setPage={setPage}
+      />
+      <OnlineResume setApplyNowModal={setApplyNowModal} />
       <HowItWorks />
-      {showModal && (
-        <ApplicationModel setShowModal={setShowModal} applyJobData={applyJobData}/>
-
+      {applyNowModal && (
+        <ApplicationModal
+          setApplyNowModal={setApplyNowModal}
+          applyJobData={applyJobData}
+        />
       )}
     </>
   );

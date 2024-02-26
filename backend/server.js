@@ -128,7 +128,6 @@ app.get("/jobs", async (req, res) => {
   const page = parseInt(req.query.page) || 1;
   const perPage = 3;
 
-  
   let filter = {}
   if (search) {
     filter.category_id = await JobCategory.findOne({ name: { $regex: search, $options: 'i' } }).select('_id');
@@ -155,6 +154,7 @@ app.get("/jobs", async (req, res) => {
           docs:'jobs'
         }
       });
+
 
     res.json(jobs);
   } catch (error) {

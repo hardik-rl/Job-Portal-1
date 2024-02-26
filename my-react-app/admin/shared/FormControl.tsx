@@ -5,6 +5,7 @@ interface FormControlProps {
   onChange: React.ChangeEventHandler<HTMLInputElement>;
   value?: string | number;
   placeholder?: string;
+  required?: boolean;
 }
 const FormControl = ({
   id,
@@ -13,6 +14,7 @@ const FormControl = ({
   value,
   name,
   placeholder,
+  required=true
 }: FormControlProps) => {
   return (
     <input
@@ -23,7 +25,7 @@ const FormControl = ({
       onChange={onChange}
       className="form-control"
       id={id}
-      required
+      required={required}
     />
   );
 };

@@ -5,9 +5,9 @@ import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import { useMutation } from "@tanstack/react-query";
 import { loginSchema } from "./validation";
-import { LoginFormProps } from "./types";
 import { login } from "./api";
 import { toast } from "react-toastify";
+import { LoginFormProps } from "../../shared/types";
 
 const Login = () => {
   const navigate = useNavigate();

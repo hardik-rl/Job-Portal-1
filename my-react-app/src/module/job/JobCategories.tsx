@@ -3,11 +3,11 @@ import ReactSelect from "react-select";
 
 const JobCategories = () => {
   const customStyles = {
-    indicatorContainer:(base: any) =>({
+    indicatorContainer: (base: any) => ({
       ...base,
-      color: 'red',
+      color: "red",
       marginRight: 19,
-   }),
+    }),
     control: (base: any) => ({
       ...base,
       height: 70,
@@ -15,12 +15,11 @@ const JobCategories = () => {
       border: 0,
       minWidth: 200,
       borderRadius: 0,
-      '&:hover' : {
-        boxShadow: 'none',
-        borderColor: '#fff',
+      "&:hover": {
+        boxShadow: "none",
+        borderColor: "#fff",
       },
     }),
-
   };
   const options = [
     { value: "all", label: "Any - All Locations" },
@@ -32,9 +31,16 @@ const JobCategories = () => {
     { value: "indore", label: "Indore" },
     { value: "dahej", label: "Dahej" },
   ];
-  return <ReactSelect placeholder="Select Categories" styles={customStyles} options={options} components={{
-    IndicatorSeparator: () => null
-  }}/>;
+  return (
+    <ReactSelect
+      placeholder="Select Categories"
+      styles={customStyles}
+      options={options}
+      components={{
+        IndicatorSeparator: () => null,
+      }}
+    />
+  );
 };
 
 export default JobCategories;

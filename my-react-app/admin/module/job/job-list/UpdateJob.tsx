@@ -4,10 +4,10 @@ import FormControl from "../../../shared/FormControl";
 import { getAllCategories, getAllLocations, getSpecificJob, updateJob } from "../api";
 import { useFormik } from "formik";
 import { toast } from "react-toastify";
-import { JobFormType } from "../types";
 import { ChangeEvent, useEffect, useState } from "react";
 import ReactSelect from "react-select";
 import { AxiosError } from "axios";
+import { JobFormType } from "../../../shared/types";
 
 const UpdateJob = () => {
   const { jobId } = useParams();
@@ -72,20 +72,15 @@ const UpdateJob = () => {
       onSubmit: async (values: JobFormType) => {
         values["category_id"] = categorySelect.value;
         values["job_location_id"] = locationSelect.value;
-        updateJobFn(values);
+        updateJobFn(values as any);
       },
     });
 
-  console.log(locationSelect);
-  console.log(categorySelect);
-
   const handleCategoryChange = (event:any) => {
-    console.log(event);
     setCategorySelect(event);
   }
 
   const handleLocationChange = (event: any) => {
-    console.log(event);
     setLocationSelect(event);
   }
 
@@ -111,9 +106,7 @@ const UpdateJob = () => {
       setFieldValue('company_email', jobData.company_email);
 
       const categoryLabel = jobCategoryData.find((category:any) => category._id === jobData.category_id);
-      console.log({categoryLabel})
       const locationLabel = jobLocationData.find((location:any) => location._id === jobData.job_location_id);
-      console.log({locationLabel})
 
       setCategorySelect({value:jobData.category_id, label:categoryLabel.name})
       setLocationSelect({value:jobData.job_location_id, label:locationLabel.name})

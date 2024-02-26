@@ -1,5 +1,10 @@
+import { JobData } from "../../../admin/shared/types";
 
-const JobPostDetails = ({ jobData }: any) => {
+type JobPostDetailsProps = {
+  jobData: JobData;
+}
+
+const JobPostDetails = ({ jobData }: JobPostDetailsProps) => {
   return (
     <div className="post-details4  mb-50">
       <div className="small-section-tittle">

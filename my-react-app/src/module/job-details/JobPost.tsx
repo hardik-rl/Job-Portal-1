@@ -1,8 +1,12 @@
-import { JobDetails } from "../job/type";
+import { JobData } from "../../../admin/shared/types";
 import JobOverview from "./JobOverview";
 import JobPostDetails from "./JobPostDetails";
 
-const JobPost = ({ jobData }: JobDetails) => {
+type JobPostProps = {
+  jobData: JobData
+  
+}
+const JobPost = ({ jobData }: JobPostProps) => {
   return (
     <div className="job-post-company pt-120 pb-120">
       <div className="container">

@@ -1,7 +1,7 @@
 import { Link, useParams } from "react-router-dom";
 import { categoryList } from "../api";
 import { useQuery } from "@tanstack/react-query";
-import { JobApplicationType } from "../types";
+import { categoryDataType } from "../../../shared/types";
 
 const JobCategoryUser = () => {
   const { categoryId } = useParams();
@@ -42,7 +42,7 @@ const JobCategoryUser = () => {
               </thead>
               <tbody>
                 {categoryData &&
-                  categoryData.map((category: JobApplicationType, index: number) => (
+                  categoryData.map((category: categoryDataType, index: number) => (
                     <tr key={index}>
                       <td>{category.first_name}</td>
                       <td>

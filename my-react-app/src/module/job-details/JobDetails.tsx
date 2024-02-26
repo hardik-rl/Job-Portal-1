@@ -9,7 +9,6 @@ const JobDetails = () => {
   const { id } = useParams();
 
   const fetchJob = async (id: string | undefined) => {
-
     const response = await axios.get(`http://localhost:3000/job/${id}`);
     return response.data;
   };

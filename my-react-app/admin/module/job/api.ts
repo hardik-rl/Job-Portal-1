@@ -1,6 +1,6 @@
 import api from "../../shared/api";
+import { JobDataItem } from "../../shared/types";
 
-import { JobDataItem } from "./types";
 
 export const categoryCard = async (category: string): Promise<JobDataItem[]> => {
   const response = await api.get(`/get-categories?filter=${category}`);
@@ -34,7 +34,7 @@ export const addJob = async (data:any) => {
   return res;
 };
 
-export const updateJob = async (id:number|string, data:any) => {
+export const updateJob = async (id:number|string|undefined, data:any) => {
   const res = await api.put(`/edit-job/${id}`, data);
   return res;
 };
@@ -54,7 +54,7 @@ export const getAllLocations = async () => {
   return res.data;
 };
 
-export const getSpecificJob = async (id:number|string) => {
+export const getSpecificJob = async (id:number|string|undefined) => {
   const res = await api.get(`/get-job/${id}`);
   return res.data;
 }
