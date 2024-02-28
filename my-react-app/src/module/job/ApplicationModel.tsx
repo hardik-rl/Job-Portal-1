@@ -23,7 +23,7 @@ const ApplicationModal = ({setShowModal, applyJobData }: any) => {
   const { mutate: applyJobMutate, isLoading: applyJobIsLoading } = useMutation({
     mutationFn: (data) => addJobApplication(data),
     onSuccess: () => {
-      setShowModal(false);  
+      setShowModal(false);
       toast.success("Application added successfully");
     },
   });
@@ -60,7 +60,7 @@ const ApplicationModal = ({setShowModal, applyJobData }: any) => {
         toast.error("Please upload consent form");
         return;
       }
-      
+
       applyJobMutate(formData);
     },
   });
@@ -87,7 +87,7 @@ const ApplicationModal = ({setShowModal, applyJobData }: any) => {
 
   const handleFileChange = async (e:any) => {
     e.preventDefault();
-  
+
     const fileObj = e.target.files && e.target.files[0];
     if (!fileObj) {
       return;

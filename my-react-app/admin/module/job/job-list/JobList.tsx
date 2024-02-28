@@ -35,7 +35,7 @@ const JobList = () => {
               </div>
             </div>
 
-            <div className="g-4 mb-4">
+            <div className="g-4 mb-4 overflow-x-auto">
               <table className="table">
                 <thead>
                   <tr>
@@ -44,8 +44,11 @@ const JobList = () => {
                     <th scope="col">Company Description</th>
                     <th scope="col">Education Description</th>
                     <th scope="col">Job Nature</th>
-                    <th scope="col" colSpan={2}>
+                    <th scope="col">
                       Vacancy
+                    </th>
+                    <th scope="col">
+                  Action
                     </th>
                   </tr>
                 </thead>
@@ -59,19 +62,21 @@ const JobList = () => {
                         <td>{item.education_description}</td>
                         <td>{item.nature}</td>
                         <td>{item.vacancy}</td>
-                        <td className="d-flex">
+                        <td>
+                          <div className="d-flex gap-2">
                           <button
-                            className="ml-2 btn-primary p-2"
+                            className="ml-2 btn-primary text-white p-2"
                             onClick={() => handleEditClick(item._id)}
                           >
                             Edit
                           </button>
                           <button
-                            className="ml-2 btn-danger p-2"
+                            className="ml-2 btn btn-danger p-2 text-white"
                             onClick={() => handleDeleteClick(item._id)}
                           >
                             Delete
                           </button>
+                          </div>
                         </td>
                       </tr>
                     ))}
