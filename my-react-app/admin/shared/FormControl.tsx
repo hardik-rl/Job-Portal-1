@@ -1,3 +1,5 @@
+import clsx from "clsx";
+
 interface FormControlProps {
   id: string;
   type: string;
@@ -5,6 +7,7 @@ interface FormControlProps {
   onChange: React.ChangeEventHandler<HTMLInputElement>;
   value?: string | number;
   placeholder?: string;
+  className?: string;
 }
 const FormControl = ({
   id,
@@ -13,6 +16,7 @@ const FormControl = ({
   value,
   name,
   placeholder,
+  className,
 }: FormControlProps) => {
   return (
     <input
@@ -21,7 +25,7 @@ const FormControl = ({
       name={name}
       value={value}
       onChange={onChange}
-      className="form-control"
+      className={clsx(className, `form-control`)}
       id={id}
       required
     />

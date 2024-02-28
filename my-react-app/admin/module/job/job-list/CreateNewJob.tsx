@@ -6,6 +6,8 @@ import { toast } from "react-toastify";
 import { JobFormType } from "../types";
 import { ChangeEvent, useState } from "react";
 import ReactSelect from "react-select";
+import { createJobSchema } from "../validation";
+import FormError from "../../../shared/FormError";
 
 const CreateNewJob = () => {
   const [categorySelect, setCategorySelect] = useState({value: "", label: "Any - All Categories"});
@@ -38,7 +40,7 @@ const CreateNewJob = () => {
       label: location.name,
     })) || [];
 
-  const { handleSubmit, values, handleChange, setFieldValue, resetForm } =
+  const { handleSubmit, values, errors, handleChange, setFieldValue, resetForm } =
     useFormik({
       initialValues: {
         title: "",
@@ -54,6 +56,7 @@ const CreateNewJob = () => {
         company_website: "",
         company_email: "",
       },
+      validationSchema: createJobSchema,
       onSubmit: async (values: JobFormType) => {
         values["category_id"] = categorySelect.value;
         values["job_location_id"] = locationSelect.value;
@@ -79,6 +82,9 @@ const CreateNewJob = () => {
     return <h1>Loading</h1>
   }
 
+  console.log(errors, "errors");
+
+
   return (
     <div className="app-wrapper">
       <div className="app-content pt-3 p-md-3 p-lg-4">
@@ -98,7 +104,9 @@ const CreateNewJob = () => {
                   value={values.title}
                   name="title"
                   placeholder="Enter Job Title"
+                  className={errors.title ? "is-error" : ""}
                 />
+                <FormError error={errors.title} />
               </div>
 
               <div className="col-md-6 mb-3">
@@ -110,6 +118,7 @@ const CreateNewJob = () => {
                   value={values.description}
                   placeholder="Enter Job Description"
                 ></textarea>
+                <FormError error={errors.description} />
               </div>
 
               <div className="col-md-6 mb-3">
@@ -121,6 +130,7 @@ const CreateNewJob = () => {
                   onChange={handleChange}
                   placeholder="Enter Required Knowledge, Skills, and Abilities"
                 ></textarea>
+                <FormError error={errors.knowledge_description} />
               </div>
 
               <div className="col-md-6 mb-3">
@@ -132,6 +142,7 @@ const CreateNewJob = () => {
                   onChange={handleChange}
                   placeholder="Enter Education + Experience"
                 ></textarea>
+                <FormError error={errors.education_description} />
               </div>
 
               <div className="col-md-6 mb-3">
@@ -144,6 +155,7 @@ const CreateNewJob = () => {
                     IndicatorSeparator: () => null,
                   }}
                 />
+                {/* <FormError error={errors.education_description} /> */}
                 <div className="mt-2">
                   <ReactSelect
                     name="job-categories"
@@ -157,6 +169,7 @@ const CreateNewJob = () => {
                       IndicatorSeparator: () => null,
                     }}
                   />
+                  {/* <FormError error={errors.education_description} /> */}
                 </div>
               </div>
 
@@ -169,6 +182,7 @@ const CreateNewJob = () => {
                   type="text"
                   placeholder="Enter Total Number of Vacancy"
                 />
+                <FormError error={errors.vacancy} />
               </div>
 
               <div className="col-md-6 mb-3">
@@ -180,6 +194,7 @@ const CreateNewJob = () => {
                   onChange={handleChange}
                   placeholder="Enter Job nature (Full-Time/Part-Time)"
                 />
+                <FormError error={errors.nature} />
               </div>
 
               <div className="col-md-6 mb-3">
@@ -191,6 +206,7 @@ const CreateNewJob = () => {
                   onChange={handleChange}
                   placeholder="Enter Company Name"
                 />
+                <FormError error={errors.company_name} />
               </div>
               <div className="col-md-6 mb-3">
                 <textarea
@@ -201,6 +217,7 @@ const CreateNewJob = () => {
                   onChange={handleChange}
                   placeholder="Enter Company Job Description"
                 ></textarea>
+                 <FormError error={errors.company_description} />
               </div>
 
               <div className="col-md-6 mb-3">
@@ -212,6 +229,7 @@ const CreateNewJob = () => {
                   onChange={handleChange}
                   placeholder="Enter Company Website URL"
                 />
+                <FormError error={errors.company_website} />
               </div>
 
               <div className="col-md-6 mb-3">
@@ -223,6 +241,7 @@ const CreateNewJob = () => {
                   onChange={handleChange}
                   placeholder="Enter Company Email"
                 />
+                <FormError error={errors.company_email} />
               </div>
 
               <button
