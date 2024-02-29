@@ -1,6 +1,5 @@
 import logo from "../../../assets/img/admin/grp-logo.png";
 import FormControl from "../../shared/FormControl";
-import Footer from "../../shared/Footer";
 import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import { useMutation } from "@tanstack/react-query";
@@ -8,36 +7,49 @@ import { loginSchema } from "./validation";
 import { login } from "./api";
 import { toast } from "react-toastify";
 import { LoginFormProps } from "../../shared/types";
+import { useState } from "react";
+import Loader from "../../shared/Loader";
+import useStyleLoad from "../../../src/shared/hooks/useStyleLoad";
+import Preloader from "../../../src/components/Preloader";
 
 const Login = () => {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+
+  const { stylesLoaded } = useStyleLoad();
 
   const { mutate: loginFn } = useMutation(
     (data: LoginFormProps) => login(data),
     {
       onSuccess: () => {
         toast.success("Login Successfully");
-        navigate("/admin/job-category-list")
+        navigate("/admin/job-category-list");
       },
       onError: () => {
         toast.error("Admin is Not Valid");
+        setLoading(false);
       },
     }
   );
 
-  const { handleSubmit, values, handleChange} = useFormik({
+  const { handleSubmit, values, handleChange } = useFormik({
     initialValues: {
       email: "",
       password: "",
     },
     onSubmit: (values: LoginFormProps) => {
+      setLoading(true);
       loginFn(values);
     },
     validationSchema: loginSchema,
   });
 
+  if (!stylesLoaded) {
+    return <Preloader />
+  }
+
   return (
-    <div className="row g-0 app-auth-wrapper">
+    <div className="app-auth-wrapper">
       <div className="col-12 auth-main-col text-center p-5">
         <div className="d-flex flex-column align-content-end">
           <div className="app-auth-body mx-auto">
@@ -46,12 +58,11 @@ const Login = () => {
                 <img className="logo-icon me-2" src={logo} alt="logo" />
               </Link>
             </div>
-            <h2 className="auth-heading text-center mb-5">Admin Login to Job Portal</h2>
+            <h2 className="auth-heading text-center mb-5">
+              Admin Login to Job Portal
+            </h2>
             <div className="auth-form-container text-start">
-              <form
-                className="auth-form login-form"
-                onSubmit={handleSubmit}
-              >
+              <form className="auth-form login-form" onSubmit={handleSubmit}>
                 <div className="email mb-3">
                   <FormControl
                     onChange={handleChange}
@@ -71,7 +82,7 @@ const Login = () => {
                     name="password"
                     placeholder="Password"
                   />
-                  {/* <div className="extra mt-3 row justify-content-between">
+                  <div className="extra mt-3 row justify-content-between">
                     <div className="col-6">
                       <div className="form-check">
                         <input
@@ -93,20 +104,19 @@ const Login = () => {
                         <Link to="#0">Forgot password?</Link>
                       </div>
                     </div>
-                  </div> */}
+                  </div>
                 </div>
                 <div className="text-center">
                   <button
                     type="submit"
-                    className="btn app-btn-primary w-100 theme-btn mx-auto"
+                    className="app-btn-primary w-100 theme-btn mx-auto"
                   >
-                    Log In
+                    {loading ? <Loader /> : "Log In"}
                   </button>
                 </div>
               </form>
             </div>
           </div>
-          <Footer />
         </div>
       </div>
     </div>

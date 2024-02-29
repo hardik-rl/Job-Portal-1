@@ -1,3 +1,5 @@
+import clsx from "clsx";
+
 interface FormControlProps {
   id: string;
   type: string;
@@ -6,6 +8,7 @@ interface FormControlProps {
   value?: string | number;
   placeholder?: string;
   required?: boolean;
+  className?: string;
 }
 const FormControl = ({
   id,
@@ -14,7 +17,8 @@ const FormControl = ({
   value,
   name,
   placeholder,
-  required=true
+  required=true,
+  className,
 }: FormControlProps) => {
   return (
     <input
@@ -23,7 +27,7 @@ const FormControl = ({
       name={name}
       value={value}
       onChange={onChange}
-      className="form-control"
+      className={clsx(className, `form-control`)}
       id={id}
       required={required}
     />

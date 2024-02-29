@@ -1,7 +1,12 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useNavigate, useParams } from "react-router-dom";
 import FormControl from "../../../shared/FormControl";
-import { getAllCategories, getAllLocations, getSpecificJob, updateJob } from "../api";
+import {
+  getAllCategories,
+  getAllLocations,
+  getSpecificJob,
+  updateJob,
+} from "../api";
 import { useFormik } from "formik";
 import { toast } from "react-toastify";
 import { ChangeEvent, useEffect, useState } from "react";
@@ -12,30 +17,38 @@ import { JobFormType } from "../../../shared/types";
 const UpdateJob = () => {
   const { jobId } = useParams();
   const navigate = useNavigate();
-  const [categorySelect, setCategorySelect] = useState({value: "", label: "Any - All Categories"});
-  const [locationSelect, setLocationSelect] = useState({value: "", label: "Any - All Locations"});
+  const [categorySelect, setCategorySelect] = useState({
+    value: "",
+    label: "Any - All Categories",
+  });
+  const [locationSelect, setLocationSelect] = useState({
+    value: "",
+    label: "Any - All Locations",
+  });
 
   const { data: jobData, isLoading: jobDataIsLoading } = useQuery({
     queryKey: ["get-specific-job"],
     queryFn: () => getSpecificJob(jobId),
   });
 
-  const { mutate: updateJobFn } = useMutation((data) => updateJob(jobId, data), {
-    onSuccess: () => {
-      navigate('/admin/job-list')
-      toast.success("Job Edited Successfully.");
-      // refetch();
-    },
-    onError: (error: AxiosError<{ message: string }>) => {
-      toast(error.response?.data.message, {
-        type: "error",
-      });
-    },
-  });
-
-  const { data: jobCategoryData, isLoading: jobCategoryDataIsLoading } = useQuery(["job-category-list"], () =>
-    getAllCategories()
+  const { mutate: updateJobFn } = useMutation(
+    (data) => updateJob(jobId, data),
+    {
+      onSuccess: () => {
+        navigate("/admin/job-list");
+        toast.success("Job Edited Successfully.");
+        // refetch();
+      },
+      onError: (error: AxiosError<{ message: string }>) => {
+        toast(error.response?.data.message, {
+          type: "error",
+        });
+      },
+    }
   );
+
+  const { data: jobCategoryData, isLoading: jobCategoryDataIsLoading } =
+    useQuery(["job-category-list"], () => getAllCategories());
 
   const jobCategoryOptions =
     jobCategoryData?.map((category: any) => ({
@@ -43,9 +56,8 @@ const UpdateJob = () => {
       label: category.name,
     })) || [];
 
-  const { data: jobLocationData, isLoading: jobLocationDataIsLoading } = useQuery(["job-location-list"], () =>
-    getAllLocations()
-  );
+  const { data: jobLocationData, isLoading: jobLocationDataIsLoading } =
+    useQuery(["job-location-list"], () => getAllLocations());
 
   const jobLocationOptions =
     jobLocationData?.map((location: any) => ({
@@ -53,36 +65,35 @@ const UpdateJob = () => {
       label: location.name,
     })) || [];
 
-  const { handleSubmit, values, handleChange, setFieldValue } =
-    useFormik({
-      initialValues: {
-        title: jobData?.title,
-        description: jobData?.description,
-        education_description: jobData?.education_description,
-        knowledge_description: jobData?.knowledge_description,
-        job_location_id: jobData?.job_location_id,
-        category_id: jobData?.category_id,
-        vacancy: jobData?.vacancy,
-        nature: jobData?.nature,
-        company_name: jobData?.company_name,
-        company_description: jobData?.company_description,
-        company_website: jobData?.company_website,
-        company_email: jobData?.company_email,
-      },
-      onSubmit: async (values: JobFormType) => {
-        values["category_id"] = categorySelect.value;
-        values["job_location_id"] = locationSelect.value;
-        updateJobFn(values as any);
-      },
-    });
+  const { handleSubmit, values, handleChange, setFieldValue } = useFormik({
+    initialValues: {
+      title: jobData?.title,
+      description: jobData?.description,
+      education_description: jobData?.education_description,
+      knowledge_description: jobData?.knowledge_description,
+      job_location_id: jobData?.job_location_id,
+      category_id: jobData?.category_id,
+      vacancy: jobData?.vacancy,
+      nature: jobData?.nature,
+      company_name: jobData?.company_name,
+      company_description: jobData?.company_description,
+      company_website: jobData?.company_website,
+      company_email: jobData?.company_email,
+    },
+    onSubmit: async (values: JobFormType) => {
+      values["category_id"] = categorySelect.value;
+      values["job_location_id"] = locationSelect.value;
+      updateJobFn(values);
+    },
+  });
 
-  const handleCategoryChange = (event:any) => {
+  const handleCategoryChange = (event: any) => {
     setCategorySelect(event);
-  }
+  };
 
   const handleLocationChange = (event: any) => {
     setLocationSelect(event);
-  }
+  };
 
   const handleSelectOnChangeEvent = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -92,29 +103,43 @@ const UpdateJob = () => {
   useEffect(() => {
     if (jobData) {
       // Update form values with data fetched from the API
-      setFieldValue('title', jobData.title);
-      setFieldValue('description', jobData.description);
-      setFieldValue('education_description', jobData.education_description);
-      setFieldValue('knowledge_description', jobData.knowledge_description);
-      setFieldValue('job_location_id', jobData.job_location_id);
-      setFieldValue('category_id', jobData.category_id);
-      setFieldValue('vacancy', jobData.vacancy);
-      setFieldValue('nature', jobData.nature);
-      setFieldValue('company_name', jobData.company_name);
-      setFieldValue('company_description', jobData.company_description);
-      setFieldValue('company_website', jobData.company_website);
-      setFieldValue('company_email', jobData.company_email);
+      setFieldValue("title", jobData.title);
+      setFieldValue("description", jobData.description);
+      setFieldValue("education_description", jobData.education_description);
+      setFieldValue("knowledge_description", jobData.knowledge_description);
+      setFieldValue("job_location_id", jobData.job_location_id);
+      setFieldValue("category_id", jobData.category_id);
+      setFieldValue("vacancy", jobData.vacancy);
+      setFieldValue("nature", jobData.nature);
+      setFieldValue("company_name", jobData.company_name);
+      setFieldValue("company_description", jobData.company_description);
+      setFieldValue("company_website", jobData.company_website);
+      setFieldValue("company_email", jobData.company_email);
 
-      const categoryLabel = jobCategoryData.find((category:any) => category._id === jobData.category_id);
-      const locationLabel = jobLocationData.find((location:any) => location._id === jobData.job_location_id);
+      const categoryLabel = jobCategoryData?.find(
+        (category: any) => category._id === jobData.category_id
+      );
+      const locationLabel = jobLocationData?.find(
+        (location: any) => location._id === jobData.job_location_id
+      );
 
-      setCategorySelect({value:jobData.category_id, label:categoryLabel.name})
-      setLocationSelect({value:jobData.job_location_id, label:locationLabel.name})
+      setCategorySelect({
+        value: jobData.category_id,
+        label: categoryLabel?.name,
+      });
+      setLocationSelect({
+        value: jobData.job_location_id,
+        label: locationLabel?.name,
+      });
     }
   }, [jobData, jobCategoryData, setFieldValue, jobLocationData]);
 
-  if (jobCategoryDataIsLoading || jobLocationDataIsLoading || jobDataIsLoading) {
-    return <h1>Loading</h1>
+  if (
+    jobCategoryDataIsLoading ||
+    jobLocationDataIsLoading ||
+    jobDataIsLoading
+  ) {
+    return <h1>Loading</h1>;
   }
 
   return (
@@ -123,7 +148,7 @@ const UpdateJob = () => {
         <div className="container-xl">
           <div className="row g-3 mb-4 align-items-center justify-content-between">
             <div className="col-auto">
-              <h1 className="app-page-title mb-0">Create New Jobs</h1>
+              <h1 className="app-page-title mb-0">Edit Jobs</h1>
             </div>
           </div>
           <div className="g-4 mb-4">
@@ -264,7 +289,7 @@ const UpdateJob = () => {
                 type="submit"
                 className="btn btn-primary w-auto text-white p-3 m-auto mt-5"
               >
-                Create New Job
+                Update
               </button>
             </form>
           </div>

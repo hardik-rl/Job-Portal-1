@@ -59,7 +59,7 @@ const ApplicationModal = ({setApplyNowModal, applyJobData }: any) => {
         toast.error("Please upload consent form");
         return;
       }
-      
+
       applyJobMutate(formData);
     },
   });
@@ -75,7 +75,7 @@ const ApplicationModal = ({setApplyNowModal, applyJobData }: any) => {
 
   const handleFileChange = async (e:any) => {
     e.preventDefault();
-  
+
     const fileObj = e.target.files && e.target.files[0];
     if (!fileObj) {
       return;

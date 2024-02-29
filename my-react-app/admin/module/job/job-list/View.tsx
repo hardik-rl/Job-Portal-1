@@ -22,7 +22,7 @@ const View = () => {
     <div className="app-wrapper">
       <div className="app-content pt-3 p-md-3 p-lg-4">
         <div className="container-xl">
-          <nav aria-label="breadcrumb bg-white mb-5">
+          <nav aria-label="breadcrumb mb-5">
             <ol className="breadcrumb">
               <li className="breadcrumb-item">
                 <button

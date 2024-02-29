@@ -6386,7 +6386,7 @@ form.search-box .find-job-btn  {
 .fade.modal-toggle {
   display: block;
   opacity: 1;
-  padding-top: 170px;
+  padding-top: 30px;
 }
 .featured-job-area .page-link {
   border: 1px solid #08578e;
@@ -6441,7 +6441,7 @@ form.search-box .find-job-btn  {
   margin-left: -1px;
   line-height: 1.25;
   background-color: #fff;
-  border: 1px solid #dee2e6;
+  /* border: 1px solid #dee2e6; */
   cursor: pointer;
 }
 .custom-pagination .previous a {
@@ -6459,4 +6459,8 @@ form.search-box .find-job-btn  {
   color: white;
   background-color: #08578e;
 
+}
+
+.apply-btn2:hover a {
+  color: #fff;
 }

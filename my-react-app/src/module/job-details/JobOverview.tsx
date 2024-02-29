@@ -12,9 +12,6 @@ const JobOverview = ({ jobData }: JobOverviewProps) => {
       </div>
       <ul>
         <li>
-          Posted date : <span>12 Aug 2019</span>
-        </li>
-        <li>
           Location : <span>{jobData?.job_location_id?.name}</span>
         </li>
         <li>
