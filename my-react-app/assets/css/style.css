@@ -4974,7 +4974,7 @@ form.search-box .search-form {
     width: 100%;
   }
 }
-form.search-box .search-form a {
+form.search-box .find-job-btn  {
   width: 100%;
   height: 70px;
   background: #08578e;

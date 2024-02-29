@@ -7,8 +7,6 @@ export const createJobSchema = Yup.object().shape({
   description: Yup.string().required("Please provide a description for the job posting."),
   education_description: Yup.string(),
   knowledge_description: Yup.string(),
-  job_location_id: Yup.string().required("Please select a job location."),
-  category_id: Yup.string().required("Please select a category for the job."),
   vacancy: Yup.number().min(0, "Vacancy should be a non-negative number."),
   nature: Yup.string(),
   company_name: Yup.string().required("Please provide the name of the company."),

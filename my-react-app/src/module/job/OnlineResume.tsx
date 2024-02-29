@@ -1,7 +1,8 @@
-import { ModelProps } from "../../shared/components/type";
-import ApplicationModel from "./ApplicationModel";
+type OnlineResumeProps = {
+  setApplyNowModal: React.Dispatch<React.SetStateAction<boolean>>;
+};
 
-const OnlineResume = ({ setShowModal }: ModelProps) => {
+const OnlineResume = ({ setApplyNowModal }: OnlineResumeProps) => {
   return (
     <>
       <div className="online-cv cv-bg section-overly pt-90 pb-120">
@@ -16,7 +17,7 @@ const OnlineResume = ({ setShowModal }: ModelProps) => {
                   resume here
                 </p>
                 <button
-                  onClick={() => setShowModal(true)}
+                  onClick={() => setApplyNowModal(true)}
                   className="border-btn2 border-btn4"
                 >
                   Upload your cv
@@ -26,7 +27,6 @@ const OnlineResume = ({ setShowModal }: ModelProps) => {
           </div>
         </div>
       </div>
-      {/* <ApplicationModel showModal={showModal} setShowModal={setShowModal} /> */}
     </>
   );
 };

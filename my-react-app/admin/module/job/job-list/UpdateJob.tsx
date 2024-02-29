@@ -9,10 +9,10 @@ import {
 } from "../api";
 import { useFormik } from "formik";
 import { toast } from "react-toastify";
-import { JobFormType } from "../types";
 import { ChangeEvent, useEffect, useState } from "react";
 import ReactSelect from "react-select";
 import { AxiosError } from "axios";
+import { JobFormType } from "../../../shared/types";
 
 const UpdateJob = () => {
   const { jobId } = useParams();

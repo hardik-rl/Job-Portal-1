@@ -1,19 +1,31 @@
-import { SingleJobProps } from "./type";
+type SingleJobProps = {
+  id: string;
+  title: string;
+  location: string;
+  setApplyNowModal: React.Dispatch<React.SetStateAction<boolean>>;
+  companyName: string;
+  description: string;
+  categoryId: string;
+  setApplyJobData: React.Dispatch<React.SetStateAction<{
+    job_id: string;
+    category_id: string;
+  }>>
+}
 
 const SingleJobList = ({
   id,
   title,
   categoryId,
-  setShowModal,
+  setApplyNowModal,
   companyName,
   location,
   description,
   setApplyJobData,
 }: SingleJobProps) => {
   const onClickApply = () => {
-    setApplyJobData({ job_id: id, category_id: categoryId });
-    setShowModal(true);
-  };
+    setApplyJobData({job_id: id, category_id: categoryId})
+    setApplyNowModal(true);
+  }
 
   return (
     <>

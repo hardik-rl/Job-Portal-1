@@ -7,12 +7,11 @@ import { toast } from "react-toastify";
 import { useFormik } from "formik";
 import { useState } from "react";
 
-const ApplicationModal = ({setShowModal, applyJobData }: any) => {
+const ApplicationModal = ({setApplyNowModal, applyJobData }: any) => {
   const [file, setFile] = useState<any>(null);
-  const [fileName, setFileName] = useState<any>(null);
 
   const handleCloseModal = () => {
-    setShowModal(false);
+    setApplyNowModal(false);
   };
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -23,12 +22,12 @@ const ApplicationModal = ({setShowModal, applyJobData }: any) => {
   const { mutate: applyJobMutate, isLoading: applyJobIsLoading } = useMutation({
     mutationFn: (data) => addJobApplication(data),
     onSuccess: () => {
-      setShowModal(false);
+      setApplyNowModal(false);  
       toast.success("Application added successfully");
     },
   });
 
-  const formik = useFormik({
+  const {handleSubmit, setFieldValue, values, handleChange} = useFormik({
     initialValues: {
       job_id: "",
       category_id: "",
@@ -56,7 +55,7 @@ const ApplicationModal = ({setShowModal, applyJobData }: any) => {
       formData.append('resume_file', file);
       formData.append('job_id', applyJobData.job_id);
       formData.append('category_id', applyJobData.category_id);
-      if (!fileName) {
+      if (!file.name) {
         toast.error("Please upload consent form");
         return;
       }
@@ -66,23 +65,12 @@ const ApplicationModal = ({setShowModal, applyJobData }: any) => {
   });
 
   const handleOnChangeEvent = (event: any) => {
-    formik.setFieldValue(event?.target.name, Number(event.target.value));
+    setFieldValue(event?.target.name, Number(event.target.value));
   };
 
-  const handleSelectOnChangeEvent = (event: any) => {
+  const onStateChange = (event: any) => {
     const { name, value } = event.target;
-    formik.setFieldValue(name, value);
-  };
-
-  // const handleSubmitEvent = () => {
-  //   applyJobMutate(formik.values);
-  //   formik.resetForm();
-  //   handleCloseModal();
-  // };
-
-  const resetFileAndFileName = () => {
-    setFile(null);
-    setFileName(null);
+    setFieldValue(name, value);
   };
 
   const handleFileChange = async (e:any) => {
@@ -96,7 +84,7 @@ const ApplicationModal = ({setShowModal, applyJobData }: any) => {
     // check file size
     if (fileObj.size > 25000000) {
       toast.error("Please select file under 25MB");
-      resetFileAndFileName();
+      setFile(null);
       e.target.value = null;
       return;
     }
@@ -106,13 +94,12 @@ const ApplicationModal = ({setShowModal, applyJobData }: any) => {
       toast.error(
         "Invalid file format. Supported Format: .JPEG, .JPG, .PDF, .PNG"
       );
-      resetFileAndFileName();
+      setFile(null);
       e.target.value = null;
       return;
     }
 
     setFile(fileObj);
-    setFileName(fileObj.name);
     e.target.value = null;
   };
 
@@ -192,13 +179,13 @@ const ApplicationModal = ({setShowModal, applyJobData }: any) => {
               </button>
             </div>
             <div className="modal-body">
-              <form onSubmit={formik.handleSubmit}>
+              <form onSubmit={handleSubmit}>
                 <div className="form-row">
                   <div className="form-group col-md-4">
                     <FormLabel name="First Name" htmlFor="htmlFor" />
                     <FormControl
-                      onChange={formik.handleChange}
-                      value={formik.values.first_name}
+                      onChange={handleChange}
+                      value={values.first_name}
                       id="first_name"
                       type="text"
                       name="first_name"
@@ -207,8 +194,8 @@ const ApplicationModal = ({setShowModal, applyJobData }: any) => {
                   <div className="form-group col-md-4">
                     <FormLabel name="Last Name" htmlFor="lastname" />
                     <FormControl
-                      onChange={formik.handleChange}
-                      value={formik.values.last_name}
+                      onChange={handleChange}
+                      value={values.last_name}
                       id="last_name"
                       type="text"
                       name="last_name"
@@ -218,8 +205,8 @@ const ApplicationModal = ({setShowModal, applyJobData }: any) => {
                   <div className="form-group col-md-4">
                     <FormLabel name="Email" htmlFor="youremail" />
                     <FormControl
-                      onChange={formik.handleChange}
-                      value={formik.values.email}
+                      onChange={handleChange}
+                      value={values.email}
                       id="email"
                       type="text"
                       name="email"
@@ -230,7 +217,7 @@ const ApplicationModal = ({setShowModal, applyJobData }: any) => {
                     <FormLabel name="Pancard number" htmlFor="pan_number" />
                     <FormControl
                       onChange={(event: any) => handleOnChangeEvent(event)}
-                      value={formik.values.pan_number}
+                      value={values.pan_number}
                       id="pan_number"
                       type="text"
                       name="pan_number"
@@ -243,7 +230,7 @@ const ApplicationModal = ({setShowModal, applyJobData }: any) => {
                     />
                     <FormControl
                       onChange={(event: any) => handleOnChangeEvent(event)}
-                      value={formik.values.mobile_number}
+                      value={values.mobile_number}
                       id="mobile_number"
                       type="number"
                       name="mobile_number"
@@ -253,8 +240,8 @@ const ApplicationModal = ({setShowModal, applyJobData }: any) => {
                   <div className="form-group col-md-4">
                     <FormLabel name="Education" htmlFor="education" />
                     <FormControl
-                      onChange={formik.handleChange}
-                      value={formik.values.education}
+                      onChange={handleChange}
+                      value={values.education}
                       id="education"
                       type="text"
                       name="education"
@@ -266,7 +253,7 @@ const ApplicationModal = ({setShowModal, applyJobData }: any) => {
                     <FormLabel name="" htmlFor="ctc" />
                     <FormControl
                       onChange={(event: any) => handleOnChangeEvent(event)}
-                      value={formik.values.ctc}
+                      value={values.ctc}
                       id="ctc"
                       type="number"
                       name="ctc"
@@ -277,7 +264,7 @@ const ApplicationModal = ({setShowModal, applyJobData }: any) => {
                     <FormLabel name="Expected CTC" htmlFor="expctc" />
                     <FormControl
                       onChange={(event: any) => handleOnChangeEvent(event)}
-                      value={formik.values.expected_ctc}
+                      value={values.expected_ctc}
                       id="expctc"
                       type="number"
                       name="expected_ctc"
@@ -291,7 +278,7 @@ const ApplicationModal = ({setShowModal, applyJobData }: any) => {
                     />
                     <FormControl
                       onChange={(event: any) => handleOnChangeEvent(event)}
-                      value={formik.values.notice_period}
+                      value={values.notice_period}
                       id="notice_period"
                       type="text"
                       name="notice_period"
@@ -305,7 +292,7 @@ const ApplicationModal = ({setShowModal, applyJobData }: any) => {
                     />
                     <FormControl
                       onChange={(event: any) => handleOnChangeEvent(event)}
-                      value={formik.values.total_work_experience}
+                      value={values.total_work_experience}
                       id="workexperience"
                       type="text"
                       name="total_work_experience"
@@ -315,8 +302,8 @@ const ApplicationModal = ({setShowModal, applyJobData }: any) => {
                   <div className="form-group col-md-4">
                     <FormLabel name="Gender" htmlFor="gendar" />
                     <FormControl
-                      onChange={formik.handleChange}
-                      value={formik.values.gender}
+                      onChange={handleChange}
+                      value={values.gender}
                       id="gendar"
                       type="text"
                       name="gender"
@@ -328,9 +315,9 @@ const ApplicationModal = ({setShowModal, applyJobData }: any) => {
                     <select
                       className="form-control"
                       id="inputState"
-                      value={formik.values.state}
+                      value={values.state}
                       name="state"
-                      onChange={handleSelectOnChangeEvent}
+                      onChange={onStateChange}
                     >
                       {statesDataList.map((state) => (
                         <option key={state.value} value={state.value}>
@@ -349,11 +336,6 @@ const ApplicationModal = ({setShowModal, applyJobData }: any) => {
                       accept="application/pdf"
                       onChange={(e) => handleFileChange(e)}
                     />
-                    {/* <input
-                      type="file"
-                      className="form-control"
-                      id="resume"
-                    /> */}
                   </div>
                 </div>
                 <button

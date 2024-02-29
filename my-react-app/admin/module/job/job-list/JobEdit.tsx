@@ -74,17 +74,7 @@ const JobEdit = ({ setShowModal, selectedItemId, refetch }: any) => {
                       name="company_name"
                     />
                   </div>
-                  {/* <div className="form-group col-md-4">
-                    <FormLabel name="Last Name" htmlFor="lastname" />
-                    <FormControl
-                      onChange={() => {}}
-                      // value={formik.values.last_name}
-                      id="last_name"
-                      type="text"
-                      value="last name"
-                      name="last_name"
-                    />
-                  </div> */}
+
 
                   <div className="form-group col-md-4">
                     <FormLabel name="Company Email" htmlFor="youremail" />
@@ -136,7 +126,6 @@ const JobEdit = ({ setShowModal, selectedItemId, refetch }: any) => {
                   </div>
 
                   <div className="form-group col-md-4">
-                    {/* <label htmlFor="Vacancy">CTC (In Laksh)</label> */}
                     <FormLabel name="Vacancy" htmlFor="ctc" />
                     <FormControl
                       onChange={formik.handleChange}
@@ -147,85 +136,7 @@ const JobEdit = ({ setShowModal, selectedItemId, refetch }: any) => {
                     />
                   </div>
 
-                  {/* <div className="form-group col-md-4">
-                    <FormLabel name="Expected CTC" htmlFor="expctc" />
-                    <FormControl
-                      onChange={() => {}}
-                      // onChange={(event: any) => handleOnChangeEvent(event)}
-                      // value={formik.values.expected_ctc}
-                      id="expctc"
-                      type="number"
-                      value="expected_ctc"
-                      name="expected_ctc"
-                    />
-                  </div> */}
 
-                  {/* <div className="form-group col-md-4">
-                    <FormLabel
-                      name="Notice Period"
-                      htmlFor="notice_period"
-                    />
-                    <FormControl
-                      onChange={() => {}}
-                      // onChange={(event: any) => handleOnChangeEvent(event)}
-                      // value={formik.values.notice_period}
-                      id="notice_period"
-                      value="notice period"
-                      type="text"
-                      name="notice_period"
-                    />
-                  </div> */}
-
-                  {/* <div className="form-group col-md-4">
-                    <FormLabel
-                      name="Total Work Experience"
-                      htmlFor="workexperience"
-                    />
-                    <FormControl
-                      onChange={() => {}}
-                      // onChange={(event: any) => handleOnChangeEvent(event)}
-                      // value={formik.values.total_work_experience}
-                      id="workexperience"
-                      type="text"
-                      value="workexp"
-                      name="total_work_experience"
-                    />
-                  </div> */}
-
-                  {/* <div className="form-group col-md-4">
-                    <FormLabel name="Gender" htmlFor="gendar" />
-                    <FormControl
-                      onChange={() => {}}
-                      value="male"
-                      // value={formik.values.gender}
-                      id="gendar"
-                      type="text"
-                      name="gender"
-                    />
-                  </div> */}
-
-                  {/* <div className="form-group col-md-4">
-                    <label htmlFor="inputState">State</label>
-                    <select
-                      className="form-control"
-                      id="inputState"
-                      // value={formik.values.state}
-                      name="state"
-                      // onChange={handleSelectOnChangeEvent}
-                    >
-                      <option>State</option>
-
-                    </select>
-                  </div> */}
-
-                  {/* <div className="form-group col-md-4">
-                    <label htmlFor="resume">Add Resume</label>
-                    <input
-                      type="file"
-                      className="form-control"
-                      id="resume"
-                    />
-                  </div> */}
                 </div>
 
                 <div className="modal-footer">

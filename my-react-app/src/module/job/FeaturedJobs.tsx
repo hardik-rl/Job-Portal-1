@@ -1,31 +1,22 @@
-import axios from "axios";
 import SingleJobList from "./SingleJobList";
-import { useQuery } from "@tanstack/react-query";
 import ReactPaginate from "react-paginate";
-import { useEffect, useState } from "react";
-import { JobData, ModalProps } from "./type";
+import { JobData } from "./type";
 
-const FeaturedJobs = ({ setShowModal, setApplyJobData }: ModalProps) => {
-  const [page, setPage] = useState(1);
+type FeaturedJobsProps = {
+  setApplyNowModal: React.Dispatch<React.SetStateAction<boolean>>;
+  setApplyJobData: React.Dispatch<React.SetStateAction<{
+    job_id: string;
+    category_id: string;
+  }>>;
+  jobsData: any;
+  jobsDataIsLoading: boolean;
+  setPage: React.Dispatch<React.SetStateAction<number>>;
 
-  const fetchJobs = async (page: number) => {
-    const response = await axios.get(`http://localhost:3000/jobs?page=${page}`);
-    return response.data;
-  };
+}
 
-  const { data: jobsData, isLoading: isLoadingJobsData } = useQuery({
-    queryKey: ["all-job-data", page],
-    queryFn: () => fetchJobs(page),
-    select: (res) => {
-      return res.jobs;
-    }
-  });
+const FeaturedJobs = ({ setApplyNowModal, setApplyJobData, jobsData, jobsDataIsLoading, setPage }: FeaturedJobsProps) => {
 
-  useEffect(() => {
-    if (!jobsData) return;
-  }, [jobsData]);
-
-  if (isLoadingJobsData) {
+  if (jobsDataIsLoading) {
     return <h1>Loading</h1>;
   }
 
@@ -41,18 +32,18 @@ const FeaturedJobs = ({ setShowModal, setApplyJobData }: ModalProps) => {
         </div>
         <div className="row justify-content-center">
           <div className="col-xl-10">
-            {jobsData?.length > 0 && !isLoadingJobsData && (
+            {jobsData?.jobs?.length > 0 && !jobsDataIsLoading && (
               <>
-                {jobsData?.map((job: JobData, index: number) => (
+                {jobsData?.jobs?.map((job: JobData, index: number) => (
                   <span key={index}>
                     <SingleJobList
-                      setShowModal={setShowModal}
+                      setApplyNowModal={setApplyNowModal}
                       id={job?._id}
                       title={job?.category_id?.name}
                       categoryId={job?.category_id?._id}
                       description={job?.description}
                       location={job?.job_location_id?.name}
-                      companyName={job?.company_id?.name}
+                      companyName={job?.company_name}
                       setApplyJobData={setApplyJobData}
                     />
                   </span>

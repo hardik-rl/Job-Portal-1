@@ -3,15 +3,21 @@ import FormControl from "../../../shared/FormControl";
 import { addJob, getAllCategories, getAllLocations } from "../api";
 import { useFormik } from "formik";
 import { toast } from "react-toastify";
-import { JobFormType } from "../types";
 import { ChangeEvent, useState } from "react";
 import ReactSelect from "react-select";
+import { JobFormType } from "../../../shared/types";
 import { createJobSchema } from "../validation";
 import FormError from "../../../shared/FormError";
 
 const CreateNewJob = () => {
-  const [categorySelect, setCategorySelect] = useState({value: "", label: "Any - All Categories"});
-  const [locationSelect, setLocationSelect] = useState({value: "", label: "Any - All Locations"});
+  const [categorySelect, setCategorySelect] = useState({
+    value: "",
+    label: "Any - All Categories",
+  });
+  const [locationSelect, setLocationSelect] = useState({
+    value: "",
+    label: "Any - All Locations",
+  });
   const { mutate: jobListMutate } = useMutation({
     mutationFn: (data) => addJob(data),
     onSuccess: () => {
@@ -19,10 +25,8 @@ const CreateNewJob = () => {
     },
   });
 
-  const { data: jobCategoryData, isLoading: jobCategoryDataIsLoading } = useQuery(["job-category-list"], () =>
-    getAllCategories()
-  );
-
+  const { data: jobCategoryData, isLoading: jobCategoryDataIsLoading } =
+    useQuery(["job-category-list"], () => getAllCategories());
 
   const jobCategoryOptions =
     jobCategoryData?.map((category: any) => ({
@@ -30,9 +34,8 @@ const CreateNewJob = () => {
       label: category.name,
     })) || [];
 
-  const { data: jobLocationData, isLoading: jobLocationDataIsLoading } = useQuery(["job-location-list"], () =>
-    getAllLocations()
-  );
+  const { data: jobLocationData, isLoading: jobLocationDataIsLoading } =
+    useQuery(["job-location-list"], () => getAllLocations());
 
   const jobLocationOptions =
     jobLocationData?.map((location: any) => ({
@@ -60,18 +63,18 @@ const CreateNewJob = () => {
       onSubmit: async (values: JobFormType) => {
         values["category_id"] = categorySelect.value;
         values["job_location_id"] = locationSelect.value;
-        jobListMutate(values);
+        jobListMutate(values as any);
         resetForm();
       },
     });
 
-  const handleCategoryChange = (event:any) => {
+  const handleCategoryChange = (event: any) => {
     setCategorySelect(event);
-  }
+  };
 
   const handleLocationChange = (event: any) => {
     setLocationSelect(event);
-  }
+  };
 
   const handleSelectOnChangeEvent = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -79,7 +82,7 @@ const CreateNewJob = () => {
   };
 
   if (jobCategoryDataIsLoading || jobLocationDataIsLoading) {
-    return <h1>Loading</h1>
+    return <h1>Loading</h1>;
   }
 
   console.log(errors, "errors");
