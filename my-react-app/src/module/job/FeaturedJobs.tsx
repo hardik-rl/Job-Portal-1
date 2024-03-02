@@ -1,6 +1,5 @@
 import SingleJobList from "./SingleJobList";
 import ReactPaginate from "react-paginate";
-import { JobData } from "./type";
 import Loader from "../../components/Loader";
 
 type FeaturedJobsProps = {
@@ -55,17 +54,19 @@ const FeaturedJobs = ({ setApplyNowModal, setApplyJobData, jobsData, jobsDataIsL
             )}
           </div>
         </div>
-        <ReactPaginate
-          className="custom-pagination "
-          activeClassName="paginate-active"
-          breakLabel="..."
-          nextLabel="Next"
-          onPageChange={(event) => setPage(event.selected + 1)}
-          pageRangeDisplayed={5}
-          pageCount={jobsData.totalPages}
-          previousLabel="Previous"
-          renderOnZeroPageCount={null}
-        />
+        {jobsData.jobs.length > 0 && (
+          <ReactPaginate
+            className="custom-pagination "
+            activeClassName="paginate-active"
+            breakLabel="..."
+            nextLabel="Next"
+            onPageChange={(event) => setPage(event.selected + 1)}
+            pageRangeDisplayed={5}
+            pageCount={jobsData.totalPages}
+            previousLabel="Previous"
+            renderOnZeroPageCount={null}
+          />
+        )}
       </div>
     </section>
   );
