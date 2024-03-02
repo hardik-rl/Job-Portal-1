@@ -5,14 +5,26 @@ import axios from "axios";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import { useFormik } from "formik";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import useStore from "../../shared/store/useStore";
+import { ApplicationModalSchema } from "./validation";
+import FormError from "../../components/FormError";
+import clsx from "clsx";
 
-const ApplicationModal = ({setApplyNowModal, applyJobData }: any) => {
+const ApplicationModal = ({ setApplyNowModal, applyJobData }: any) => {
   const [file, setFile] = useState<any>(null);
-
+  const { jobTitle } = useStore();
   const handleCloseModal = () => {
     setApplyNowModal(false);
   };
+
+  useEffect(() => {
+    document.body.classList.add("overflow-hidden");
+
+    return () => {
+      document.body.classList.remove("overflow-hidden");
+    };
+  }, []);
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const addJobApplication = async (data: any) => {
@@ -22,12 +34,12 @@ const ApplicationModal = ({setApplyNowModal, applyJobData }: any) => {
   const { mutate: applyJobMutate, isLoading: applyJobIsLoading } = useMutation({
     mutationFn: (data) => addJobApplication(data),
     onSuccess: () => {
-      setApplyNowModal(false);  
+      setApplyNowModal(false);
       toast.success("Application added successfully");
     },
   });
 
-  const {handleSubmit, setFieldValue, values, handleChange} = useFormik({
+  const { handleSubmit, setFieldValue, errors, values, handleChange } = useFormik({
     initialValues: {
       job_id: "",
       category_id: "",
@@ -46,15 +58,15 @@ const ApplicationModal = ({setApplyNowModal, applyJobData }: any) => {
       resume_file: "",
     },
     onSubmit: (values: any) => {
-      const formData:any = new FormData();
+      const formData: any = new FormData();
       Object.keys(values).forEach((key) => {
-        if(!['resume_file', 'job_id', 'category_id'].includes(key)) {
+        if (!["resume_file", "job_id", "category_id"].includes(key)) {
           formData.append(key, values[key]);
         }
       });
-      formData.append('resume_file', file);
-      formData.append('job_id', applyJobData.job_id);
-      formData.append('category_id', applyJobData.category_id);
+      formData.append("resume_file", file);
+      formData.append("job_id", applyJobData.job_id);
+      formData.append("category_id", applyJobData.category_id);
       if (!file.name) {
         toast.error("Please upload consent form");
         return;
@@ -62,6 +74,7 @@ const ApplicationModal = ({setApplyNowModal, applyJobData }: any) => {
 
       applyJobMutate(formData);
     },
+    validationSchema:ApplicationModalSchema,
   });
 
   const handleOnChangeEvent = (event: any) => {
@@ -73,7 +86,7 @@ const ApplicationModal = ({setApplyNowModal, applyJobData }: any) => {
     setFieldValue(name, value);
   };
 
-  const handleFileChange = async (e:any) => {
+  const handleFileChange = async (e: any) => {
     e.preventDefault();
 
     const fileObj = e.target.files && e.target.files[0];
@@ -102,7 +115,6 @@ const ApplicationModal = ({setApplyNowModal, applyJobData }: any) => {
     setFile(fileObj);
     e.target.value = null;
   };
-
 
   if (applyJobIsLoading) {
     return <h1>Loading</h1>;
@@ -154,7 +166,7 @@ const ApplicationModal = ({setApplyNowModal, applyJobData }: any) => {
   return (
     <>
       <div
-        className="modal fade modal-toggle show"
+        className="modal fade modal-toggle  show"
         id="exampleModal"
         data-backdrop="static"
         data-keyboard="false"
@@ -162,15 +174,15 @@ const ApplicationModal = ({setApplyNowModal, applyJobData }: any) => {
         aria-labelledby="staticBackdropLabel"
         aria-hidden="true"
       >
-        <div className="modal-dialog modal-lg">
+        <div className="modal-dialog modal-dialog-centered modal-lg">
           <div className="modal-content">
             <div className="modal-header">
               <h5 className="modal-title" id="exampleModalLabel">
-                Accounts & Finance
+                {jobTitle}
               </h5>
               <button
                 type="button"
-                className="close"
+                className="close outline-0"
                 data-dismiss="modal"
                 aria-label="Close"
                 onClick={handleCloseModal}
@@ -189,7 +201,9 @@ const ApplicationModal = ({setApplyNowModal, applyJobData }: any) => {
                       id="first_name"
                       type="text"
                       name="first_name"
+                      className={errors.first_name ? "is-error" : ""}
                     />
+                    <FormError error={errors.first_name} />
                   </div>
                   <div className="form-group col-md-4">
                     <FormLabel name="Last Name" htmlFor="lastname" />
@@ -199,7 +213,9 @@ const ApplicationModal = ({setApplyNowModal, applyJobData }: any) => {
                       id="last_name"
                       type="text"
                       name="last_name"
+                      className={errors.last_name ? "is-error" : ""}
                     />
+                    <FormError error={errors.last_name} />
                   </div>
 
                   <div className="form-group col-md-4">
@@ -210,7 +226,9 @@ const ApplicationModal = ({setApplyNowModal, applyJobData }: any) => {
                       id="email"
                       type="text"
                       name="email"
+                      className={errors.email ? "is-error" : ""}
                     />
+                    <FormError error={errors.email} />
                   </div>
 
                   <div className="form-group col-md-4">
@@ -221,20 +239,21 @@ const ApplicationModal = ({setApplyNowModal, applyJobData }: any) => {
                       id="pan_number"
                       type="text"
                       name="pan_number"
+                      className={errors.pan_number ? "is-error" : ""}
                     />
+                    <FormError error={errors.pan_number} />
                   </div>
                   <div className="form-group col-md-4">
-                    <FormLabel
-                      name="Mobile number"
-                      htmlFor="mobilenumber"
-                    />
+                    <FormLabel name="Mobile number" htmlFor="mobilenumber" />
                     <FormControl
                       onChange={(event: any) => handleOnChangeEvent(event)}
                       value={values.mobile_number}
                       id="mobile_number"
                       type="number"
                       name="mobile_number"
+                      className={errors.mobile_number ? "is-error" : ""}
                     />
+                    <FormError error={errors.mobile_number} />
                   </div>
 
                   <div className="form-group col-md-4">
@@ -245,7 +264,9 @@ const ApplicationModal = ({setApplyNowModal, applyJobData }: any) => {
                       id="education"
                       type="text"
                       name="education"
+                      className={errors.education ? "is-error" : ""}
                     />
+                    <FormError error={errors.education} />
                   </div>
 
                   <div className="form-group col-md-4">
@@ -257,7 +278,9 @@ const ApplicationModal = ({setApplyNowModal, applyJobData }: any) => {
                       id="ctc"
                       type="number"
                       name="ctc"
+                      className={errors.ctc ? "is-error" : ""}
                     />
+                    <FormError error={errors.ctc} />
                   </div>
 
                   <div className="form-group col-md-4">
@@ -268,21 +291,22 @@ const ApplicationModal = ({setApplyNowModal, applyJobData }: any) => {
                       id="expctc"
                       type="number"
                       name="expected_ctc"
+                      className={errors.expected_ctc ? "is-error" : ""}
                     />
+                    <FormError error={errors.expected_ctc} />
                   </div>
 
                   <div className="form-group col-md-4">
-                    <FormLabel
-                      name="Notice Period"
-                      htmlFor="notice_period"
-                    />
+                    <FormLabel name="Notice Period" htmlFor="notice_period" />
                     <FormControl
                       onChange={(event: any) => handleOnChangeEvent(event)}
                       value={values.notice_period}
                       id="notice_period"
                       type="text"
                       name="notice_period"
+                      className={errors.notice_period ? "is-error" : ""}
                     />
+                    <FormError error={errors.notice_period} />
                   </div>
 
                   <div className="form-group col-md-4">
@@ -296,7 +320,9 @@ const ApplicationModal = ({setApplyNowModal, applyJobData }: any) => {
                       id="workexperience"
                       type="text"
                       name="total_work_experience"
+                      className={errors.total_work_experience ? "is-error" : ""}
                     />
+                    <FormError error={errors.total_work_experience} />
                   </div>
 
                   <div className="form-group col-md-4">
@@ -307,13 +333,15 @@ const ApplicationModal = ({setApplyNowModal, applyJobData }: any) => {
                       id="gendar"
                       type="text"
                       name="gender"
+                      className={errors.gender ? "is-error" : ""}
                     />
+                    <FormError error={errors.gender} />
                   </div>
 
                   <div className="form-group col-md-4">
                     <label htmlFor="inputState">State</label>
                     <select
-                      className="form-control"
+                      className={clsx(errors.state ? "is-error" : "", "form-control")}
                       id="inputState"
                       value={values.state}
                       name="state"
@@ -325,6 +353,7 @@ const ApplicationModal = ({setApplyNowModal, applyJobData }: any) => {
                         </option>
                       ))}
                     </select>
+                    <FormError error={errors.state} />
                   </div>
 
                   <div className="form-group col-md-4">
@@ -338,10 +367,7 @@ const ApplicationModal = ({setApplyNowModal, applyJobData }: any) => {
                     />
                   </div>
                 </div>
-                <button
-                  type="submit"
-                  className="btn btn-primary"
-                >
+                <button type="submit" className="btn btn-primary">
                   Submit
                 </button>
               </form>

@@ -4858,11 +4858,11 @@ del {
 form.search-box {
   box-shadow: 0px 6px 29px 0px rgba(36, 43, 94, 0.08);
   display: flex;
-  flex-wrap: wrap;
+  /* display: flex;
+  flex-wrap: wrap; */
   /* justify-content: space-between; */
 }
 form.search-box .input-form {
-  max-width: 250px;
   position: relative;
 }
 @media (max-width: 767px) {
@@ -4880,6 +4880,10 @@ form.search-box .input-form input {
   border: none;
   border-radius: 0px;
   position: relative;
+  -webkit-box-shadow: 0 0 0 40px white inset !important;
+}
+form.search-box .input-form input:focus {
+  box-shadow: none;
 }
 @media (max-width: 767px) {
   form.search-box .input-form input {
@@ -4974,10 +4978,13 @@ form.search-box .search-form {
     width: 100%;
   }
 }
-form.search-box .find-job-btn  {
+form.search-box .find-job-btn {
   width: 100%;
+  cursor: pointer;
+  min-width: 145px;
   height: 70px;
   background: #08578e;
+  border: none;
   font-size: 20px;
   line-height: 1;
   text-align: center;
@@ -4991,6 +4998,9 @@ form.search-box .find-job-btn  {
   line-height: 1.2;
   line-height: 38px;
   font-size: 14px;
+}
+form.search-box .find-job-btn:hover {
+  background: #1472b3;
 }
 .team-profile {
   background: #f6f9fe;
@@ -5544,7 +5554,7 @@ form.search-box .find-job-btn  {
 .single-job-items .job-items {
   display: flex;
   flex-wrap: wrap;
-  max-width: 70%;
+  width: 70%;
 }
 @media only screen and (min-width: 576px) and (max-width: 767px) {
   .items-link {
@@ -6386,7 +6396,7 @@ form.search-box .find-job-btn  {
 .fade.modal-toggle {
   display: block;
   opacity: 1;
-  padding-top: 30px;
+  /* padding-top: 30px; */
 }
 .featured-job-area .page-link {
   border: 1px solid #08578e;
@@ -6458,9 +6468,92 @@ form.search-box .find-job-btn  {
 .custom-pagination .paginate-active a {
   color: white;
   background-color: #08578e;
-
 }
 
 .apply-btn2:hover a {
   color: #fff;
+}
+
+@media (max-width: 767px) {
+  form.search-box,
+  .select-itms {
+    flex-wrap: wrap;
+  }
+  .select-itms {
+    gap: 20px;
+  }
+  .react-select__control {
+    width: 100%;
+  }
+}
+
+@media (min-width: 768px) {
+  .react-select__control {
+    width: 200px;
+  }
+  form.search-box .input-form {
+    min-width: 180px;
+  }
+}
+@media (min-width: 1024px) {
+  .react-select__control {
+    width: 250px;
+  }
+  form.search-box .input-form {
+    min-width: 300px;
+  }
+}
+
+.overflow-hidden {
+  overflow: hidden;
+}
+
+.spinner-border {
+  display: inline-block;
+  width: 2rem;
+  height: 2rem;
+  vertical-align: text-bottom;
+  border: 0.25em solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  -webkit-animation: spinner-border 0.75s linear infinite;
+  animation: spinner-border 0.75s linear infinite;
+}
+.spinner-border .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+@keyframes spinner-border {
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+.is-error {
+  border-color: #dc3545 !important;
+}
+.is-error-text {
+  color: #dc3545;
+  font-size: 13px;
+}
+
+.banner-height {
+  height: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #eaedff;
+}
+
+@media (max-width: 767px) {
+  .banner-height {
+    height: 300px;
+  }
 }
