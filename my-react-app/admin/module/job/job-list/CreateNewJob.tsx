@@ -69,13 +69,13 @@ const CreateNewJob = () => {
       locationSelect: "",
       categorySelect: "",
     },
-    validationSchema: createJobSchema,
     onSubmit: (values: JobFormType) => {
       values["category_id"] = categorySelect.value;
       values["job_location_id"] = locationSelect.value;
       jobListMutate(values as any);
       resetForm();
     },
+    validationSchema: createJobSchema,
   });
 
   const handleCategoryChange = (event: any) => {
