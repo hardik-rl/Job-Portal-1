@@ -1,7 +1,11 @@
+import { useState } from "react";
 import { JobData } from "../../../admin/shared/types";
+import ApplicationModal from "../job/ApplicationModal";
 // import moment from "moment";
 
-const JobOverview = ({ jobData }: {jobData : JobData}) => {
+const JobOverview = ({ jobData }: { jobData: JobData }) => {
+  const [applyNowModal, setApplyNowModal] = useState(false);
+
   return (
     <div className="post-details3  mb-50">
       <div className="small-section-tittle">
@@ -26,10 +30,13 @@ const JobOverview = ({ jobData }: {jobData : JobData}) => {
         </li> */}
       </ul>
       <div className="apply-btn2">
-        <a href="#" className="btn">
+        <button className="btn" onClick={() => setApplyNowModal(true)}>
           Apply Now
-        </a>
+        </button>
       </div>
+      {applyNowModal && (
+        <ApplicationModal setApplyNowModal={setApplyNowModal} />
+      )}
     </div>
   );
 };
