@@ -1,3 +1,5 @@
+import useStore from "../../shared/store/useStore";
+
 type SingleJobProps = {
   id: string;
   title: string;
@@ -6,11 +8,13 @@ type SingleJobProps = {
   companyName: string;
   description: string;
   categoryId: string;
-  setApplyJobData: React.Dispatch<React.SetStateAction<{
-    job_id: string;
-    category_id: string;
-  }>>
-}
+  setApplyJobData: React.Dispatch<
+    React.SetStateAction<{
+      job_id: string;
+      category_id: string;
+    }>
+  >;
+};
 
 const SingleJobList = ({
   id,
@@ -21,11 +25,12 @@ const SingleJobList = ({
   description,
   setApplyJobData,
 }: SingleJobProps) => {
+  const { setJobTitle } = useStore();
   const onClickApply = () => {
-    setApplyJobData({job_id: id, category_id: categoryId})
+    setApplyJobData({ job_id: id, category_id: categoryId });
     setApplyNowModal(true);
-  }
-
+    setJobTitle(title);
+  };
   return (
     <>
       <div className="single-job-items mb-30">
@@ -48,7 +53,6 @@ const SingleJobList = ({
           <button type="button" onClick={onClickApply}>
             Apply Now
           </button>
-          {/* <ApplicationModel showModal={showModal} setShowModal={setShowModal} /> */}
         </div>
       </div>
     </>

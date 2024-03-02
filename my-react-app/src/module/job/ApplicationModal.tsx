@@ -6,10 +6,11 @@ import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import { useFormik } from "formik";
 import { useState, useEffect } from "react";
+import useStore from "../../shared/store/useStore";
 
 const ApplicationModal = ({ setApplyNowModal, applyJobData }: any) => {
   const [file, setFile] = useState<any>(null);
-
+  const { jobTitle } = useStore();
   const handleCloseModal = () => {
     setApplyNowModal(false);
   };
@@ -173,7 +174,7 @@ const ApplicationModal = ({ setApplyNowModal, applyJobData }: any) => {
           <div className="modal-content">
             <div className="modal-header">
               <h5 className="modal-title" id="exampleModalLabel">
-                Accounts & Finance
+                {jobTitle}
               </h5>
               <button
                 type="button"

@@ -4,6 +4,7 @@ import Banner from "./Banner";
 import JobPost from "./JobPost";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import Loader from "../../components/Loader";
 
 const JobDetails = () => {
   const { id } = useParams();
@@ -19,13 +20,17 @@ const JobDetails = () => {
   });
 
   if (isLoadingJobData) {
-    return <h1>Spinner</h1>;
+    return (
+      <div className="text-center py-4">
+        <Loader />
+      </div>
+    );
   }
 
   return (
     <div>
       <ScrollToTop />
-      <Banner />
+      <Banner jobTitle={jobData.title} />
       <JobPost jobData={jobData} />
     </div>
   );
