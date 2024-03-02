@@ -21,7 +21,7 @@ const JobDetails = () => {
 
   if (isLoadingJobData) {
     return (
-      <div className="text-center py-4">
+      <div className="text-center banner-height bg-white py-4">
         <Loader />
       </div>
     );

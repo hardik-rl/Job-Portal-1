@@ -18,7 +18,7 @@ type FeaturedJobsProps = {
 const FeaturedJobs = ({ setApplyNowModal, setApplyJobData, jobsData, jobsDataIsLoading, setPage }: FeaturedJobsProps) => {
 
   if (jobsDataIsLoading) {
-    return <div className="text-center py-4 bg-white">
+    return <div className="text-center py-4 bg-white banner-height">
       <Loader />
     </div>
   }

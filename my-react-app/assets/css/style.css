@@ -6543,3 +6543,17 @@ form.search-box .find-job-btn:hover {
   color: #dc3545;
   font-size: 13px;
 }
+
+.banner-height {
+  height: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #eaedff;
+}
+
+@media (max-width: 767px) {
+  .banner-height {
+    height: 300px;
+  }
+}

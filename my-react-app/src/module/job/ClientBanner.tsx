@@ -98,7 +98,7 @@ const ClientBanner = ({ setJobListFilter }: ClientBannerProps) => {
     });
   };
   if (jobCategoryDataIsLoading || jobLocationDataIsLoading) {
-    return <div className="text-center py-4" style={{backgroundColor: "#eaedff"}}>
+    return <div className="py-4 banner-height">
       <Loader />
     </div>
   }

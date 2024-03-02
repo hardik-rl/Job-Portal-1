@@ -182,7 +182,7 @@ const ApplicationModal = ({ setApplyNowModal, applyJobData }: any) => {
               </h5>
               <button
                 type="button"
-                className="close"
+                className="close outline-0"
                 data-dismiss="modal"
                 aria-label="Close"
                 onClick={handleCloseModal}
