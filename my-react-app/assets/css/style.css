@@ -6535,3 +6535,11 @@ form.search-box .find-job-btn:hover {
     transform: rotate(360deg);
   }
 }
+
+.is-error {
+  border-color: #dc3545 !important;
+}
+.is-error-text {
+  color: #dc3545;
+  font-size: 13px;
+}

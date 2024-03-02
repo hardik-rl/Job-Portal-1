@@ -7,6 +7,9 @@ import { toast } from "react-toastify";
 import { useFormik } from "formik";
 import { useState, useEffect } from "react";
 import useStore from "../../shared/store/useStore";
+import { ApplicationModalSchema } from "./validation";
+import FormError from "../../components/FormError";
+import clsx from "clsx";
 
 const ApplicationModal = ({ setApplyNowModal, applyJobData }: any) => {
   const [file, setFile] = useState<any>(null);
@@ -36,7 +39,7 @@ const ApplicationModal = ({ setApplyNowModal, applyJobData }: any) => {
     },
   });
 
-  const { handleSubmit, setFieldValue, values, handleChange } = useFormik({
+  const { handleSubmit, setFieldValue, errors, values, handleChange } = useFormik({
     initialValues: {
       job_id: "",
       category_id: "",
@@ -71,6 +74,7 @@ const ApplicationModal = ({ setApplyNowModal, applyJobData }: any) => {
 
       applyJobMutate(formData);
     },
+    validationSchema:ApplicationModalSchema,
   });
 
   const handleOnChangeEvent = (event: any) => {
@@ -197,7 +201,9 @@ const ApplicationModal = ({ setApplyNowModal, applyJobData }: any) => {
                       id="first_name"
                       type="text"
                       name="first_name"
+                      className={errors.first_name ? "is-error" : ""}
                     />
+                    <FormError error={errors.first_name} />
                   </div>
                   <div className="form-group col-md-4">
                     <FormLabel name="Last Name" htmlFor="lastname" />
@@ -207,7 +213,9 @@ const ApplicationModal = ({ setApplyNowModal, applyJobData }: any) => {
                       id="last_name"
                       type="text"
                       name="last_name"
+                      className={errors.last_name ? "is-error" : ""}
                     />
+                    <FormError error={errors.last_name} />
                   </div>
 
                   <div className="form-group col-md-4">
@@ -218,7 +226,9 @@ const ApplicationModal = ({ setApplyNowModal, applyJobData }: any) => {
                       id="email"
                       type="text"
                       name="email"
+                      className={errors.email ? "is-error" : ""}
                     />
+                    <FormError error={errors.email} />
                   </div>
 
                   <div className="form-group col-md-4">
@@ -229,7 +239,9 @@ const ApplicationModal = ({ setApplyNowModal, applyJobData }: any) => {
                       id="pan_number"
                       type="text"
                       name="pan_number"
+                      className={errors.pan_number ? "is-error" : ""}
                     />
+                    <FormError error={errors.pan_number} />
                   </div>
                   <div className="form-group col-md-4">
                     <FormLabel name="Mobile number" htmlFor="mobilenumber" />
@@ -239,7 +251,9 @@ const ApplicationModal = ({ setApplyNowModal, applyJobData }: any) => {
                       id="mobile_number"
                       type="number"
                       name="mobile_number"
+                      className={errors.mobile_number ? "is-error" : ""}
                     />
+                    <FormError error={errors.mobile_number} />
                   </div>
 
                   <div className="form-group col-md-4">
@@ -250,7 +264,9 @@ const ApplicationModal = ({ setApplyNowModal, applyJobData }: any) => {
                       id="education"
                       type="text"
                       name="education"
+                      className={errors.education ? "is-error" : ""}
                     />
+                    <FormError error={errors.education} />
                   </div>
 
                   <div className="form-group col-md-4">
@@ -262,7 +278,9 @@ const ApplicationModal = ({ setApplyNowModal, applyJobData }: any) => {
                       id="ctc"
                       type="number"
                       name="ctc"
+                      className={errors.ctc ? "is-error" : ""}
                     />
+                    <FormError error={errors.ctc} />
                   </div>
 
                   <div className="form-group col-md-4">
@@ -273,7 +291,9 @@ const ApplicationModal = ({ setApplyNowModal, applyJobData }: any) => {
                       id="expctc"
                       type="number"
                       name="expected_ctc"
+                      className={errors.expected_ctc ? "is-error" : ""}
                     />
+                    <FormError error={errors.expected_ctc} />
                   </div>
 
                   <div className="form-group col-md-4">
@@ -284,7 +304,9 @@ const ApplicationModal = ({ setApplyNowModal, applyJobData }: any) => {
                       id="notice_period"
                       type="text"
                       name="notice_period"
+                      className={errors.notice_period ? "is-error" : ""}
                     />
+                    <FormError error={errors.notice_period} />
                   </div>
 
                   <div className="form-group col-md-4">
@@ -298,7 +320,9 @@ const ApplicationModal = ({ setApplyNowModal, applyJobData }: any) => {
                       id="workexperience"
                       type="text"
                       name="total_work_experience"
+                      className={errors.total_work_experience ? "is-error" : ""}
                     />
+                    <FormError error={errors.total_work_experience} />
                   </div>
 
                   <div className="form-group col-md-4">
@@ -309,13 +333,15 @@ const ApplicationModal = ({ setApplyNowModal, applyJobData }: any) => {
                       id="gendar"
                       type="text"
                       name="gender"
+                      className={errors.gender ? "is-error" : ""}
                     />
+                    <FormError error={errors.gender} />
                   </div>
 
                   <div className="form-group col-md-4">
                     <label htmlFor="inputState">State</label>
                     <select
-                      className="form-control"
+                      className={clsx(errors.state ? "is-error" : "", "form-control")}
                       id="inputState"
                       value={values.state}
                       name="state"
@@ -327,6 +353,7 @@ const ApplicationModal = ({ setApplyNowModal, applyJobData }: any) => {
                         </option>
                       ))}
                     </select>
+                    <FormError error={errors.state} />
                   </div>
 
                   <div className="form-group col-md-4">
