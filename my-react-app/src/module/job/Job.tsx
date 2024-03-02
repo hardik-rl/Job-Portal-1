@@ -9,7 +9,7 @@ import ApplicationModal from "./ApplicationModal";
 
 const Job = () => {
   const [applyNowModal, setApplyNowModal] = useState(false);
-  
+
   const [applyJobData, setApplyJobData] = useState({
     job_id: "",
     category_id: "",
@@ -33,7 +33,7 @@ const Job = () => {
   const { data: jobsData, isLoading: jobsDataIsLoading, refetch: jobDataRefetch } = useQuery({
     queryKey: ["all-job-data", page],
     queryFn: () => fetchJobs(page),
-    
+
   });
 
   useEffect(() => {
@@ -41,7 +41,7 @@ const Job = () => {
       jobDataRefetch();
     }
     return;
-    
+
   }, [jobListFilter, jobDataRefetch])
 
   return (
@@ -51,7 +51,7 @@ const Job = () => {
         setApplyNowModal={setApplyNowModal}
         setApplyJobData={setApplyJobData}
         jobsData={jobsData}
-        jobsDataIsLoading={jobsDataIsLoading} 
+        jobsDataIsLoading={jobsDataIsLoading}
         setPage={setPage}
       />
       <OnlineResume setApplyNowModal={setApplyNowModal} />

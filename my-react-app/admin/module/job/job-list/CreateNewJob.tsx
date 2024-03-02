@@ -60,7 +60,7 @@ const CreateNewJob = () => {
         company_email: "",
       },
       validationSchema: createJobSchema,
-      onSubmit: async (values: JobFormType) => {
+      onSubmit: (values: JobFormType) => {
         values["category_id"] = categorySelect.value;
         values["job_location_id"] = locationSelect.value;
         jobListMutate(values as any);
@@ -84,9 +84,6 @@ const CreateNewJob = () => {
   if (jobCategoryDataIsLoading || jobLocationDataIsLoading) {
     return <h1>Loading</h1>;
   }
-
-  console.log(errors, "errors");
-
 
   return (
     <div className="app-wrapper">

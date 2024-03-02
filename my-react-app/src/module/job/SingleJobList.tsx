@@ -17,7 +17,6 @@ const SingleJobList = ({
   title,
   categoryId,
   setApplyNowModal,
-  companyName,
   location,
   description,
   setApplyJobData,
@@ -37,9 +36,8 @@ const SingleJobList = ({
             </a>
             <p>{description}</p>
             <ul>
-              {companyName && <li>{companyName}</li>}
               <li>
-                <i className="fas fa-map-marker-alt"></i>
+                {location && <i className="fas fa-map-marker-alt"></i>}
                 {location}
               </li>
             </ul>

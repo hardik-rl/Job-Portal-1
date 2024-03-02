@@ -5,14 +5,22 @@ import axios from "axios";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import { useFormik } from "formik";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-const ApplicationModal = ({setApplyNowModal, applyJobData }: any) => {
+const ApplicationModal = ({ setApplyNowModal, applyJobData }: any) => {
   const [file, setFile] = useState<any>(null);
 
   const handleCloseModal = () => {
     setApplyNowModal(false);
   };
+
+  useEffect(() => {
+    document.body.classList.add("overflow-hidden");
+
+    return () => {
+      document.body.classList.remove("overflow-hidden");
+    };
+  }, []);
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const addJobApplication = async (data: any) => {
@@ -22,12 +30,12 @@ const ApplicationModal = ({setApplyNowModal, applyJobData }: any) => {
   const { mutate: applyJobMutate, isLoading: applyJobIsLoading } = useMutation({
     mutationFn: (data) => addJobApplication(data),
     onSuccess: () => {
-      setApplyNowModal(false);  
+      setApplyNowModal(false);
       toast.success("Application added successfully");
     },
   });
 
-  const {handleSubmit, setFieldValue, values, handleChange} = useFormik({
+  const { handleSubmit, setFieldValue, values, handleChange } = useFormik({
     initialValues: {
       job_id: "",
       category_id: "",
@@ -46,15 +54,15 @@ const ApplicationModal = ({setApplyNowModal, applyJobData }: any) => {
       resume_file: "",
     },
     onSubmit: (values: any) => {
-      const formData:any = new FormData();
+      const formData: any = new FormData();
       Object.keys(values).forEach((key) => {
-        if(!['resume_file', 'job_id', 'category_id'].includes(key)) {
+        if (!["resume_file", "job_id", "category_id"].includes(key)) {
           formData.append(key, values[key]);
         }
       });
-      formData.append('resume_file', file);
-      formData.append('job_id', applyJobData.job_id);
-      formData.append('category_id', applyJobData.category_id);
+      formData.append("resume_file", file);
+      formData.append("job_id", applyJobData.job_id);
+      formData.append("category_id", applyJobData.category_id);
       if (!file.name) {
         toast.error("Please upload consent form");
         return;
@@ -73,7 +81,7 @@ const ApplicationModal = ({setApplyNowModal, applyJobData }: any) => {
     setFieldValue(name, value);
   };
 
-  const handleFileChange = async (e:any) => {
+  const handleFileChange = async (e: any) => {
     e.preventDefault();
 
     const fileObj = e.target.files && e.target.files[0];
@@ -102,7 +110,6 @@ const ApplicationModal = ({setApplyNowModal, applyJobData }: any) => {
     setFile(fileObj);
     e.target.value = null;
   };
-
 
   if (applyJobIsLoading) {
     return <h1>Loading</h1>;
@@ -154,7 +161,7 @@ const ApplicationModal = ({setApplyNowModal, applyJobData }: any) => {
   return (
     <>
       <div
-        className="modal fade modal-toggle show"
+        className="modal fade modal-toggle  show"
         id="exampleModal"
         data-backdrop="static"
         data-keyboard="false"
@@ -162,7 +169,7 @@ const ApplicationModal = ({setApplyNowModal, applyJobData }: any) => {
         aria-labelledby="staticBackdropLabel"
         aria-hidden="true"
       >
-        <div className="modal-dialog modal-lg">
+        <div className="modal-dialog modal-dialog-centered modal-lg">
           <div className="modal-content">
             <div className="modal-header">
               <h5 className="modal-title" id="exampleModalLabel">
@@ -224,10 +231,7 @@ const ApplicationModal = ({setApplyNowModal, applyJobData }: any) => {
                     />
                   </div>
                   <div className="form-group col-md-4">
-                    <FormLabel
-                      name="Mobile number"
-                      htmlFor="mobilenumber"
-                    />
+                    <FormLabel name="Mobile number" htmlFor="mobilenumber" />
                     <FormControl
                       onChange={(event: any) => handleOnChangeEvent(event)}
                       value={values.mobile_number}
@@ -272,10 +276,7 @@ const ApplicationModal = ({setApplyNowModal, applyJobData }: any) => {
                   </div>
 
                   <div className="form-group col-md-4">
-                    <FormLabel
-                      name="Notice Period"
-                      htmlFor="notice_period"
-                    />
+                    <FormLabel name="Notice Period" htmlFor="notice_period" />
                     <FormControl
                       onChange={(event: any) => handleOnChangeEvent(event)}
                       value={values.notice_period}
@@ -338,10 +339,7 @@ const ApplicationModal = ({setApplyNowModal, applyJobData }: any) => {
                     />
                   </div>
                 </div>
-                <button
-                  type="submit"
-                  className="btn btn-primary"
-                >
+                <button type="submit" className="btn btn-primary">
                   Submit
                 </button>
               </form>

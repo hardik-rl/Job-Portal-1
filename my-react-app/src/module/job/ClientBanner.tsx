@@ -3,17 +3,19 @@ import ReactSelect from "react-select";
 import { useState } from "react";
 import FormControl from "../../../admin/shared/FormControl";
 import axios from "axios";
+import Loader from "../../components/Loader";
 
 type ClientBannerProps = {
-  setJobListFilter: React.Dispatch<React.SetStateAction<{
-    searchFilter: string;
-    locationFilter: string;
-    categoryFilter: string;
-}>>
-}
+  setJobListFilter: React.Dispatch<
+    React.SetStateAction<{
+      searchFilter: string;
+      locationFilter: string;
+      categoryFilter: string;
+    }>
+  >;
+};
 
-const ClientBanner = ({ setJobListFilter}: ClientBannerProps) => {
-
+const ClientBanner = ({ setJobListFilter }: ClientBannerProps) => {
   const [categorySelect, setCategorySelect] = useState({
     value: "",
     label: "Any - All Categories",
@@ -36,7 +38,7 @@ const ClientBanner = ({ setJobListFilter}: ClientBannerProps) => {
       minHeight: 70,
       border: 0,
       borderRadius: 0,
-      minWidth: 200,
+      boxShadow: "none",
       "&:hover": {
         boxShadow: "none",
         borderColor: "#fff",
@@ -49,10 +51,11 @@ const ClientBanner = ({ setJobListFilter}: ClientBannerProps) => {
     return response.data;
   };
 
-  const { data: jobCategoryData, isLoading: jobCategoryDataIsLoading } = useQuery({
-    queryKey: ["job-category-list"],
-    queryFn: () => getJobCategories(),
-  });
+  const { data: jobCategoryData, isLoading: jobCategoryDataIsLoading } =
+    useQuery({
+      queryKey: ["job-category-list"],
+      queryFn: () => getJobCategories(),
+    });
 
   const jobCategoryOptions =
     jobCategoryData?.map((category: any) => ({
@@ -64,7 +67,7 @@ const ClientBanner = ({ setJobListFilter}: ClientBannerProps) => {
     const response = await axios.get(`http://localhost:3000/jobs-locations`);
     return response.data;
   };
-  
+
   const { data: jobLocationData, isLoading: jobLocationDataIsLoading } =
     useQuery(["job-location-list"], () => getJobLocations());
 
@@ -82,28 +85,22 @@ const ClientBanner = ({ setJobListFilter}: ClientBannerProps) => {
     setLocationSelect(event);
   };
 
-  const handleSearchChange = (event:any) => {
-    setSearch(event?.target.value)
-  }
+  const handleSearchChange = (event: any) => {
+    setSearch(event?.target.value);
+  };
 
-  const onClickFind = (e:any) => {
+  const onClickFind = (e: any) => {
     e.preventDefault();
     setJobListFilter({
       searchFilter: search,
       locationFilter: locationSelect.value === "" ? "" : locationSelect.label,
       categoryFilter: categorySelect.value === "" ? "" : categorySelect.label,
     });
-
-    // console.log('hdfdf');
-    // jobDataRefetch();
-  }
-
-  // useEffect(() => {
-  //   if(!setJobFilter.search || !locationSelect.value || !categorySelect.value) return;
-  // }, [jobFilter])
-
+  };
   if (jobCategoryDataIsLoading || jobLocationDataIsLoading) {
-    return "Loading";
+    return <div className="text-center py-4" style={{backgroundColor: "#eaedff"}}>
+      <Loader />
+    </div>
   }
 
   return (
@@ -127,13 +124,14 @@ const ClientBanner = ({ setJobListFilter}: ClientBannerProps) => {
                       id="search"
                       name="search"
                       onChange={handleSearchChange}
-                      placeholder="Please enter Job"
+                      placeholder="Please Search Job"
                       required={false}
                     />
                   </div>
                   <div className="select-form">
                     <div className="select-itms d-flex">
                       <ReactSelect
+                        className="react-select__control"
                         name="job-location"
                         styles={customStyles}
                         onChange={handleLocationChange}
@@ -144,6 +142,7 @@ const ClientBanner = ({ setJobListFilter}: ClientBannerProps) => {
                         }}
                       />
                       <ReactSelect
+                      className="react-select__control"
                         name="job-categories"
                         styles={customStyles}
                         onChange={handleCategoryChange}
@@ -153,16 +152,11 @@ const ClientBanner = ({ setJobListFilter}: ClientBannerProps) => {
                           IndicatorSeparator: () => null,
                         }}
                       />
-                      
                     </div>
                   </div>
-                  <button
-                    type="submit"
-                    className="find-job-btn"
-                  >
+                  <button type="submit" className="find-job-btn">
                     Find Job
                   </button>
-                  
                 </form>
               </div>
             </div>

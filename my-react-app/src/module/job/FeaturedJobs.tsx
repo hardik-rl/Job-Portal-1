@@ -1,6 +1,7 @@
 import SingleJobList from "./SingleJobList";
 import ReactPaginate from "react-paginate";
 import { JobData } from "./type";
+import Loader from "../../components/Loader";
 
 type FeaturedJobsProps = {
   setApplyNowModal: React.Dispatch<React.SetStateAction<boolean>>;
@@ -17,7 +18,9 @@ type FeaturedJobsProps = {
 const FeaturedJobs = ({ setApplyNowModal, setApplyJobData, jobsData, jobsDataIsLoading, setPage }: FeaturedJobsProps) => {
 
   if (jobsDataIsLoading) {
-    return <h1>Loading</h1>;
+    return <div className="text-center py-4 bg-white">
+      <Loader />
+    </div>
   }
 
   return (
