@@ -1,16 +1,21 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useQuery } from "@tanstack/react-query";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
 import { categoryCard } from "../api";
 import { useEffect, useState } from "react";
 import ReactSelect from "react-select";
 import { JobDataItem } from "../../../shared/types";
 import Loader from "../../../shared/Loader";
 
+import useJobCategories from "../../../shared/store/useJobCategories";
+
 const JobCategoryList = () => {
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
   const [selectedCategory, setSelectedCategory] = useState<string>("");
+  const { setJobCategoriesTitle } = useJobCategories();
 
   const { data: jobCategoryData, refetch } = useQuery<JobDataItem[]>(
     ["job-category-list", selectedCategory],
@@ -45,6 +50,10 @@ const JobCategoryList = () => {
       </div>
     );
   }
+  const cardOnClick = (category: any) => {
+    setJobCategoriesTitle(category.category);
+    navigate(`/admin/job-category-user/${category._id}`);
+  };
 
   return (
     <div className="app-wrapper">
@@ -78,15 +87,15 @@ const JobCategoryList = () => {
                 <div key={index} className="col-6 col-lg-3">
                   <div className="app-card app-card-stat shadow-sm h-100 d-block">
                     {category.applicationCount > 0 ? (
-                      <Link
-                        to={`/admin/job-category-user/${category._id}`}
-                        className="app-card-body p-3 p-lg-4"
+                      <button
+                        onClick={() => cardOnClick(category)}
+                        className="app-card-body p-3 p-lg-4 border-0 bg-white"
                       >
                         <h4 className="stats-type mb-1">{category.category}</h4>
                         <div className="stats-figure">
                           {category.applicationCount}
                         </div>
-                      </Link>
+                      </button>
                     ) : (
                       <div className="app-card-body p-3 p-lg-4">
                         <h4 className="stats-type mb-1">{category.category}</h4>

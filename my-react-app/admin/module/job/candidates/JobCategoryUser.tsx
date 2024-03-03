@@ -2,10 +2,11 @@ import { Link, useParams } from "react-router-dom";
 import { categoryList } from "../api";
 import { useQuery } from "@tanstack/react-query";
 import { categoryDataType } from "../../../shared/types";
+import useJobCategories from "../../../shared/store/useJobCategories";
 
 const JobCategoryUser = () => {
   const { categoryId } = useParams();
-
+  const { jobCategoriesTitle } = useJobCategories();
   const { data: categoryData } = useQuery({
     queryKey: ["job-category-user"],
     queryFn: () => categoryList(categoryId),
@@ -21,14 +22,14 @@ const JobCategoryUser = () => {
           <nav aria-label="breadcrumb mb-5">
             <ol className="breadcrumb bg-transparent p-0">
               <li className="breadcrumb-item ">
-                <Link to="/admin/job-category-list" className="textgreen">&lt; Back to Candidates List</Link>
+                <Link to="/admin/job-category-list" className="textgreen">&lt; Back to {jobCategoriesTitle} List</Link>
               </li>
             </ol>
           </nav>
 
           <div className="row g-3 mb-4 align-items-center justify-content-between">
             <div className="col-auto">
-              <h1 className="app-page-title mb-0">HR Candidates List</h1>
+              <h1 className="app-page-title mb-0">{jobCategoriesTitle} List</h1>
             </div>
           </div>
 

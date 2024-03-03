@@ -2,9 +2,12 @@ import { useParams, useNavigate } from "react-router-dom";
 import { categoryView, getPdf } from "../api";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
+import useJobCategories from "../../../shared/store/useJobCategories";
 
 const JobCategoryUserApplication = () => {
   const navigate = useNavigate();
+  const { jobCategoriesTitle } = useJobCategories();
+
   const { categoryId } = useParams();
 
   const [viewResumeClicked, setViewResumeClicked] = useState(false);
@@ -39,7 +42,7 @@ const JobCategoryUserApplication = () => {
             <ol className="breadcrumb bg-transparent p-0">
               <li className="breadcrumb-item">
                 <button className="bg-transparent border-0 textgreen" onClick={()=> navigate(-1)}>
-                  &lt; Back to Candidate List
+                  &lt; Back to {jobCategoriesTitle} List
                 </button>
               </li>
             </ol>
@@ -47,7 +50,7 @@ const JobCategoryUserApplication = () => {
 
           <div className="row g-3 mb-4 align-items-center justify-content-between">
             <div className="col-auto">
-              <h1 className="app-page-title mb-0">Mark Jones - HR Candidate</h1>
+              <h1 className="app-page-title mb-0">Mark Jones - {jobCategoriesTitle} Candidate</h1>
             </div>
           </div>
 
