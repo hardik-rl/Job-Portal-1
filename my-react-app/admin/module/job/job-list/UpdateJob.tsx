@@ -14,6 +14,9 @@ import ReactSelect from "react-select";
 import { AxiosError } from "axios";
 import { JobFormType } from "../../../shared/types";
 import Loader from "../../../shared/Loader";
+import { createJobSchema } from "../validation";
+import FormError from "../../../shared/FormError";
+import clsx from "clsx";
 
 const UpdateJob = () => {
   const { jobId } = useParams();
@@ -66,7 +69,7 @@ const UpdateJob = () => {
       label: location.name,
     })) || [];
 
-  const { handleSubmit, values, handleChange, setFieldValue } = useFormik({
+  const { handleSubmit, values, errors, handleChange, setFieldValue } = useFormik({
     initialValues: {
       title: jobData?.title,
       description: jobData?.description,
@@ -80,7 +83,11 @@ const UpdateJob = () => {
       company_description: jobData?.company_description,
       company_website: jobData?.company_website,
       company_email: jobData?.company_email,
+      // locationSelect: jobData?.locationSelect,
+      // categorySelect: jobData?.categorySelect,
     },
+    validateOnChange: false,
+    validationSchema: createJobSchema,
     onSubmit: async (values: JobFormType) => {
       values["category_id"] = categorySelect.value;
       values["job_location_id"] = locationSelect.value;
@@ -116,6 +123,8 @@ const UpdateJob = () => {
       setFieldValue("company_description", jobData.company_description);
       setFieldValue("company_website", jobData.company_website);
       setFieldValue("company_email", jobData.company_email);
+      // setFieldValue("locationSelect", jobData.locationSelect);
+      // setFieldValue("categorySelect", jobData.categorySelect);
 
       const categoryLabel = jobCategoryData?.find(
         (category: any) => category._id === jobData.category_id
@@ -160,6 +169,7 @@ const UpdateJob = () => {
             <form className="row" onSubmit={handleSubmit}>
               <div className="col-12 mb-3">
                 <FormControl
+                className={errors.title ? "is-error" : ""}
                   type="text"
                   id="title"
                   onChange={handleChange}
@@ -167,72 +177,106 @@ const UpdateJob = () => {
                   name="title"
                   placeholder="Enter Job Title"
                 />
+                 <FormError error={errors.title} />
               </div>
 
               <div className="col-md-6 mb-3">
                 <textarea
-                  className="form-control"
+                  className={clsx(
+                    errors.description ? "is-error" : "",
+                    "form-control"
+                  )}
                   id="description"
                   name="description"
                   onChange={handleChange}
                   value={values.description}
                   placeholder="Enter Job Description"
                 ></textarea>
+                <FormError error={errors.description} />
               </div>
 
               <div className="col-md-6 mb-3">
                 <textarea
-                  className="form-control"
+                   className={clsx(
+                    errors.knowledge_description ? "is-error" : "",
+                    "form-control"
+                  )}
                   id="knowledge_description"
                   name="knowledge_description"
                   value={values.knowledge_description}
                   onChange={handleChange}
                   placeholder="Enter Required Knowledge, Skills, and Abilities"
                 ></textarea>
+                 <FormError error={errors.knowledge_description} />
               </div>
 
               <div className="col-md-6 mb-3">
                 <textarea
-                  className="form-control"
+                  className={clsx(
+                    errors.education_description ? "is-error" : "",
+                    "form-control"
+                  )}
                   id="education_description"
                   name="education_description"
                   value={values.education_description}
                   onChange={handleChange}
                   placeholder="Enter Education + Experience"
                 ></textarea>
+                <FormError error={errors.education_description} />
               </div>
 
               <div className="col-md-6 mb-3">
                 <textarea
-                  className="form-control"
+                   className={clsx(
+                    errors.company_description ? "is-error" : "",
+                    "form-control"
+                  )}
                   value={values.company_description}
                   id="company_description"
                   name="company_description"
                   onChange={handleChange}
                   placeholder="Enter Company Job Description"
                 ></textarea>
+                <FormError error={errors.company_description} />
               </div>
 
               <div className="col-md-6 mb-3">
                 <FormControl
                   type="text"
+                  className={errors.company_name ? "is-error" : ""}
                   value={values.company_name}
                   id="company_name"
                   name="company_name"
                   onChange={handleChange}
                   placeholder="Enter Company Name"
                 />
+                <FormError error={errors.company_name} />
               </div>
 
               <div className="col-md-6 mb-3">
                 <FormControl
                   type="email"
+                  className={errors.company_email ? "is-error" : ""}
                   value={values.company_email}
                   id="company_email"
                   name="company_email"
                   onChange={handleChange}
                   placeholder="Enter Company Email"
                 />
+                 <FormError error={errors.company_email} />
+              </div>
+
+              <div className="col-md-6 mb-3">
+                <ReactSelect
+                  name="job-categories"
+                  onChange={handleCategoryChange}
+                  value={categorySelect}
+                  options={jobCategoryOptions}
+                  components={{
+                    IndicatorSeparator: () => null,
+                  }}
+                />
+                {/* <FormError error={errors.categorySelect} /> */}
               </div>
 
               <div className="col-md-6 mb-3">
@@ -245,49 +289,45 @@ const UpdateJob = () => {
                     IndicatorSeparator: () => null,
                   }}
                 />
-              </div>
-              <div className="col-md-6 mb-3">
-                <ReactSelect
-                  name="job-categories"
-                  onChange={handleCategoryChange}
-                  value={categorySelect}
-                  options={jobCategoryOptions}
-                  components={{
-                    IndicatorSeparator: () => null,
-                  }}
-                />
+                {/* <FormError error={errors.locationSelect} /> */}
               </div>
 
               <div className="col-md-6 mb-3">
                 <FormControl
                   value={values.vacancy}
+                  className={errors.vacancy ? "is-error" : ""}
                   id="vacancy"
                   name="vacancy"
                   onChange={handleSelectOnChangeEvent}
                   type="text"
                   placeholder="Enter Total Number of Vacancy"
                 />
+                <FormError error={errors.vacancy} />
               </div>
 
               <div className="col-md-6 mb-3">
                 <FormControl
                   type="text"
                   value={values.nature}
+                  className={errors.nature ? "is-error" : ""}
                   id="nature"
                   name="nature"
                   onChange={handleChange}
                   placeholder="Enter Job nature (Full-Time/Part-Time)"
                 />
+                <FormError error={errors.nature} />
               </div>
               <div className="col-md-6 mb-3">
                 <FormControl
                   type="text"
+                  className={errors.company_website ? "is-error" : ""}
                   value={values.company_website}
                   id="company_website"
                   name="company_website"
                   onChange={handleChange}
                   placeholder="Enter Company Website URL"
                 />
+                <FormError error={errors.company_website} />
               </div>
               <div className="text-center">
                 <button

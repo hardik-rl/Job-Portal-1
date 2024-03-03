@@ -66,8 +66,6 @@ const CreateNewJob = () => {
       company_description: "",
       company_website: "",
       company_email: "",
-      locationSelect: "",
-      categorySelect: "",
     },
     validateOnChange: false,
     validationSchema: createJobSchema,
@@ -220,7 +218,7 @@ const CreateNewJob = () => {
                       IndicatorSeparator: () => null,
                     }}
                   />
-                  <FormError error={errors.categorySelect} />
+                  {/* <FormError error={errors.categorySelect} /> */}
                 </div>
               </div>
               <div className="col-md-6 mb-3">
@@ -233,7 +231,7 @@ const CreateNewJob = () => {
                     IndicatorSeparator: () => null,
                   }}
                 />
-                <FormError error={errors.locationSelect} />
+                {/* <FormError error={errors.locationSelect} /> */}
               </div>
 
               <div className="col-md-6 mb-3">
