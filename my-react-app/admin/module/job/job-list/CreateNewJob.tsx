@@ -69,13 +69,14 @@ const CreateNewJob = () => {
       locationSelect: "",
       categorySelect: "",
     },
+    validateOnChange: false,
+    validationSchema: createJobSchema,
     onSubmit: (values: JobFormType) => {
       values["category_id"] = categorySelect.value;
       values["job_location_id"] = locationSelect.value;
       jobListMutate(values as any);
       resetForm();
     },
-    validationSchema: createJobSchema,
   });
 
   const handleCategoryChange = (event: any) => {
@@ -92,9 +93,11 @@ const CreateNewJob = () => {
   };
 
   if (jobCategoryDataIsLoading || jobLocationDataIsLoading) {
-    return <div className="py-4 banner-height d-flex justify-content-center">
-    <Loader />
-  </div>
+    return (
+      <div className="py-4 banner-height d-flex justify-content-center">
+        <Loader />
+      </div>
+    );
   }
 
   return (
@@ -110,13 +113,13 @@ const CreateNewJob = () => {
             <form className="row" onSubmit={handleSubmit}>
               <div className="col-12 mb-3">
                 <FormControl
+                  className={errors.title ? "is-error" : ""}
                   type="text"
                   id="title"
                   onChange={handleChange}
                   value={values.title}
                   name="title"
                   placeholder="Enter Job Title"
-                  className={errors.title ? "is-error" : ""}
                 />
                 <FormError error={errors.title} />
               </div>

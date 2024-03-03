@@ -1,20 +1,18 @@
-import * as Yup from "yup";
-
+import { object, string, number } from "yup";
 export const EMAIL_REGEX = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
-
-export const createJobSchema = Yup.object().shape({
-  title: Yup.string().required("Title is required"),
-  description: Yup.string().required("job description is required"),
-  education_description: Yup.string().required("Education is required"),
-  knowledge_description: Yup.string().required("Knowledge description is required"),
-  vacancy: Yup.number().min(0, "Vacancy is required"),
-  nature: Yup.string().required("Nature is a required"),
-  company_name: Yup.string().required("Company name is required"),
-  company_description: Yup.string().required("Company description is required"),
-  company_website: Yup.string().required("Website url is required"),
-  locationSelect: Yup.string().required("Location is required"),
-  categorySelect: Yup.string().required("Category is required"),
-  company_email: Yup.string()
+export const createJobSchema = object({
+  title: string().required("Title is required"),
+  description: string().required("job description is required"),
+  education_description: string().required("Education is required"),
+  knowledge_description: string().required("Knowledge description is required"),
+  vacancy: number().min(0, "Vacancy is required"),
+  nature: string().required("Nature is a required"),
+  company_name: string().required("Company name is required"),
+  company_description: string().required("Company description is required"),
+  company_website: string().required("Website url is required"),
+  locationSelect: string().required("Location is required"),
+  categorySelect: string().required("Category is required"),
+  company_email: string()
     .required("Email is required.")
     .matches(EMAIL_REGEX, "Invalid Email Address"),
 });
