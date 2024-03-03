@@ -10,8 +10,8 @@ export const createJobSchema = object({
   company_name: string().required("Company name is required"),
   company_description: string().required("Company description is required"),
   company_website: string().required("Website url is required"),
-  locationSelect: string().required("Location is required"),
-  categorySelect: string().required("Category is required"),
+  // locationSelect: string().required("Location is required"),
+  // categorySelect: string().required("Category is required"),
   company_email: string()
     .required("Email is required.")
     .matches(EMAIL_REGEX, "Invalid Email Address"),
