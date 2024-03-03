@@ -20,8 +20,8 @@
   color: #15a362;
 }
 
-.app-utility-item .dropdown-menu.show {
-  top: 36px !important;
+.app-utilities .app-utility-item .dropdown-menu.show {
+  top: 40px !important;
   left: -120px;
 }
 .app-btn-primary,
