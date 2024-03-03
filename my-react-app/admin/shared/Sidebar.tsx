@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import logo from "../../assets/img/admin/grp-logo.png";
 
 import { CardList, Plus } from "../shared/Icon";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import clsx from "clsx";
 
 import { NavLinkType } from "./types";
@@ -28,6 +28,17 @@ const NavLink = ({
 
 const SideBar = ({ sidebarOpen, handleClose }: any) => {
   const [activeLink, setActiveLink] = useState("#0");
+
+  useEffect(() => {
+    const currentRoute = window.location.pathname;
+    if (currentRoute === "/admin/job-category-list") {
+      setActiveLink("#0");
+    } else if (currentRoute === "/admin/create-new-job") {
+      setActiveLink("#1");
+    } else if (currentRoute === "/admin/job-list") {
+      setActiveLink("#2");
+    }
+  }, []);
 
   const handleNavLinkClick = (href: string) => {
     setActiveLink(href);

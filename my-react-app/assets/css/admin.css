@@ -20,8 +20,8 @@
   color: #15a362;
 }
 
-.app-utility-item .dropdown-menu.show {
-  top: 36px !important;
+.app-utilities .app-utility-item .dropdown-menu.show {
+  top: 40px !important;
   left: -120px;
 }
 .app-btn-primary,
@@ -79,5 +79,12 @@ button.btn-primary {
 }
 
 .is-error {
-  border: 1px solid #FCA5A5;
+  border-color: #dc3545 !important;
+}
+.is-error-text {
+  color: #dc3545;
+  font-size: 13px;
+}
+.app-wrapper {
+  transition: none !important;
 }

@@ -1,19 +1,25 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { HMenu } from "../shared/Icon";
 import adminLogo from "../../assets/img/admin/user.png";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import clsx from "clsx";
 import { removeToken } from "../../src/shared/helpers/utils";
+import { useOnClickOutside } from 'usehooks-ts'
 
 const Header = ({ handleOnClick }: any) => {
   const [dropdown, setDropdown] = useState(false);
-  
+  const ref = useRef(null)
   const handleLogout = () => {
     setDropdown(false);
     removeToken();
-    window.location.reload()
-
+    window.location.reload();
   };
+
+  const handleClickOutside = () => {
+    setDropdown(false);
+  }
+  useOnClickOutside(ref, handleClickOutside)
+
 
   return (
     <header className="app-header fixed-top">
@@ -33,12 +39,14 @@ const Header = ({ handleOnClick }: any) => {
               <div className="app-utilities col-auto">
                 <div className="app-utility-item app-user-dropdown dropdown">
                   <button
+
                     className="bg-transparent border-0 dropdown-toggle"
                     onClick={() => setDropdown(!dropdown)}
                   >
                     <img src={adminLogo} alt="user" />
                   </button>
                   <ul
+                      ref={ref}
                     className={clsx(dropdown && "show", "dropdown-menu")}
                     aria-labelledby="user-dropdown-toggle"
                   >

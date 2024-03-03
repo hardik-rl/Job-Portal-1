@@ -17,7 +17,6 @@ const FormControl = ({
   value,
   name,
   placeholder,
-  required=true,
   className,
 }: FormControlProps) => {
   return (
@@ -29,7 +28,6 @@ const FormControl = ({
       onChange={onChange}
       className={clsx(className, `form-control`)}
       id={id}
-      required={required}
     />
   );
 };

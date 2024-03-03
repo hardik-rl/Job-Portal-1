@@ -8,6 +8,8 @@ import ReactSelect from "react-select";
 import { JobFormType } from "../../../shared/types";
 import { createJobSchema } from "../validation";
 import FormError from "../../../shared/FormError";
+import clsx from "clsx";
+import Loader from "../../../shared/Loader";
 
 const CreateNewJob = () => {
   const [categorySelect, setCategorySelect] = useState({
@@ -43,30 +45,39 @@ const CreateNewJob = () => {
       label: location.name,
     })) || [];
 
-  const { handleSubmit, values, errors, handleChange, setFieldValue, resetForm } =
-    useFormik({
-      initialValues: {
-        title: "",
-        description: "",
-        education_description: "",
-        knowledge_description: "",
-        job_location_id: "",
-        category_id: "",
-        vacancy: 0,
-        nature: "",
-        company_name: "",
-        company_description: "",
-        company_website: "",
-        company_email: "",
-      },
-      validationSchema: createJobSchema,
-      onSubmit: (values: JobFormType) => {
-        values["category_id"] = categorySelect.value;
-        values["job_location_id"] = locationSelect.value;
-        jobListMutate(values as any);
-        resetForm();
-      },
-    });
+  const {
+    handleSubmit,
+    values,
+    errors,
+    handleChange,
+    setFieldValue,
+    resetForm,
+  } = useFormik({
+    initialValues: {
+      title: "",
+      description: "",
+      education_description: "",
+      knowledge_description: "",
+      job_location_id: "",
+      category_id: "",
+      vacancy: 0,
+      nature: "",
+      company_name: "",
+      company_description: "",
+      company_website: "",
+      company_email: "",
+      locationSelect: "",
+      categorySelect: "",
+    },
+    validateOnChange: false,
+    validationSchema: createJobSchema,
+    onSubmit: (values: JobFormType) => {
+      values["category_id"] = categorySelect.value;
+      values["job_location_id"] = locationSelect.value;
+      jobListMutate(values as any);
+      resetForm();
+    },
+  });
 
   const handleCategoryChange = (event: any) => {
     setCategorySelect(event);
@@ -82,7 +93,11 @@ const CreateNewJob = () => {
   };
 
   if (jobCategoryDataIsLoading || jobLocationDataIsLoading) {
-    return <h1>Loading</h1>;
+    return (
+      <div className="py-4 banner-height d-flex justify-content-center">
+        <Loader />
+      </div>
+    );
   }
 
   return (
@@ -98,20 +113,23 @@ const CreateNewJob = () => {
             <form className="row" onSubmit={handleSubmit}>
               <div className="col-12 mb-3">
                 <FormControl
+                  className={errors.title ? "is-error" : ""}
                   type="text"
                   id="title"
                   onChange={handleChange}
                   value={values.title}
                   name="title"
                   placeholder="Enter Job Title"
-                  className={errors.title ? "is-error" : ""}
                 />
                 <FormError error={errors.title} />
               </div>
 
               <div className="col-md-6 mb-3">
                 <textarea
-                  className="form-control"
+                  className={clsx(
+                    errors.description ? "is-error" : "",
+                    "form-control"
+                  )}
                   id="description"
                   name="description"
                   onChange={handleChange}
@@ -123,7 +141,10 @@ const CreateNewJob = () => {
 
               <div className="col-md-6 mb-3">
                 <textarea
-                  className="form-control"
+                  className={clsx(
+                    errors.knowledge_description ? "is-error" : "",
+                    "form-control"
+                  )}
                   id="knowledge_description"
                   name="knowledge_description"
                   value={values.knowledge_description}
@@ -135,7 +156,10 @@ const CreateNewJob = () => {
 
               <div className="col-md-6 mb-3">
                 <textarea
-                  className="form-control"
+                  className={clsx(
+                    errors.education_description ? "is-error" : "",
+                    "form-control"
+                  )}
                   id="education_description"
                   name="education_description"
                   value={values.education_description}
@@ -144,19 +168,46 @@ const CreateNewJob = () => {
                 ></textarea>
                 <FormError error={errors.education_description} />
               </div>
-
               <div className="col-md-6 mb-3">
-                <ReactSelect
-                  name="job-location"
-                  onChange={handleLocationChange}
-                  value={locationSelect}
-                  options={jobLocationOptions}
-                  components={{
-                    IndicatorSeparator: () => null,
-                  }}
+                <textarea
+                  className={clsx(
+                    errors.company_description ? "is-error" : "",
+                    "form-control"
+                  )}
+                  value={values.company_description}
+                  id="company_description"
+                  name="company_description"
+                  onChange={handleChange}
+                  placeholder="Enter Company Job Description"
+                ></textarea>
+                <FormError error={errors.company_description} />
+              </div>
+              <div className="col-md-6 mb-3">
+                <FormControl
+                  type="text"
+                  value={values.company_name}
+                  className={errors.company_name ? "is-error" : ""}
+                  id="company_name"
+                  name="company_name"
+                  onChange={handleChange}
+                  placeholder="Enter Company Name"
                 />
-                {/* <FormError error={errors.education_description} /> */}
-                <div className="mt-2">
+                <FormError error={errors.company_name} />
+              </div>
+              <div className="col-md-6 mb-3">
+                <FormControl
+                  type="email"
+                  value={values.company_email}
+                  className={errors.company_email ? "is-error" : ""}
+                  id="company_email"
+                  name="company_email"
+                  onChange={handleChange}
+                  placeholder="Enter Company Email"
+                />
+                <FormError error={errors.company_email} />
+              </div>
+              <div className="col-md-6 mb-3">
+                <div className="">
                   <ReactSelect
                     name="job-categories"
                     options={jobCategoryOptions}
@@ -169,12 +220,25 @@ const CreateNewJob = () => {
                       IndicatorSeparator: () => null,
                     }}
                   />
-                  {/* <FormError error={errors.education_description} /> */}
+                  <FormError error={errors.categorySelect} />
                 </div>
+              </div>
+              <div className="col-md-6 mb-3">
+                <ReactSelect
+                  name="job-location"
+                  onChange={handleLocationChange}
+                  value={locationSelect}
+                  options={jobLocationOptions}
+                  components={{
+                    IndicatorSeparator: () => null,
+                  }}
+                />
+                <FormError error={errors.locationSelect} />
               </div>
 
               <div className="col-md-6 mb-3">
                 <FormControl
+                  className={errors.vacancy ? "is-error" : ""}
                   value={values.vacancy}
                   id="vacancy"
                   name="vacancy"
@@ -188,6 +252,7 @@ const CreateNewJob = () => {
               <div className="col-md-6 mb-3">
                 <FormControl
                   type="text"
+                  className={errors.nature ? "is-error" : ""}
                   value={values.nature}
                   id="nature"
                   name="nature"
@@ -200,56 +265,23 @@ const CreateNewJob = () => {
               <div className="col-md-6 mb-3">
                 <FormControl
                   type="text"
-                  value={values.company_name}
-                  id="company_name"
-                  name="company_name"
-                  onChange={handleChange}
-                  placeholder="Enter Company Name"
-                />
-                <FormError error={errors.company_name} />
-              </div>
-              <div className="col-md-6 mb-3">
-                <textarea
-                  className="form-control"
-                  value={values.company_description}
-                  id="company_description"
-                  name="company_description"
-                  onChange={handleChange}
-                  placeholder="Enter Company Job Description"
-                ></textarea>
-                 <FormError error={errors.company_description} />
-              </div>
-
-              <div className="col-md-6 mb-3">
-                <FormControl
-                  type="text"
                   value={values.company_website}
                   id="company_website"
                   name="company_website"
                   onChange={handleChange}
+                  className={errors.company_website ? "is-error" : ""}
                   placeholder="Enter Company Website URL"
                 />
                 <FormError error={errors.company_website} />
               </div>
-
-              <div className="col-md-6 mb-3">
-                <FormControl
-                  type="email"
-                  value={values.company_email}
-                  id="company_email"
-                  name="company_email"
-                  onChange={handleChange}
-                  placeholder="Enter Company Email"
-                />
-                <FormError error={errors.company_email} />
+              <div className="text-center">
+                <button
+                  type="submit"
+                  className="btn-primary w-auto text-white p-3 m-auto mt-5"
+                >
+                  Create New Job
+                </button>
               </div>
-
-              <button
-                type="submit"
-                className="btn-primary w-auto text-white p-3 m-auto mt-5"
-              >
-                Create New Job
-              </button>
             </form>
           </div>
         </div>

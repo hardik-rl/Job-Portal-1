@@ -21,7 +21,6 @@ const JobCategoryList = () => {
         setLoading(false);
       },
     }
-
   );
 
   const options =
@@ -38,6 +37,14 @@ const JobCategoryList = () => {
     refetch();
     setLoading(true);
   }, [selectedCategory, refetch]);
+
+  if (loading) {
+    return (
+      <div className="py-4 banner-height d-flex justify-content-center">
+        <Loader />
+      </div>
+    );
+  }
 
   return (
     <div className="app-wrapper">
@@ -66,43 +73,31 @@ const JobCategoryList = () => {
             </div>
           </div>
           <div className="row g-4 mb-4">
-            {loading ? (
-              <div className="d-flex justify-content-center">
-                <Loader />
-              </div>
-            ) : (
-              <>
-                {jobCategoryData &&
-                  jobCategoryData.map((category: any, index: any) => (
-                    <div key={index} className="col-6 col-lg-3">
-                      <div className="app-card app-card-stat shadow-sm h-100 d-block">
-                        {category.applicationCount > 0 ? (
-                          <Link
-                            to={`/admin/job-category-user/${category._id}`}
-                            className="app-card-body p-3 p-lg-4"
-                          >
-                            <h4 className="stats-type mb-1">
-                              {category.category}
-                            </h4>
-                            <div className="stats-figure">
-                              {category.applicationCount}
-                            </div>
-                          </Link>
-                        ) : (
-                          <div className="app-card-body p-3 p-lg-4">
-                            <h4 className="stats-type mb-1">
-                              {category.category}
-                            </h4>
-                            <div className="stats-figure">
-                              {category.applicationCount}
-                            </div>
-                          </div>
-                        )}
+            {jobCategoryData &&
+              jobCategoryData.map((category: any, index: any) => (
+                <div key={index} className="col-6 col-lg-3">
+                  <div className="app-card app-card-stat shadow-sm h-100 d-block">
+                    {category.applicationCount > 0 ? (
+                      <Link
+                        to={`/admin/job-category-user/${category._id}`}
+                        className="app-card-body p-3 p-lg-4"
+                      >
+                        <h4 className="stats-type mb-1">{category.category}</h4>
+                        <div className="stats-figure">
+                          {category.applicationCount}
+                        </div>
+                      </Link>
+                    ) : (
+                      <div className="app-card-body p-3 p-lg-4">
+                        <h4 className="stats-type mb-1">{category.category}</h4>
+                        <div className="stats-figure">
+                          {category.applicationCount}
+                        </div>
                       </div>
-                    </div>
-                  ))}
-              </>
-            )}
+                    )}
+                  </div>
+                </div>
+              ))}
           </div>
         </div>
       </div>

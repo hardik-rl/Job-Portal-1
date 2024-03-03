@@ -13,6 +13,7 @@ import { ChangeEvent, useEffect, useState } from "react";
 import ReactSelect from "react-select";
 import { AxiosError } from "axios";
 import { JobFormType } from "../../../shared/types";
+import Loader from "../../../shared/Loader";
 
 const UpdateJob = () => {
   const { jobId } = useParams();
@@ -139,7 +140,11 @@ const UpdateJob = () => {
     jobLocationDataIsLoading ||
     jobDataIsLoading
   ) {
-    return <h1>Loading</h1>;
+    return (
+      <div className="py-4 banner-height d-flex justify-content-center">
+        <Loader />
+      </div>
+    );
   }
 
   return (
@@ -198,6 +203,39 @@ const UpdateJob = () => {
               </div>
 
               <div className="col-md-6 mb-3">
+                <textarea
+                  className="form-control"
+                  value={values.company_description}
+                  id="company_description"
+                  name="company_description"
+                  onChange={handleChange}
+                  placeholder="Enter Company Job Description"
+                ></textarea>
+              </div>
+
+              <div className="col-md-6 mb-3">
+                <FormControl
+                  type="text"
+                  value={values.company_name}
+                  id="company_name"
+                  name="company_name"
+                  onChange={handleChange}
+                  placeholder="Enter Company Name"
+                />
+              </div>
+
+              <div className="col-md-6 mb-3">
+                <FormControl
+                  type="email"
+                  value={values.company_email}
+                  id="company_email"
+                  name="company_email"
+                  onChange={handleChange}
+                  placeholder="Enter Company Email"
+                />
+              </div>
+
+              <div className="col-md-6 mb-3">
                 <ReactSelect
                   name="job-location"
                   onChange={handleLocationChange}
@@ -207,17 +245,17 @@ const UpdateJob = () => {
                     IndicatorSeparator: () => null,
                   }}
                 />
-                <div className="mt-2">
-                  <ReactSelect
-                    name="job-categories"
-                    onChange={handleCategoryChange}
-                    value={categorySelect}
-                    options={jobCategoryOptions}
-                    components={{
-                      IndicatorSeparator: () => null,
-                    }}
-                  />
-                </div>
+              </div>
+              <div className="col-md-6 mb-3">
+                <ReactSelect
+                  name="job-categories"
+                  onChange={handleCategoryChange}
+                  value={categorySelect}
+                  options={jobCategoryOptions}
+                  components={{
+                    IndicatorSeparator: () => null,
+                  }}
+                />
               </div>
 
               <div className="col-md-6 mb-3">
@@ -241,28 +279,6 @@ const UpdateJob = () => {
                   placeholder="Enter Job nature (Full-Time/Part-Time)"
                 />
               </div>
-
-              <div className="col-md-6 mb-3">
-                <FormControl
-                  type="text"
-                  value={values.company_name}
-                  id="company_name"
-                  name="company_name"
-                  onChange={handleChange}
-                  placeholder="Enter Company Name"
-                />
-              </div>
-              <div className="col-md-6 mb-3">
-                <textarea
-                  className="form-control"
-                  value={values.company_description}
-                  id="company_description"
-                  name="company_description"
-                  onChange={handleChange}
-                  placeholder="Enter Company Job Description"
-                ></textarea>
-              </div>
-
               <div className="col-md-6 mb-3">
                 <FormControl
                   type="text"
@@ -273,24 +289,14 @@ const UpdateJob = () => {
                   placeholder="Enter Company Website URL"
                 />
               </div>
-
-              <div className="col-md-6 mb-3">
-                <FormControl
-                  type="email"
-                  value={values.company_email}
-                  id="company_email"
-                  name="company_email"
-                  onChange={handleChange}
-                  placeholder="Enter Company Email"
-                />
+              <div className="text-center">
+                <button
+                  type="submit"
+                  className="btn btn-primary w-auto text-white p-3 m-auto mt-5"
+                >
+                  Update Job
+                </button>
               </div>
-
-              <button
-                type="submit"
-                className="btn btn-primary w-auto text-white p-3 m-auto mt-5"
-              >
-                Update
-              </button>
             </form>
           </div>
         </div>
