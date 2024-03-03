@@ -50,7 +50,7 @@ const JobCategoryUserApplication = () => {
 
           <div className="row g-3 mb-4 align-items-center justify-content-between">
             <div className="col-auto">
-              <h1 className="app-page-title mb-0">Mark Jones - {jobCategoriesTitle} Candidate</h1>
+              <h1 className="app-page-title mb-0">{applicationData?.first_name} - {jobCategoriesTitle} Candidate</h1>
             </div>
           </div>
 
