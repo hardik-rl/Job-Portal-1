@@ -1,6 +1,5 @@
 import SingleJobList from "./SingleJobList";
 import ReactPaginate from "react-paginate";
-import { JobData } from "./type";
 import Loader from "../../components/Loader";
 import { useState } from "react";
 
@@ -45,7 +44,7 @@ const FeaturedJobs = ({ setApplyNowModal, setApplyJobData, jobsData, jobsDataIsL
           <div className="col-xl-10">
             {jobsData?.jobs?.length > 0 && !jobsDataIsLoading && (
               <>
-                {jobsData?.jobs?.map((job: JobData, index: number) => (
+                {jobsData?.jobs?.map((job: any, index: number) => (
                   <span key={index}>
                     <SingleJobList
                       setApplyNowModal={setApplyNowModal}

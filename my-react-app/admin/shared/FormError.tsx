@@ -1,5 +1,5 @@
 type FormErrorProps = {
-  error: string | undefined;
+  error: string | undefined | any;
 };
 
 const FormError = ({ error }: FormErrorProps) => {

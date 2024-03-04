@@ -12,7 +12,6 @@ import { toast } from "react-toastify";
 import { ChangeEvent, useEffect, useState } from "react";
 import ReactSelect from "react-select";
 import { AxiosError } from "axios";
-import { JobFormType } from "../../../shared/types";
 import Loader from "../../../shared/Loader";
 import { createJobSchema } from "../validation";
 import FormError from "../../../shared/FormError";
@@ -88,7 +87,7 @@ const UpdateJob = () => {
     },
     validateOnChange: false,
     validationSchema: createJobSchema,
-    onSubmit: async (values: JobFormType) => {
+    onSubmit: async (values: any) => {
       values["category_id"] = categorySelect.value;
       values["job_location_id"] = locationSelect.value;
       updateJobFn(values);
