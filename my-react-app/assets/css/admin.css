@@ -101,3 +101,6 @@ button.btn-primary {
   padding: 10px !important;
   font-size: 15px;
 }
+.h-screen {
+  height: 100vh;
+}
