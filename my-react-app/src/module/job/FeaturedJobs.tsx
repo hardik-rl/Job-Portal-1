@@ -62,18 +62,20 @@ const FeaturedJobs = ({ setApplyNowModal, setApplyJobData, jobsData, jobsDataIsL
             )}
           </div>
         </div>
-        <ReactPaginate
-          className="custom-pagination "
-          breakLabel="..."
-          nextLabel="Next"
-          onPageChange={(event) => handlePageChange(event.selected)}
-          pageCount={jobsData.totalPages}
-          pageRangeDisplayed={3}
-          previousLabel="Previous"
-          renderOnZeroPageCount={null}
-          activeClassName="paginate-active"
-          forcePage={activePage}
-        />
+        {jobsData.jobs.length > 0 && (
+          <ReactPaginate
+            className="custom-pagination "
+            activeClassName="paginate-active"
+            breakLabel="..."
+            nextLabel="Next"
+            onPageChange={(event) => handlePageChange(event.selected)}
+            pageRangeDisplayed={5}
+            pageCount={jobsData.totalPages}
+            previousLabel="Previous"
+            renderOnZeroPageCount={null}
+            forcePage={activePage}
+          />
+        )}
       </div>
     </section>
   );
