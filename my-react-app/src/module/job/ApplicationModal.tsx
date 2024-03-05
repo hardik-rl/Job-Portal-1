@@ -58,7 +58,9 @@ const ApplicationModal = ({ setApplyNowModal, applyJobData }: any) => {
       state: "",
       resume_file: "",
     },
+    validateOnChange: false,
     onSubmit: (values: any) => {
+      console.log('here');
       const formData: any = new FormData();
       Object.keys(values).forEach((key) => {
         if (!["resume_file", "job_id", "category_id"].includes(key)) {
@@ -78,6 +80,9 @@ const ApplicationModal = ({ setApplyNowModal, applyJobData }: any) => {
     validateOnChange: false,
     validationSchema:ApplicationModalSchema,
   });
+
+
+  console.log(errors);
 
   const handleOnChangeEvent = (event: any) => {
     setFieldValue(event?.target.name, Number(event.target.value));
@@ -178,7 +183,7 @@ const ApplicationModal = ({ setApplyNowModal, applyJobData }: any) => {
         aria-labelledby="staticBackdropLabel"
         aria-hidden="true"
       >
-        <div className="modal-dialog modal-dialog-centered modal-lg">
+        <div className="modal-dialog modal-dialog-centered modal-xl">
           <div className="modal-content">
             <div className="modal-header">
               <h5 className="modal-title" id="exampleModalLabel">
@@ -238,7 +243,7 @@ const ApplicationModal = ({ setApplyNowModal, applyJobData }: any) => {
                   <div className="form-group col-md-4">
                     <FormLabel name="Pancard number" htmlFor="pan_number" />
                     <FormControl
-                      onChange={(event: any) => handleOnChangeEvent(event)}
+                      onChange={handleChange}
                       value={values.pan_number}
                       id="pan_number"
                       type="text"

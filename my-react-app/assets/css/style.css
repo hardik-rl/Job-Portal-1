@@ -6557,3 +6557,12 @@ form.search-box .find-job-btn:hover {
     height: 300px;
   }
 }
+
+
+.modal-xl {
+  max-width: 700px;
+}
+.modal-body {
+  overflow: auto;
+  max-height: 600px;
+}
