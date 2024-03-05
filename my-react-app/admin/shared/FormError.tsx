@@ -1,5 +1,5 @@
 type FormErrorProps = {
-  error: string | undefined;
+  error: string | undefined | any;
 };
 
 const FormError = ({ error }: FormErrorProps) => {
@@ -7,7 +7,7 @@ const FormError = ({ error }: FormErrorProps) => {
     return null;
   }
 
-  return <div className="text-red-600 text-xs font-medium mt-1">{error}</div>;
+  return <div className="is-error-text">{error}</div>;
 };
 
 export default FormError;

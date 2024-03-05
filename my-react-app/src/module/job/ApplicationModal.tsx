@@ -10,6 +10,7 @@ import useStore from "../../shared/store/useStore";
 import { ApplicationModalSchema } from "./validation";
 import FormError from "../../components/FormError";
 import clsx from "clsx";
+import Loader from "../../components/Loader";
 
 const ApplicationModal = ({ setApplyNowModal, applyJobData }: any) => {
   const [file, setFile] = useState<any>(null);
@@ -74,6 +75,7 @@ const ApplicationModal = ({ setApplyNowModal, applyJobData }: any) => {
 
       applyJobMutate(formData);
     },
+    validateOnChange: false,
     validationSchema:ApplicationModalSchema,
   });
 
@@ -117,7 +119,9 @@ const ApplicationModal = ({ setApplyNowModal, applyJobData }: any) => {
   };
 
   if (applyJobIsLoading) {
-    return <h1>Loading</h1>;
+    return <div className="text-center py-4 bg-white banner-height">
+    <Loader />
+  </div>
   }
 
   const statesDataList = [

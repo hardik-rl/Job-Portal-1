@@ -11,6 +11,7 @@ import { useState } from "react";
 import Loader from "../../shared/Loader";
 import useStyleLoad from "../../../src/shared/hooks/useStyleLoad";
 import Preloader from "../../../src/components/Preloader";
+import FormError from "../../shared/FormError";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -32,7 +33,7 @@ const Login = () => {
     }
   );
 
-  const { handleSubmit, values, handleChange } = useFormik({
+  const { handleSubmit, values, errors, handleChange } = useFormik({
     initialValues: {
       email: "",
       password: "",
@@ -41,6 +42,7 @@ const Login = () => {
       setLoading(true);
       loginFn(values);
     },
+    validateOnChange: false,
     validationSchema: loginSchema,
   });
 
@@ -72,6 +74,7 @@ const Login = () => {
                     name="email"
                     placeholder="Email"
                   />
+                  <FormError error={errors.email} />
                 </div>
                 <div className="password mb-3">
                   <FormControl
@@ -82,6 +85,7 @@ const Login = () => {
                     name="password"
                     placeholder="Password"
                   />
+                  <FormError error={errors.password} />
                   <div className="extra mt-3 row justify-content-between">
                     <div className="col-6">
                       <div className="form-check">

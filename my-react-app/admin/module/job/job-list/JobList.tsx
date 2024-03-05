@@ -5,10 +5,11 @@ import JobDelete from "./JobDelete";
 
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Loader from "../../../shared/Loader";
 
 const JobList = () => {
   const navigate = useNavigate();
-  const { data, refetch } = useQuery(["getAllJob"], getAllJob);
+  const { data, refetch, isLoading } = useQuery(["getAllJob"], getAllJob);
   const jobListData = data;
   const [showModal, setShowModal] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);
@@ -23,6 +24,14 @@ const JobList = () => {
     setDeleteModal(true);
     setSelectedItemId(id);
   };
+
+  if (isLoading) {
+    return (
+      <div className="py-4 banner-height d-flex justify-content-center">
+        <Loader />
+      </div>
+    );
+  }
 
   return (
     <>
@@ -44,12 +53,8 @@ const JobList = () => {
                     <th scope="col">Company Description</th>
                     <th scope="col">Education Description</th>
                     <th scope="col">Job Nature</th>
-                    <th scope="col">
-                      Vacancy
-                    </th>
-                    <th scope="col">
-                  Action
-                    </th>
+                    <th scope="col">Vacancy</th>
+                    <th scope="col">Action</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -58,24 +63,24 @@ const JobList = () => {
                       <tr key={index}>
                         <td>{item.company_name}</td>
                         <td>{item.company_email}</td>
-                        <td>{item.company_description}</td>
+                        <td className="company__description">{item.company_description}</td>
                         <td>{item.education_description}</td>
                         <td>{item.nature}</td>
                         <td>{item.vacancy}</td>
                         <td>
                           <div className="d-flex gap-2">
-                          <button
-                            className="ml-2 btn-primary text-white p-2"
-                            onClick={() => handleEditClick(item._id)}
-                          >
-                            Edit
-                          </button>
-                          <button
-                            className="ml-2 btn btn-danger p-2 text-white"
-                            onClick={() => handleDeleteClick(item._id)}
-                          >
-                            Delete
-                          </button>
+                            <button
+                              className="ml-2 btn-primary text-white p-2"
+                              onClick={() => handleEditClick(item._id)}
+                            >
+                              Edit
+                            </button>
+                            <button
+                              className="ml-2 btn btn-danger p-2 text-white"
+                              onClick={() => handleDeleteClick(item._id)}
+                            >
+                              Delete
+                            </button>
                           </div>
                         </td>
                       </tr>
