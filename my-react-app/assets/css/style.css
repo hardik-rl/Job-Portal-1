@@ -4882,6 +4882,14 @@ form.search-box .input-form input {
   position: relative;
   -webkit-box-shadow: 0 0 0 40px white inset !important;
 }
+@media (min-width: 768px) and (max-width: 991px) {
+
+  form.search-box .input-form input {
+    padding: 9px 23px 9px 22px;
+    font-size: 15px;
+  }
+}
+
 form.search-box .input-form input:focus {
   box-shadow: none;
 }
