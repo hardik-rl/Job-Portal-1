@@ -6,11 +6,10 @@ import { toast } from "react-toastify";
 import { AxiosError } from "axios";
 import { useFormik } from "formik";
 
-const JobEdit = ({ setShowModal, selectedItemId, refetch }: any) => {
-  const { mutate: updateJobFn } = useMutation(() => updateJob(selectedItemId), {
+const JobEdit = ({ setShowModal, selectedItemId }: any) => {
+  const { mutate: updateJobFn } = useMutation((data) => updateJob(selectedItemId, data), {
     onSuccess: () => {
       toast.success("Job Edited Successfully.");
-      // refetch();
     },
     onError: (error: AxiosError<{ message: string }>) => {
       toast(error.response?.data.message, {

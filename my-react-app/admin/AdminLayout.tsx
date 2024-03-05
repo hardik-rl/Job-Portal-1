@@ -19,7 +19,9 @@ const AdminLayout = () => {
   };
 
   if (!stylesLoaded) {
-    return <Loader />
+    return  <div className="py-5 h-screen d-flex justify-content-center align-items-center">
+      <Loader />
+    </div>
   }
 
   return (

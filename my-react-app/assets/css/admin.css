@@ -88,3 +88,19 @@ button.btn-primary {
 .app-wrapper {
   transition: none !important;
 }
+.company__description {
+  max-width: 200px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.app-content .table thead th {
+  white-space: nowrap;
+}
+.app-content .table th, .table td {
+  padding: 10px !important;
+  font-size: 15px;
+}
+.h-screen {
+  height: 100vh;
+}

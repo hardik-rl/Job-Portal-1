@@ -1,7 +1,7 @@
 import SingleJobList from "./SingleJobList";
 import ReactPaginate from "react-paginate";
-import { JobData } from "./type";
 import Loader from "../../components/Loader";
+import { useState } from "react";
 
 type FeaturedJobsProps = {
   setApplyNowModal: React.Dispatch<React.SetStateAction<boolean>>;
@@ -16,12 +16,19 @@ type FeaturedJobsProps = {
 }
 
 const FeaturedJobs = ({ setApplyNowModal, setApplyJobData, jobsData, jobsDataIsLoading, setPage }: FeaturedJobsProps) => {
+  const [activePage, setActivePage] = useState(0);
 
   if (jobsDataIsLoading) {
     return <div className="text-center py-4 bg-white banner-height">
       <Loader />
     </div>
   }
+
+
+  const handlePageChange = (selected:number) => {
+    setActivePage(selected);
+    setPage(selected + 1)
+  };
 
   return (
     <section className="featured-job-area feature-padding">
@@ -37,7 +44,7 @@ const FeaturedJobs = ({ setApplyNowModal, setApplyJobData, jobsData, jobsDataIsL
           <div className="col-xl-10">
             {jobsData?.jobs?.length > 0 && !jobsDataIsLoading && (
               <>
-                {jobsData?.jobs?.map((job: JobData, index: number) => (
+                {jobsData?.jobs?.map((job: any, index: number) => (
                   <span key={index}>
                     <SingleJobList
                       setApplyNowModal={setApplyNowModal}
@@ -57,14 +64,15 @@ const FeaturedJobs = ({ setApplyNowModal, setApplyJobData, jobsData, jobsDataIsL
         </div>
         <ReactPaginate
           className="custom-pagination "
-          activeClassName="paginate-active"
           breakLabel="..."
           nextLabel="Next"
-          onPageChange={(event) => setPage(event.selected + 1)}
-          pageRangeDisplayed={5}
+          onPageChange={(event) => handlePageChange(event.selected)}
           pageCount={jobsData.totalPages}
+          pageRangeDisplayed={3}
           previousLabel="Previous"
           renderOnZeroPageCount={null}
+          activeClassName="paginate-active"
+          forcePage={activePage}
         />
       </div>
     </section>

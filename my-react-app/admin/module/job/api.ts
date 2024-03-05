@@ -34,6 +34,7 @@ export const addJob = async (data:any) => {
   return res;
 };
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const updateJob = async (id:number|string|undefined, data:any) => {
   const res = await api.put(`/edit-job/${id}`, data);
   return res;

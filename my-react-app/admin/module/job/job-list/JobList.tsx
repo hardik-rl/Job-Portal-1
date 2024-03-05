@@ -63,7 +63,7 @@ const JobList = () => {
                       <tr key={index}>
                         <td>{item.company_name}</td>
                         <td>{item.company_email}</td>
-                        <td>{item.company_description}</td>
+                        <td className="company__description">{item.company_description}</td>
                         <td>{item.education_description}</td>
                         <td>{item.nature}</td>
                         <td>{item.vacancy}</td>
