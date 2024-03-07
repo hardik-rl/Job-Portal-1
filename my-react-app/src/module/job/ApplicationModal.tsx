@@ -77,7 +77,6 @@ const ApplicationModal = ({ setApplyNowModal, applyJobData }: any) => {
 
       applyJobMutate(formData);
     },
-    validateOnChange: false,
     validationSchema:ApplicationModalSchema,
   });
 
