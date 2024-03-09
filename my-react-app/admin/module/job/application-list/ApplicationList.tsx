@@ -71,6 +71,14 @@ const ApplicationList = () => {
                     </tr>
                   </thead>
                   <tbody>
+                  {!applicationListData ||
+                    (applicationListData.length === 0 && (
+                      <tr>
+                        <td colSpan={8}>
+                          <h3 className="text-center my-5">No Data Found</h3>
+                        </td>
+                      </tr>
+                    ))}
                     {applicationListData &&
                       applicationListData.map(
                         (application: any, index: number) => (

@@ -13,7 +13,11 @@ const JobList = () => {
   const [deleteModal, setDeleteModal] = useState(false);
   const [selectedItemId, setSelectedItemId] = useState("");
 
-  const { data: jobListData, refetch: jobListRefetch, isLoading: jobListIsLoading } = useQuery(["getAllJob"], getAllJob);
+  const {
+    data: jobListData,
+    refetch: jobListRefetch,
+    isLoading: jobListIsLoading,
+  } = useQuery(["getAllJob"], getAllJob);
 
   const handleEditClick = (id: any) => {
     navigate(`/admin/update-job/${id}`);
@@ -63,12 +67,22 @@ const JobList = () => {
                   </tr>
                 </thead>
                 <tbody>
+                  {!jobListData ||
+                    (jobListData.length === 0 && (
+                      <tr>
+                        <td colSpan={7}>
+                          <h3 className="text-center my-5">No Data Found</h3>
+                        </td>
+                      </tr>
+                    ))}
                   {jobListData &&
                     jobListData.map((item: any, index: number) => (
                       <tr key={index}>
                         <td>{item.company_name}</td>
                         <td>{item.company_email}</td>
-                        <td className="company__description">{item.company_description}</td>
+                        <td className="company__description">
+                          {item.company_description}
+                        </td>
                         <td>{item.education_description}</td>
                         <td>{item.nature}</td>
                         <td>{item.vacancy}</td>
@@ -103,10 +117,7 @@ const JobList = () => {
         </div>
       </div>
       {showModal && (
-        <JobEdit
-          selectedItemId={selectedItemId}
-          setShowModal={setShowModal}
-        />
+        <JobEdit selectedItemId={selectedItemId} setShowModal={setShowModal} />
       )}
       {deleteModal && (
         <JobDelete
