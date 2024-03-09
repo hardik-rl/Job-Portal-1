@@ -85,7 +85,10 @@ const ApplicationModal = ({ setApplyNowModal, applyJobData }: any) => {
 
 
   const handleOnChangeEvent = (event: any) => {
-    setFieldValue(event?.target.name, Number(event.target.value));
+    const value = event?.target.value.replace(/[^\d]/g, '');
+    setFieldValue(event?.target.name, value.slice(0, 10));
+
+    // setFieldValue(event?.target.name, Number(event.target.value));
   };
 
   const onStateChange = (event: any) => {
@@ -264,10 +267,11 @@ const ApplicationModal = ({ setApplyNowModal, applyJobData }: any) => {
                     <FormLabel name="Mobile number" htmlFor="mobilenumber" />
                     <FormControl
                       onChange={(event: any) => handleOnChangeEvent(event)}
+                      // onChange={handleChange}
                       value={values.mobile_number}
                       id="mobile_number"
                       name="mobile_number"
-                      type="tel"
+                      type="text"
                       className={errors.mobile_number ? "is-error" : ""}
                     />
                     <FormError error={errors.mobile_number} />

@@ -107,7 +107,7 @@ app.get('/job/:id', async (req, res) => {
     const jobId = req.params.id;
 
     const job = await Job.findById(jobId)
-      .populate('job_location_id')
+      .populate('job_location_id category_id')
       .exec();
 
     if (!job) {

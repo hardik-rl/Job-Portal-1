@@ -7,12 +7,19 @@ type JobPostProps = {
   
 }
 const JobPost = ({ jobData }: JobPostProps) => {
+  console.log({jobData});
   return (
     <div className="job-post-company pt-120 pb-120">
       <div className="container">
         <div className="row justify-content-between">
           <div className="col-xl-7 col-lg-8">
             <div className="job-post-details">
+              <div className="post-details1 mb-50">
+                <div className="small-section-tittle">
+                  <h4>Job Category</h4>
+                </div>
+                <p>{jobData?.category_id?.name}</p>
+              </div>
               <div className="post-details1 mb-50">
                 <div className="small-section-tittle">
                   <h4>Job Description</h4>

@@ -102,9 +102,16 @@ const UpdateJob = () => {
     setLocationSelect(event);
   };
 
-  const handleSelectOnChangeEvent = (event: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-    setFieldValue(name, Number(value));
+  // const handleSelectOnChangeEvent = (event: ChangeEvent<HTMLInputElement>) => {
+  //   const { name, value } = event.target;
+  //   setFieldValue(name, Number(value));
+  // };
+
+  const handleOnChangeEvent = (event: any) => {
+    const value = event?.target.value.replace(/[^\d]/g, '');
+    setFieldValue(event?.target.name, value.slice(0, 10));
+
+    // setFieldValue(event?.target.name, Number(event.target.value));
   };
 
   useEffect(() => {
@@ -297,7 +304,7 @@ const UpdateJob = () => {
                   className={errors.vacancy ? "is-error" : ""}
                   id="vacancy"
                   name="vacancy"
-                  onChange={handleSelectOnChangeEvent}
+                  onChange={handleOnChangeEvent}
                   type="text"
                   placeholder="Enter Total Number of Vacancy"
                 />
@@ -305,7 +312,21 @@ const UpdateJob = () => {
               </div>
 
               <div className="col-md-6 mb-3">
-                <FormControl
+                <select
+                  className={clsx(
+                    errors.nature ? "is-error" : "",
+                    "form-control"
+                  )}
+                  id="nature"
+                  value={values.nature}
+                  name="nature"
+                  onChange={handleChange}
+                >
+                  <option value="select">Select Nature</option>
+                  <option value="Part time">Part time</option>
+                  <option value="Full time">Full time</option>
+                </select>
+                {/* <FormControl
                   type="text"
                   value={values.nature}
                   className={errors.nature ? "is-error" : ""}
@@ -313,7 +334,7 @@ const UpdateJob = () => {
                   name="nature"
                   onChange={handleChange}
                   placeholder="Enter Job nature (Full-Time/Part-Time)"
-                />
+                /> */}
                 <FormError error={errors.nature} />
               </div>
               <div className="col-md-6 mb-3">

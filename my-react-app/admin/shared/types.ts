@@ -29,7 +29,7 @@ export type JobData = {
     name: string;
     salary_range: string;
   };
-  vacancy: number;
+  vacancy: string;
   created_at: string;
   __v: number;
   _id: string;
@@ -54,7 +54,7 @@ export interface JobFormType {
   knowledge_description: string;
   job_location_id: string;
   category_id: string;
-  vacancy: number;
+  vacancy: string;
   nature: string;
   company_name: string;
   company_description: string;
