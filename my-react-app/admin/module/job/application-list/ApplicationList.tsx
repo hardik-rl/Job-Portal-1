@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import * as XLSX from "xlsx";
 
 import Loader from "../../../shared/Loader";
-import { DownloadXL } from "../../../shared/Icon";
+import { DownloadIcon } from "../../../shared/Icon";
 
 const ApplicationList = () => {
   const {
@@ -54,7 +54,7 @@ const ApplicationList = () => {
                   onClick={downloadXL}
                 >
                   Export &nbsp;
-                  <DownloadXL />{" "}
+                  <DownloadIcon />{" "}
                 </button>
               </div>
             </div>
