@@ -17,7 +17,10 @@ export const ApplicationModalSchema = Yup.object().shape({
     .positive('Notice period must be a positive number')
     .max(365, 'Notice period cannot exceed 365 days')
     .required('Notice period is required'),
-  total_work_experience: Yup.string().required('Total work experience is required'),
+  total_work_experience: Yup.number()
+  .typeError('Total work experience must be a number')
+  .required('Total work experience is required')
+  .positive('Total work experience must be a positive number'),
   gender: Yup.string().required('Please select your gender').oneOf(['male', 'female'], 'Gender is required'),
   state: Yup.string().required('State is required'),
 });
