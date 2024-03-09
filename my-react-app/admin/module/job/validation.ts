@@ -5,7 +5,7 @@ export const createJobSchema = object({
   description: string().required("job description is required"),
   education_description: string().required("Education is required"),
   knowledge_description: string().required("Knowledge description is required"),
-  vacancy: number().min(0, "Vacancy is required"),
+  vacancy: string().required('Vacancy is required'),
   nature: string()
     .matches(/^[a-zA-Z\s]*$/, 'Nature should only contain letters and spaces')
     .required('Nature is required'),

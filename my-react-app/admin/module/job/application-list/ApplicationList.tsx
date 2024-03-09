@@ -8,7 +8,6 @@ import { DownloadIcon } from "../../../shared/Icon";
 const ApplicationList = () => {
   const {
     data: applicationListData,
-    refetch: applicationListRefetch,
     isLoading: applicationListIsLoading,
   } = useQuery(["getAllApplication"], getAllApplication);
 

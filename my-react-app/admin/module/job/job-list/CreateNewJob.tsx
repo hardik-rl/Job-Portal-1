@@ -3,7 +3,7 @@ import FormControl from "../../../shared/FormControl";
 import { addJob, getAllCategories, getAllLocations } from "../api";
 import { useFormik } from "formik";
 import { toast } from "react-toastify";
-import { ChangeEvent, useState } from "react";
+import { useState } from "react";
 import ReactSelect from "react-select";
 import { JobFormType } from "../../../shared/types";
 import { createJobSchema } from "../validation";
@@ -61,7 +61,7 @@ const CreateNewJob = () => {
       knowledge_description: "",
       job_location_id: "",
       category_id: "",
-      vacancy: null,
+      vacancy: "",
       nature: "",
       company_name: "",
       company_description: "",
@@ -75,6 +75,14 @@ const CreateNewJob = () => {
       values["job_location_id"] = locationSelect.value;
       jobListMutate(values as any);
       resetForm();
+      setCategorySelect({
+        value: "",
+        label: "Any - All Categories",
+      });
+      setLocationSelect({
+        value: "",
+        label: "Any - All Locations",
+      });
     },
   });
 
@@ -86,9 +94,16 @@ const CreateNewJob = () => {
     setLocationSelect(event);
   };
 
-  const handleSelectOnChangeEvent = (event: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-    setFieldValue(name, Number(value));
+  // const handleSelectOnChangeEvent = (event: ChangeEvent<HTMLInputElement>) => {
+  //   const { name, value } = event.target;
+  //   setFieldValue(name, Number(value));
+  // };
+
+  const handleOnChangeEvent = (event: any) => {
+    const value = event?.target.value.replace(/[^\d]/g, '');
+    setFieldValue(event?.target.name, value.slice(0, 10));
+
+    // setFieldValue(event?.target.name, Number(event.target.value));
   };
 
   if (jobCategoryDataIsLoading || jobLocationDataIsLoading) {
@@ -254,8 +269,8 @@ const CreateNewJob = () => {
                   value={values.vacancy}
                   id="vacancy"
                   name="vacancy"
-                  onChange={handleSelectOnChangeEvent}
-                  type="text"
+                  onChange={handleOnChangeEvent}
+                  type="number"
                 />
                 <FormError error={errors.vacancy} />
               </div>
@@ -265,14 +280,29 @@ const CreateNewJob = () => {
                   name="Enter Job nature (Full-Time/Part-Time)"
                   htmlFor="nature"
                 />
-                <FormControl
+                
+                <select
+                  className={clsx(
+                    errors.nature ? "is-error" : "",
+                    "form-control"
+                  )}
+                  id="nature"
+                  value={values.nature}
+                  name="nature"
+                  onChange={handleChange}
+                >
+                  <option value="select">Select Nature</option>
+                  <option value="male">Part time</option>
+                  <option value="female">Full time</option>
+                </select>
+                {/* <FormControl
                   type="text"
                   className={errors.nature ? "is-error" : ""}
                   value={values.nature}
                   id="nature"
                   name="nature"
                   onChange={handleChange}
-                />
+                /> */}
                 <FormError error={errors.nature} />
               </div>
 

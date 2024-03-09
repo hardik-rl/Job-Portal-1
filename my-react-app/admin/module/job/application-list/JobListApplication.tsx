@@ -47,7 +47,7 @@ const ApplicationList = () => {
           <div className="container-xl">
             <div className="row g-3 mb-4 align-items-center justify-content-between">
               <div className="col-auto">
-                <h1 className="app-page-title mb-0"> Job Applications for {applicationListData[0].job_id.title}</h1>
+                <h1 className="app-page-title mb-0"> Job Applications</h1>
               </div>
             </div>
             <div className="g-4 mb-4 overflow-x-auto">
@@ -65,7 +65,10 @@ const ApplicationList = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {applicationListData &&
+                  {applicationListData?.length === 0 && (
+                    <tr><td colSpan={8}>No Data Found.</td></tr>
+                  )}
+                  {applicationListData && applicationListData?.length > 0 && 
                     applicationListData.map((application: any, index: number) => (
                       <tr key={index}>
                         <td>{index + 1}</td>
