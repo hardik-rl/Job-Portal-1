@@ -6,9 +6,12 @@ import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 import ClientBanner from "./ClientBanner";
 import ApplicationModal from "./ApplicationModal";
+import UploadYourCVModal from "./UploadYourCVModal";
 
 const Job = () => {
   const [applyNowModal, setApplyNowModal] = useState(false);
+  const [uploadYourCVModal, setUploadYourCVModal] = useState(false);
+
 
   const [applyJobData, setApplyJobData] = useState({
     job_id: "",
@@ -54,13 +57,16 @@ const Job = () => {
         jobsDataIsLoading={jobsDataIsLoading}
         setPage={setPage}
       />
-      <OnlineResume setApplyNowModal={setApplyNowModal} />
+      <OnlineResume setUploadYourCVModal={setUploadYourCVModal} />
       <HowItWorks />
       {applyNowModal && (
         <ApplicationModal
           setApplyNowModal={setApplyNowModal}
           applyJobData={applyJobData}
         />
+      )}
+      {uploadYourCVModal && (
+        <UploadYourCVModal setUploadYourCVModal={setUploadYourCVModal} />
       )}
     </>
   );

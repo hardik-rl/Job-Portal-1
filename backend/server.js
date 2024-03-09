@@ -121,8 +121,19 @@ app.get('/job/:id', async (req, res) => {
   }
 });
 
-
 //get all jobs
+app.get("/get-all-jobs", async(re, res) => {
+  try {
+    const job = await Job.find({});
+    res.json(job);
+  } catch (error) {
+    console.error('Error fetching job categories:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+})
+
+
+//get all jobs with paginate
 app.get("/jobs", async (req, res) => {
   const { search, category, location } = req.query;
   const page = parseInt(req.query.page) || 1;

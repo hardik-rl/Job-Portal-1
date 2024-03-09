@@ -1,8 +1,8 @@
 type OnlineResumeProps = {
-  setApplyNowModal: React.Dispatch<React.SetStateAction<boolean>>;
+  setUploadYourCVModal: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const OnlineResume = ({ setApplyNowModal }: OnlineResumeProps) => {
+const OnlineResume = ({ setUploadYourCVModal }: OnlineResumeProps) => {
   return (
     <>
       <div className="online-cv cv-bg section-overly pt-90 pb-120">
@@ -17,7 +17,7 @@ const OnlineResume = ({ setApplyNowModal }: OnlineResumeProps) => {
                   resume here
                 </p>
                 <button
-                  onClick={() => setApplyNowModal(true)}
+                  onClick={() => setUploadYourCVModal(true)}
                   className="border-btn2 border-btn4"
                 >
                   Upload your cv

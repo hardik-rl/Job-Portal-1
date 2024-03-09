@@ -2,7 +2,7 @@
 import FormControl from "../../components/FormControl";
 import FormLabel from "../../components/FormLabel";
 import axios from "axios";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import { useFormik } from "formik";
 import { useState, useEffect, useRef } from "react";
@@ -11,14 +11,57 @@ import { ApplicationModalSchema } from "./validation";
 import FormError from "../../components/FormError";
 import clsx from "clsx";
 import Loader from "../../components/Loader";
+import ReactSelect from "react-select";
 
-const ApplicationModal = ({ setApplyNowModal, applyJobData }: any) => {
+const UploadYourCVModal = ({ setUploadYourCVModal }: any) => {
   const [file, setFile] = useState<any>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { jobTitle } = useStore();
+  const [categorySelect, setCategorySelect] = useState({
+    value: "",
+    label: "Any - All Categories",
+  });
+  const [jobListSelect, setJobListSelect] = useState({
+    value: "",
+    label: "Any - All Jobs",
+  });
+  const getJobCategories = async () => {
+    const response = await axios.get(`http://localhost:3000/jobs-categories`);
+    return response.data;
+  };
+
+  const { data: jobCategoryData, isLoading: jobCategoryDataIsLoading } =
+    useQuery({
+      queryKey: ["job-category-list"],
+      queryFn: () => getJobCategories(),
+    });
+
+  const jobCategoryOptions =
+    jobCategoryData?.map((category: any) => ({
+      value: category._id,
+      label: category.name,
+    })) || [];
+
+
+    const getJobListData = async () => {
+      const response = await axios.get(`http://localhost:3000/get-all-jobs`);
+      return response.data;
+    };
+  
+    const { data: jobListData, isLoading: jobListDataIsLoading } =
+      useQuery({
+        queryKey: ["job-list"],
+        queryFn: () => getJobListData(),
+      });
+  
+    const jobOptions =
+      jobListData?.map((job: any) => ({
+        value: job._id,
+        label: job.title,
+      })) || [];
 
   const handleCloseModal = () => {
-    setApplyNowModal(false);
+    setUploadYourCVModal(false);
   };
 
   useEffect(() => {
@@ -37,7 +80,7 @@ const ApplicationModal = ({ setApplyNowModal, applyJobData }: any) => {
   const { mutate: applyJobMutate, isLoading: applyJobIsLoading } = useMutation({
     mutationFn: (data) => addJobApplication(data),
     onSuccess: () => {
-      setApplyNowModal(false);
+      setUploadYourCVModal(false);
       toast.success("Application added successfully");
     },
   });
@@ -71,8 +114,8 @@ const ApplicationModal = ({ setApplyNowModal, applyJobData }: any) => {
           }
         });
         formData.append("resume_file", file);
-        formData.append("job_id", applyJobData.job_id);
-        formData.append("category_id", applyJobData.category_id);
+        formData.append("job_id", jobListSelect.value);
+        formData.append("category_id", categorySelect.value);
         if (!file.name) {
           toast.error("Please upload consent form");
           return;
@@ -129,7 +172,15 @@ const ApplicationModal = ({ setApplyNowModal, applyJobData }: any) => {
     }
   }
 
-  if (applyJobIsLoading) {
+  const handleCategoryChange = (event: any) => {
+    setCategorySelect(event);
+  };
+
+  const handleJobListChange = (event: any) => {
+    setJobListSelect(event);
+  };
+
+  if (applyJobIsLoading || jobCategoryDataIsLoading || jobListDataIsLoading) {
     return (
       <div className="text-center py-4 bg-white banner-height">
         <Loader />
@@ -381,6 +432,31 @@ const ApplicationModal = ({ setApplyNowModal, applyJobData }: any) => {
                     </select>
                     <FormError error={errors.state} />
                   </div>
+                  <div className="form-group col-md-4">
+                    <label htmlFor="inputState">Select Category</label>
+                    <ReactSelect
+                      name="job-categories"
+                      value={categorySelect}
+                      options={jobCategoryOptions}
+                      onChange={handleCategoryChange}
+                      components={{
+                        IndicatorSeparator: () => null,
+                      }}
+                    />
+                  </div>
+
+                  <div className="form-group col-md-4">
+                    <label htmlFor="inputState">Select Job</label>
+                    <ReactSelect
+                      name="job-categories"
+                      value={jobListSelect}
+                      options={jobOptions}
+                      onChange={handleJobListChange}
+                      components={{
+                        IndicatorSeparator: () => null,
+                      }}
+                    />
+                  </div>
 
                   <div className="form-group col-md-4">
                     <label htmlFor="resume">Add Resume</label>
@@ -410,4 +486,4 @@ const ApplicationModal = ({ setApplyNowModal, applyJobData }: any) => {
   );
 };
 
-export default ApplicationModal;
+export default UploadYourCVModal;
