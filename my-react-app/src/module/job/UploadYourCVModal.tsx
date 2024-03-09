@@ -45,13 +45,13 @@ const UploadYourCVModal = ({ setUploadYourCVModal }: any) => {
       const response = await axios.get(`http://localhost:3000/get-all-jobs`);
       return response.data;
     };
-  
+
     const { data: jobListData, isLoading: jobListDataIsLoading } =
       useQuery({
         queryKey: ["job-list"],
         queryFn: () => getJobListData(),
       });
-  
+
     const jobOptions =
       jobListData?.map((job: any) => ({
         value: job._id,
@@ -123,7 +123,7 @@ const UploadYourCVModal = ({ setUploadYourCVModal }: any) => {
 
         applyJobMutate(formData);
       },
-      
+
     });
 
 
@@ -457,8 +457,8 @@ const UploadYourCVModal = ({ setUploadYourCVModal }: any) => {
                     />
                   </div>
 
-                  <div className="form-group col-md-4">
-                    <label htmlFor="resume">Add Resume</label>
+                  <div className="form-group col-md-12">
+                    <label htmlFor="resume" className="btn-link mb-0 font-weight-bold">Add Resume</label>
                     <input
                       className="form-control"
                       type="file"
@@ -468,7 +468,7 @@ const UploadYourCVModal = ({ setUploadYourCVModal }: any) => {
                       accept="application/pdf"
                       onChange={(e) => handleFileChange(e)}
                     />
-                    <button type="button" style={{"color": "red"}}onClick={onChooseFileButtonClick}>Choose File</button>
+                    <button type="button" style={{"opacity": "0"}}onClick={onChooseFileButtonClick}>Choose File</button>
                     {file?.name && <p>Selected file: {file?.name}</p>}
                   </div>
                 </div>
