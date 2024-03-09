@@ -38,6 +38,8 @@ const JobCategoryUser = () => {
               <thead>
                 <tr>
                   <th scope="col">Candidates Name</th>
+                  <th scope="col">Candidates Email</th>
+                  <th scope="col">Candidates Phone</th>
                   <th scope="col">Candidates Detail</th>
                 </tr>
               </thead>
@@ -46,6 +48,8 @@ const JobCategoryUser = () => {
                   categoryData.map((category: categoryDataType, index: number) => (
                     <tr key={index}>
                       <td>{category.first_name}</td>
+                      <td>{category.email}</td>
+                      <td>{category.mobile_number}</td>
                       <td>
                         <Link className="textgreen" to={`/admin/job-category-user-application/${category._id}`}>
                           View Candidate Detail
