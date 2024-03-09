@@ -231,7 +231,7 @@ router.get('/get-applications', authMiddleware, async (req, res) => {
     .exec();
     res.json(applications);
   } catch (error) {
-    console.error('Error fetching application based on jobId:', error);
+    console.error('Error fetching all applications:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
 })

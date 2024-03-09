@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { JobData } from "../../../admin/shared/types";
 import ApplicationModal from "../job/ApplicationModal";
-// import moment from "moment";
 
 const JobOverview = ({ jobData }: { jobData: JobData }) => {
   const [applyNowModal, setApplyNowModal] = useState(false);
@@ -21,13 +20,6 @@ const JobOverview = ({ jobData }: { jobData: JobData }) => {
         <li>
           Job nature : <span>{jobData?.nature}</span>
         </li>
-        {/* <li>
-          Salary : <span>${jobData?.annual_salary} yearly</span>
-        </li> */}
-        {/* <li>
-          Application date :{" "}
-          <span>{moment(jobData?.created_at).format("DD MMM YYYY")}</span>
-        </li> */}
       </ul>
       <div className="apply-btn2">
         <button className="btn" onClick={() => setApplyNowModal(true)}>
@@ -35,8 +27,9 @@ const JobOverview = ({ jobData }: { jobData: JobData }) => {
         </button>
       </div>
       {applyNowModal && (
-        <ApplicationModal setApplyNowModal={setApplyNowModal} />
+        <ApplicationModal setApplyNowModal={setApplyNowModal} applyJobData={{'job_id': jobData._id, 'category_id': jobData.category_id}} />
       )}
+      
     </div>
   );
 };
