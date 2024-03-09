@@ -29,7 +29,7 @@ const View = () => {
                   className="bg-transparent border-0 textgreen"
                   onClick={() => navigate(-1)}
                 >
-                  &lt; Back to Candidate Job List
+                  &#x2190; Candidate Job List
                 </button>
               </li>
             </ol>
