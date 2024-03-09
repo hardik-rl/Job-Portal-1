@@ -2,7 +2,6 @@ import { getAllApplication } from "../api";
 import { useQuery } from "@tanstack/react-query";
 import * as XLSX from "xlsx";
 
-
 import Loader from "../../../shared/Loader";
 import { DownloadIcon } from "../../../shared/Icon";
 
@@ -12,7 +11,6 @@ const ApplicationList = () => {
     refetch: applicationListRefetch,
     isLoading: applicationListIsLoading,
   } = useQuery(["getAllApplication"], getAllApplication);
-
 
   if (applicationListIsLoading) {
     return (
@@ -41,14 +39,13 @@ const ApplicationList = () => {
     XLSX.utils.book_append_sheet(wb, ws, "Sheet 1");
     XLSX.writeFile(wb, "job-applications.xlsx");
   };
-  
+
   return (
     <>
       <div className="app-wrapper">
         <div className="app-content pt-3 p-md-3 p-lg-4">
           <div className="container-xl">
             <div className="row g-3 mb-4 align-items-center justify-content-between">
-
               <div className="d-flex flex-wrap align-items-center">
                 <h1 className="app-page-title mb-0">All Job Applications</h1>
                 <button
@@ -58,39 +55,40 @@ const ApplicationList = () => {
                   Export &nbsp;
                   <DownloadIcon />
                 </button>
-            </div>
-            <div className="g-4 mb-4 overflow-x-auto">
-              <table className="table">
-                <thead>
-                  <tr>
-                    <th scope="col">Sr. No</th>
-                    <th scope="col">Job Title</th>
-                    <th scope="col">Applicant Name</th>
-                    <th scope="col">Applicant CTC</th>
-                    <th scope="col">Expected CTC</th>
-                    <th scope="col">Notice Period</th>
-                    <th scope="col">Total Work Exp.</th>
-                    <th scope="col">Gender</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {applicationListData &&
-                    applicationListData.map(
-                      (application: any, index: number) => (
-                        <tr key={index}>
-                          <td>{index + 1}</td>
-                          <td>{application?.job_id.title}</td>
-                          <td>{application?.first_name}</td>
-                          <td>{application?.ctc}</td>
-                          <td>{application?.expected_ctc}</td>
-                          <td>{application?.notice_period}</td>
-                          <td>{application?.total_work_experience}</td>
-                          <td>{application?.gender}</td>
-                        </tr>
-                      )
-                    )}
-                </tbody>
-              </table>
+              </div>
+              <div className="g-4 mb-4 overflow-x-auto">
+                <table className="table">
+                  <thead>
+                    <tr>
+                      <th scope="col">Sr. No</th>
+                      <th scope="col">Job Title</th>
+                      <th scope="col">Applicant Name</th>
+                      <th scope="col">Applicant CTC</th>
+                      <th scope="col">Expected CTC</th>
+                      <th scope="col">Notice Period</th>
+                      <th scope="col">Total Work Exp.</th>
+                      <th scope="col">Gender</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {applicationListData &&
+                      applicationListData.map(
+                        (application: any, index: number) => (
+                          <tr key={index}>
+                            <td>{index + 1}</td>
+                            <td>{application?.job_id.title}</td>
+                            <td>{application?.first_name}</td>
+                            <td>{application?.ctc}</td>
+                            <td>{application?.expected_ctc}</td>
+                            <td>{application?.notice_period}</td>
+                            <td>{application?.total_work_experience}</td>
+                            <td>{application?.gender}</td>
+                          </tr>
+                        )
+                      )}
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         </div>
