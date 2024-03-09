@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import useStore from "../../shared/store/useStore";
 
 type SingleJobProps = {
@@ -26,19 +27,28 @@ const SingleJobList = ({
   setApplyJobData,
 }: SingleJobProps) => {
   const { setJobTitle } = useStore();
+  const navigate = useNavigate();
   const onClickApply = () => {
     setApplyJobData({ job_id: id, category_id: categoryId });
     setApplyNowModal(true);
     setJobTitle(title);
+  };
+  const onClickDetailPage = (id: string) => {
+    setJobTitle(title);
+    navigate(`/job-details/${id}`);
   };
   return (
     <>
       <div className="single-job-items mb-30">
         <div className="job-items">
           <div className="job-tittle">
-            <a href={`/job-details/${id}`}>
+            <button
+              className="border-0 px-0 cursor-pointer bg-transparent"
+              type="button"
+              onClick={() => onClickDetailPage(id)}
+            >
               <h4>{title}</h4>
-            </a>
+            </button>
             <p>{description}</p>
             <ul>
               <li>
@@ -49,7 +59,13 @@ const SingleJobList = ({
           </div>
         </div>
         <div className="items-link f-right">
-          <a href={`/job-details/${id}`}>Explore</a>
+          <button
+              className="btn-outline"
+              type="button"
+              onClick={() => onClickDetailPage(id)}
+            >
+              Explore
+            </button>
           <button type="button" onClick={onClickApply}>
             Apply Now
           </button>

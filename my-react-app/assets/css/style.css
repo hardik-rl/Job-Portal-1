@@ -5509,15 +5509,16 @@ form.search-box .find-job-btn:hover {
     padding-top: 25px;
   }
 }
-.single-job-items .job-tittle a h4 {
+.single-job-items .job-tittle h4 {
   color: #08578e;
   font-size: 24px;
+  cursor: pointer;
   -webkit-transition: 0.4s;
   -moz-transition: 0.4s;
   -o-transition: 0.4s;
   transition: 0.4s;
 }
-.single-job-items .job-tittle a h4:hover {
+.single-job-items .job-tittle h4:hover {
   color: #8b92dd;
 }
 .single-job-items .job-tittle ul li {
@@ -5603,7 +5604,8 @@ form.search-box .find-job-btn:hover {
 }
 
 .items-link a,
-.items-link > button {
+.items-link > button,
+.btn-outline {
   color: #08578e;
   display: block;
   border: 1px solid #08578e;
