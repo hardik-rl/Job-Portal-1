@@ -412,6 +412,19 @@ const UploadYourCVModal = ({ setUploadYourCVModal }: any) => {
                   </div>
 
                   <div className="form-group col-md-4">
+                    <label htmlFor="inputState">Select Job</label>
+                    <ReactSelect
+                      name="job-categories"
+                      value={jobListSelect}
+                      options={jobOptions}
+                      onChange={handleJobListChange}
+                      components={{
+                        IndicatorSeparator: () => null,
+                      }}
+                    />
+                  </div>
+
+                  <div className="form-group col-md-4">
                     <label htmlFor="inputState">State</label>
                     <select
                       className={clsx(
@@ -443,19 +456,6 @@ const UploadYourCVModal = ({ setUploadYourCVModal }: any) => {
                       }}
                     />
                   </div> */}
-
-                  <div className="form-group col-md-4">
-                    <label htmlFor="inputState">Select Job</label>
-                    <ReactSelect
-                      name="job-categories"
-                      value={jobListSelect}
-                      options={jobOptions}
-                      onChange={handleJobListChange}
-                      components={{
-                        IndicatorSeparator: () => null,
-                      }}
-                    />
-                  </div>
 
                   <div className="form-group col-md-12">
                     <label htmlFor="resume" className="btn-link mb-0 font-weight-bold">Add Resume</label>
