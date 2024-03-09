@@ -12,7 +12,7 @@ const JobList = () => {
   const [showModal, setShowModal] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);
   const [selectedItemId, setSelectedItemId] = useState("");
-  
+
   const { data: jobListData, refetch: jobListRefetch, isLoading: jobListIsLoading } = useQuery(["getAllJob"], getAllJob);
 
   const handleEditClick = (id: any) => {
@@ -87,10 +87,10 @@ const JobList = () => {
                               Delete
                             </button>
                             <button
-                              className="ml-2 btn btn-danger p-2 text-white"
+                              className="ml-2 btn btn-secondary p-2 text-white"
                               onClick={() => handleViewApplication(item._id)}
                             >
-                              View Application
+                              View
                             </button>
                           </div>
                         </td>
