@@ -61,7 +61,7 @@ const CreateNewJob = () => {
       knowledge_description: "",
       job_location_id: "",
       category_id: "",
-      vacancy: 0,
+      vacancy: null,
       nature: "",
       company_name: "",
       company_description: "",
