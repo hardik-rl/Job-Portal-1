@@ -382,7 +382,7 @@ const ApplicationModal = ({ setApplyNowModal, applyJobData }: any) => {
                     <FormError error={errors.state} />
                   </div>
 
-                  <div className="form-group col-md-4">
+                  <div className="form-group col-md-12">
                     <label htmlFor="resume" className="btn-link mb-0 font-weight-bold">Add Resume</label>
                     <input
                       className="form-control"
