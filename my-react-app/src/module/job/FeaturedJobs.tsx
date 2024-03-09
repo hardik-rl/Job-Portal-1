@@ -50,6 +50,7 @@ const FeaturedJobs = ({
         </div>
         <div className="row justify-content-center">
           <div className="col-xl-10">
+          {!jobsData.jobs || (jobsData.jobs.length === 0 && <h3 className="text-center mb-5">No Data Found</h3>)}
             {jobsData?.jobs?.length > 0 && !jobsDataIsLoading && (
               <>
                 {jobsData?.jobs?.map((job: any, index: number) => (

@@ -44,6 +44,8 @@ const SideBar = ({ sidebarOpen, handleClose }: any) => {
 
   const handleNavLinkClick = (href: string) => {
     setActiveLink(href);
+    handleClose();
+
   };
 
   return (

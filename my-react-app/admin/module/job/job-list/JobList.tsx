@@ -12,8 +12,6 @@ const JobList = () => {
   const [showModal, setShowModal] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);
   const [selectedItemId, setSelectedItemId] = useState("");
-  
-  const { data: jobListData, refetch: jobListRefetch, isLoading: jobListIsLoading } = useQuery(["getAllJob"], getAllJob);
 
   const { data: jobListData, refetch: jobListRefetch, isLoading: jobListIsLoading } = useQuery(["getAllJob"], getAllJob);
 

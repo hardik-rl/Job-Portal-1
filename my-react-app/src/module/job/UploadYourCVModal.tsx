@@ -337,7 +337,7 @@ const UploadYourCVModal = ({ setUploadYourCVModal }: any) => {
                   </div>
 
                   <div className="form-group col-md-4">
-                    <label htmlFor="ctc">CTC</label>
+                    <FormLabel name="CTC" htmlFor="ctc" />
                     <FormLabel name="" htmlFor="ctc" />
                     <FormControl
                       onChange={(event: any) => handleOnChangeEvent(event)}
@@ -412,7 +412,20 @@ const UploadYourCVModal = ({ setUploadYourCVModal }: any) => {
                   </div>
 
                   <div className="form-group col-md-4">
-                    <label htmlFor="inputState">State</label>
+                    <FormLabel name="Select Job" htmlFor="inputState" />
+                    <ReactSelect
+                      name="job-categories"
+                      value={jobListSelect}
+                      options={jobOptions}
+                      onChange={handleJobListChange}
+                      components={{
+                        IndicatorSeparator: () => null,
+                      }}
+                    />
+                  </div>
+
+                  <div className="form-group col-md-4">
+                  <FormLabel name="State" htmlFor="state" />
                     <select
                       className={clsx(
                         errors.state ? "is-error" : "",
@@ -443,19 +456,6 @@ const UploadYourCVModal = ({ setUploadYourCVModal }: any) => {
                       }}
                     />
                   </div> */}
-
-                  <div className="form-group col-md-4">
-                    <label htmlFor="inputState">Select Job</label>
-                    <ReactSelect
-                      name="job-categories"
-                      value={jobListSelect}
-                      options={jobOptions}
-                      onChange={handleJobListChange}
-                      components={{
-                        IndicatorSeparator: () => null,
-                      }}
-                    />
-                  </div>
 
                   <div className="form-group col-md-12">
                     <label htmlFor="resume" className="btn-link mb-0 font-weight-bold">Add Resume</label>
