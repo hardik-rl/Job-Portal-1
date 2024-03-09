@@ -29,6 +29,17 @@ export const getAllJob = async () => {
   const res = await api.get("/get-jobs");
   return res.data;
 };
+
+export const getAllApplication = async () => {
+  const res = await api.get("/get-applications");
+  return res.data;
+};
+
+export const getApplicationBasedOnJob = async (id: number|string|undefined) => {
+  const res = await api.get(`/application/${id}`);
+  return res.data;
+};
+
 export const addJob = async (data:any) => {
   const res = await api.post("/add-job", data);
   return res;
