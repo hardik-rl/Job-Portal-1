@@ -287,7 +287,7 @@ const ApplicationModal = ({ setApplyNowModal, applyJobData }: any) => {
                   </div>
 
                   <div className="form-group col-md-4">
-                    <label htmlFor="ctc">CTC</label>
+                    <FormLabel name="CTC" htmlFor="CTC" />
                     <FormLabel name="" htmlFor="ctc" />
                     <FormControl
                       onChange={(event: any) => handleOnChangeEvent(event)}
@@ -362,7 +362,7 @@ const ApplicationModal = ({ setApplyNowModal, applyJobData }: any) => {
                   </div>
 
                   <div className="form-group col-md-4">
-                    <label htmlFor="inputState">State</label>
+                    <FormLabel name="State" htmlFor="inputState" />
                     <select
                       className={clsx(
                         errors.state ? "is-error" : "",

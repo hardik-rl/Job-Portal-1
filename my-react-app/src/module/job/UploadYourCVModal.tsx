@@ -337,7 +337,7 @@ const UploadYourCVModal = ({ setUploadYourCVModal }: any) => {
                   </div>
 
                   <div className="form-group col-md-4">
-                    <label htmlFor="ctc">CTC</label>
+                    <FormLabel name="CTC" htmlFor="ctc" />
                     <FormLabel name="" htmlFor="ctc" />
                     <FormControl
                       onChange={(event: any) => handleOnChangeEvent(event)}
@@ -412,7 +412,7 @@ const UploadYourCVModal = ({ setUploadYourCVModal }: any) => {
                   </div>
 
                   <div className="form-group col-md-4">
-                    <label htmlFor="inputState">Select Job</label>
+                    <FormLabel name="Select Job" htmlFor="inputState" />
                     <ReactSelect
                       name="job-categories"
                       value={jobListSelect}
@@ -425,7 +425,7 @@ const UploadYourCVModal = ({ setUploadYourCVModal }: any) => {
                   </div>
 
                   <div className="form-group col-md-4">
-                    <label htmlFor="inputState">State</label>
+                  <FormLabel name="State" htmlFor="state" />
                     <select
                       className={clsx(
                         errors.state ? "is-error" : "",

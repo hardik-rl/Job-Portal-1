@@ -10,6 +10,7 @@ import { createJobSchema } from "../validation";
 import FormError from "../../../shared/FormError";
 import clsx from "clsx";
 import Loader from "../../../shared/Loader";
+import FormLabel from "../../../../src/components/FormLabel";
 
 const CreateNewJob = () => {
   const [categorySelect, setCategorySelect] = useState({
@@ -110,6 +111,7 @@ const CreateNewJob = () => {
           <div className="g-4 mb-4">
             <form className="row" onSubmit={handleSubmit}>
               <div className="col-12 mb-3">
+                <FormLabel name="Enter Job Title" htmlFor="title" />
                 <FormControl
                   className={errors.title ? "is-error" : ""}
                   type="text"
@@ -117,12 +119,12 @@ const CreateNewJob = () => {
                   onChange={handleChange}
                   value={values.title}
                   name="title"
-                  placeholder="Enter Job Title"
                 />
                 <FormError error={errors.title} />
               </div>
 
               <div className="col-md-6 mb-3">
+                <FormLabel name="Enter Job Description" htmlFor="description" />
                 <textarea
                   className={clsx(
                     errors.description ? "is-error" : "",
@@ -132,12 +134,15 @@ const CreateNewJob = () => {
                   name="description"
                   onChange={handleChange}
                   value={values.description}
-                  placeholder="Enter Job Description"
                 ></textarea>
                 <FormError error={errors.description} />
               </div>
 
               <div className="col-md-6 mb-3">
+                <FormLabel
+                  name="Enter Required Knowledge, Skills, and Abilities"
+                  htmlFor="knowledge_description"
+                />
                 <textarea
                   className={clsx(
                     errors.knowledge_description ? "is-error" : "",
@@ -147,12 +152,15 @@ const CreateNewJob = () => {
                   name="knowledge_description"
                   value={values.knowledge_description}
                   onChange={handleChange}
-                  placeholder="Enter Required Knowledge, Skills, and Abilities"
                 ></textarea>
                 <FormError error={errors.knowledge_description} />
               </div>
 
               <div className="col-md-6 mb-3">
+                <FormLabel
+                  name="Enter Education + Experience"
+                  htmlFor="education_description"
+                />
                 <textarea
                   className={clsx(
                     errors.education_description ? "is-error" : "",
@@ -162,11 +170,14 @@ const CreateNewJob = () => {
                   name="education_description"
                   value={values.education_description}
                   onChange={handleChange}
-                  placeholder="Enter Education + Experience"
                 ></textarea>
                 <FormError error={errors.education_description} />
               </div>
               <div className="col-md-6 mb-3">
+                <FormLabel
+                  name="Enter Company Job Description"
+                  htmlFor="company_description"
+                />
                 <textarea
                   className={clsx(
                     errors.company_description ? "is-error" : "",
@@ -176,11 +187,11 @@ const CreateNewJob = () => {
                   id="company_description"
                   name="company_description"
                   onChange={handleChange}
-                  placeholder="Enter Company Job Description"
                 ></textarea>
                 <FormError error={errors.company_description} />
               </div>
               <div className="col-md-6 mb-3">
+                <FormLabel name="Enter Company Name" htmlFor="company_name" />
                 <FormControl
                   type="text"
                   value={values.company_name}
@@ -188,11 +199,11 @@ const CreateNewJob = () => {
                   id="company_name"
                   name="company_name"
                   onChange={handleChange}
-                  placeholder="Enter Company Name"
                 />
                 <FormError error={errors.company_name} />
               </div>
               <div className="col-md-6 mb-3">
+                <FormLabel name="Enter Company Email" htmlFor="email" />
                 <FormControl
                   type="email"
                   value={values.company_email}
@@ -200,11 +211,14 @@ const CreateNewJob = () => {
                   id="company_email"
                   name="company_email"
                   onChange={handleChange}
-                  placeholder="Enter Company Email"
                 />
                 <FormError error={errors.company_email} />
               </div>
               <div className="col-md-6 mb-3">
+                <FormLabel
+                  name="Enter Job Categories"
+                  htmlFor="job-categories"
+                />
                 <div className="">
                   <ReactSelect
                     name="job-categories"
@@ -218,6 +232,7 @@ const CreateNewJob = () => {
                 </div>
               </div>
               <div className="col-md-6 mb-3">
+                <FormLabel name="Enter Job Location" htmlFor="job-location" />
                 <ReactSelect
                   name="job-location"
                   onChange={handleLocationChange}
@@ -230,6 +245,10 @@ const CreateNewJob = () => {
               </div>
 
               <div className="col-md-6 mb-3">
+                <FormLabel
+                  name="Enter Total Number of Vacancy"
+                  htmlFor="vacancy"
+                />
                 <FormControl
                   className={errors.vacancy ? "is-error" : ""}
                   value={values.vacancy}
@@ -237,12 +256,15 @@ const CreateNewJob = () => {
                   name="vacancy"
                   onChange={handleSelectOnChangeEvent}
                   type="text"
-                  placeholder="Enter Total Number of Vacancy"
                 />
                 <FormError error={errors.vacancy} />
               </div>
 
               <div className="col-md-6 mb-3">
+                <FormLabel
+                  name="Enter Job nature (Full-Time/Part-Time)"
+                  htmlFor="nature"
+                />
                 <FormControl
                   type="text"
                   className={errors.nature ? "is-error" : ""}
@@ -250,12 +272,15 @@ const CreateNewJob = () => {
                   id="nature"
                   name="nature"
                   onChange={handleChange}
-                  placeholder="Enter Job nature (Full-Time/Part-Time)"
                 />
                 <FormError error={errors.nature} />
               </div>
 
               <div className="col-md-6 mb-3">
+                <FormLabel
+                  name="Enter Company Website URL"
+                  htmlFor="company_website"
+                />
                 <FormControl
                   type="text"
                   value={values.company_website}
@@ -263,7 +288,6 @@ const CreateNewJob = () => {
                   name="company_website"
                   onChange={handleChange}
                   className={errors.company_website ? "is-error" : ""}
-                  placeholder="Enter Company Website URL"
                 />
                 <FormError error={errors.company_website} />
               </div>
