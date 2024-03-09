@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 import logo from "../../assets/img/admin/grp-logo.png";
 
-import { CardList, Plus } from "../shared/Icon";
+import { ApplicationIcon, CardList, CategoriesIcon, Plus } from "../shared/Icon";
 import { useState, useEffect } from "react";
 import clsx from "clsx";
 
@@ -70,7 +70,7 @@ const SideBar = ({ sidebarOpen, handleClose }: any) => {
             <NavLink
               href="job-category-list"
               text="Job Categories"
-              icon={<CardList />}
+              icon={<CategoriesIcon />}
               isActive={activeLink === "#0"}
               onClick={() => handleNavLinkClick("#0")}
             />
@@ -91,7 +91,7 @@ const SideBar = ({ sidebarOpen, handleClose }: any) => {
             <NavLink
               href="application-list"
               text="Application List"
-              icon={<CardList />}
+              icon={<ApplicationIcon />}
               isActive={activeLink === "#3"}
               onClick={() => handleNavLinkClick("#3")}
             />

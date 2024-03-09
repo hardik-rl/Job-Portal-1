@@ -15,6 +15,8 @@ const JobList = () => {
   
   const { data: jobListData, refetch: jobListRefetch, isLoading: jobListIsLoading } = useQuery(["getAllJob"], getAllJob);
 
+  const { data: jobListData, refetch: jobListRefetch, isLoading: jobListIsLoading } = useQuery(["getAllJob"], getAllJob);
+
   const handleEditClick = (id: any) => {
     navigate(`/admin/update-job/${id}`);
     setShowModal(true);
@@ -87,10 +89,10 @@ const JobList = () => {
                               Delete
                             </button>
                             <button
-                              className="ml-2 btn btn-danger p-2 text-white"
+                              className="ml-2 btn btn-secondary p-2 text-white"
                               onClick={() => handleViewApplication(item._id)}
                             >
-                              View Application
+                              View
                             </button>
                           </div>
                         </td>

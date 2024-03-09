@@ -22,7 +22,7 @@ const JobCategoryUser = () => {
           <nav aria-label="breadcrumb mb-5">
             <ol className="breadcrumb bg-transparent p-0">
               <li className="breadcrumb-item ">
-                <Link to="/admin/job-category-list" className="textgreen">&lt; Back to {jobCategoriesTitle} List</Link>
+                <Link to="/admin/job-category-list" className="textgreen">&#x2190; {jobCategoriesTitle} List</Link>
               </li>
             </ol>
           </nav>
@@ -38,6 +38,8 @@ const JobCategoryUser = () => {
               <thead>
                 <tr>
                   <th scope="col">Candidates Name</th>
+                  <th scope="col">Candidates Email</th>
+                  <th scope="col">Candidates Phone</th>
                   <th scope="col">Candidates Detail</th>
                 </tr>
               </thead>
@@ -46,6 +48,8 @@ const JobCategoryUser = () => {
                   categoryData.map((category: categoryDataType, index: number) => (
                     <tr key={index}>
                       <td>{category.first_name}</td>
+                      <td>{category.email}</td>
+                      <td>{category.mobile_number}</td>
                       <td>
                         <Link className="textgreen" to={`/admin/job-category-user-application/${category._id}`}>
                           View Candidate Detail
