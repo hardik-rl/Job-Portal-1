@@ -13,6 +13,6 @@ export const ApplicationModalSchema = Yup.object().shape({
   expected_ctc: Yup.string().required('Expected CTC is required'),
   notice_period: Yup.string().required('Notice period is required'),
   total_work_experience: Yup.string().required('Total work experience is required'),
-  gender: Yup.string().required('Gender is required'),
+  gender: Yup.string().required('Please select your gender').oneOf(['male', 'female'], 'Gender is required'),
   state: Yup.string().required('State is required'),
 });
