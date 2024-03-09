@@ -80,7 +80,7 @@ const ApplicationModal = ({ setApplyNowModal, applyJobData }: any) => {
 
         applyJobMutate(formData);
       },
-      
+
     });
 
 
@@ -383,7 +383,7 @@ const ApplicationModal = ({ setApplyNowModal, applyJobData }: any) => {
                   </div>
 
                   <div className="form-group col-md-4">
-                    <label htmlFor="resume">Add Resume</label>
+                    <label htmlFor="resume" className="btn-link mb-0 font-weight-bold">Add Resume</label>
                     <input
                       className="form-control"
                       type="file"
@@ -393,7 +393,7 @@ const ApplicationModal = ({ setApplyNowModal, applyJobData }: any) => {
                       accept="application/pdf"
                       onChange={(e) => handleFileChange(e)}
                     />
-                    <button type="button" style={{"color": "red"}}onClick={onChooseFileButtonClick}>Choose File</button>
+                    <button type="button" style={{"opacity": "0"}}onClick={onChooseFileButtonClick}>Choose File</button>
                     {file?.name && <p>Selected file: {file?.name}</p>}
                   </div>
                 </div>
