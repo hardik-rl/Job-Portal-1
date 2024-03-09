@@ -292,17 +292,9 @@ const CreateNewJob = () => {
                   onChange={handleChange}
                 >
                   <option value="select">Select Nature</option>
-                  <option value="male">Part time</option>
-                  <option value="female">Full time</option>
+                  <option value="Part time">Part time</option>
+                  <option value="Full time">Full time</option>
                 </select>
-                {/* <FormControl
-                  type="text"
-                  className={errors.nature ? "is-error" : ""}
-                  value={values.nature}
-                  id="nature"
-                  name="nature"
-                  onChange={handleChange}
-                /> */}
                 <FormError error={errors.nature} />
               </div>
 

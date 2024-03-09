@@ -1,4 +1,4 @@
-import { object, string, number } from "yup";
+import { object, string } from "yup";
 export const EMAIL_REGEX = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
 export const createJobSchema = object({
   title: string().required("Title is required"),
@@ -6,9 +6,7 @@ export const createJobSchema = object({
   education_description: string().required("Education is required"),
   knowledge_description: string().required("Knowledge description is required"),
   vacancy: string().required('Vacancy is required'),
-  nature: string()
-    .matches(/^[a-zA-Z\s]*$/, 'Nature should only contain letters and spaces')
-    .required('Nature is required'),
+  nature:string().required('Please select nature').oneOf(['Part time', 'Full time'], 'Nature is required'),
   company_name: string().required("Company name is required"),
   company_description: string().required("Company description is required"),
   company_website: string().required("Website url is required"),
