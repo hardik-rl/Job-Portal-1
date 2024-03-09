@@ -2,12 +2,15 @@ import { getAllApplication } from "../api";
 import { useQuery } from "@tanstack/react-query";
 import * as XLSX from "xlsx";
 
-
 import Loader from "../../../shared/Loader";
+import { DownloadXL } from "../../../shared/Icon";
 
 const ApplicationList = () => {
-  
-  const { data:applicationListData, refetch: applicationListRefetch, isLoading: applicationListIsLoading } = useQuery(["getAllApplication"], getAllApplication);
+  const {
+    data: applicationListData,
+    refetch: applicationListRefetch,
+    isLoading: applicationListIsLoading,
+  } = useQuery(["getAllApplication"], getAllApplication);
 
   if (applicationListIsLoading) {
     return (
@@ -18,7 +21,7 @@ const ApplicationList = () => {
   }
 
   const generateUserExcelArray = () => {
-    return applicationListData.map((application:any, index: any) => ({
+    return applicationListData.map((application: any, index: any) => ({
       "Sr. No": index + 1 || "-",
       "Job Title": application.job_id.title || "-",
       "Applicant Name": application.first_name || "-",
@@ -26,9 +29,9 @@ const ApplicationList = () => {
       "Expected CTC": application.expected_ctc || "-",
       "Notice Period": application.notice_period || "-",
       "Total Work Exp.": application.total_work_experience || "-",
-      "Gender": application.gender || "-",
+      Gender: application.gender || "-",
     }));
-  }
+  };
 
   const downloadXL = () => {
     const userData = generateUserExcelArray();
@@ -36,7 +39,7 @@ const ApplicationList = () => {
     const wb = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, "Sheet 1");
     XLSX.writeFile(wb, "job-applications.xlsx");
-  }
+  };
 
   return (
     <>
@@ -44,9 +47,15 @@ const ApplicationList = () => {
         <div className="app-content pt-3 p-md-3 p-lg-4">
           <div className="container-xl">
             <div className="row g-3 mb-4 align-items-center justify-content-between">
-              <div className="col-auto">
+              <div className="d-flex flex-wrap align-items-center">
                 <h1 className="app-page-title mb-0">All Job Applications</h1>
-                <button onClick={downloadXL}>Export</button>
+                <button
+                  className="btn btn-primary d-flex align-items-center text-white ms-auto"
+                  onClick={downloadXL}
+                >
+                  Export &nbsp;
+                  <DownloadXL />{" "}
+                </button>
               </div>
             </div>
             <div className="g-4 mb-4 overflow-x-auto">
@@ -65,18 +74,20 @@ const ApplicationList = () => {
                 </thead>
                 <tbody>
                   {applicationListData &&
-                    applicationListData.map((application: any, index: number) => (
-                      <tr key={index}>
-                        <td>{index + 1}</td>
-                        <td>{application.job_id.title}</td>
-                        <td>{application.first_name }</td>
-                        <td>{application.ctc }</td>
-                        <td>{application.expected_ctc}</td>
-                        <td>{application.notice_period}</td>
-                        <td>{application.total_work_experience}</td>
-                        <td>{application.gender}</td>
-                      </tr>
-                    ))}
+                    applicationListData.map(
+                      (application: any, index: number) => (
+                        <tr key={index}>
+                          <td>{index + 1}</td>
+                          <td>{application?.job_id.title}</td>
+                          <td>{application?.first_name}</td>
+                          <td>{application?.ctc}</td>
+                          <td>{application?.expected_ctc}</td>
+                          <td>{application?.notice_period}</td>
+                          <td>{application?.total_work_experience}</td>
+                          <td>{application?.gender}</td>
+                        </tr>
+                      )
+                    )}
                 </tbody>
               </table>
             </div>
