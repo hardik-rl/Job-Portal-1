@@ -48,7 +48,7 @@ router.get('/pdf/:filename', authMiddleware, (req, res) => {
 router.get('/get-categories', authMiddleware, async (req, res) => {
   try {
     const { filter } = req.query;
-    
+
     let aggregationPipeline = [];
 
     if (filter) {
@@ -130,7 +130,7 @@ router.put('/edit-job/:jobId', authMiddleware, async (req, res) => {
   try {
     const jobId = req.params.jobId;
     const updatedData = req.body;
-    
+
     // Find the job by ID and update its data
     const updatedJob = await Job.findByIdAndUpdate(jobId, updatedData, { new: true });
 
@@ -149,7 +149,7 @@ router.put('/edit-job/:jobId', authMiddleware, async (req, res) => {
 router.delete('/delete-job/:jobId', authMiddleware, async (req, res) => {
   try {
     const jobId = req.params.jobId;
-    
+
     // Find the job by ID and delete it
     const deletedJob = await Job.findByIdAndDelete(jobId);
 
