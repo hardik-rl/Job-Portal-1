@@ -5,29 +5,37 @@ import { useState } from "react";
 
 type FeaturedJobsProps = {
   setApplyNowModal: React.Dispatch<React.SetStateAction<boolean>>;
-  setApplyJobData: React.Dispatch<React.SetStateAction<{
-    job_id: string;
-    category_id: string;
-  }>>;
+  setApplyJobData: React.Dispatch<
+    React.SetStateAction<{
+      job_id: string;
+      category_id: string;
+    }>
+  >;
   jobsData: any;
   jobsDataIsLoading: boolean;
   setPage: React.Dispatch<React.SetStateAction<number>>;
+};
 
-}
-
-const FeaturedJobs = ({ setApplyNowModal, setApplyJobData, jobsData, jobsDataIsLoading, setPage }: FeaturedJobsProps) => {
+const FeaturedJobs = ({
+  setApplyNowModal,
+  setApplyJobData,
+  jobsData,
+  jobsDataIsLoading,
+  setPage,
+}: FeaturedJobsProps) => {
   const [activePage, setActivePage] = useState(0);
 
   if (jobsDataIsLoading) {
-    return <div className="text-center py-4 bg-white banner-height">
-      <Loader />
-    </div>
+    return (
+      <div className="text-center py-4 bg-white banner-height">
+        <Loader />
+      </div>
+    );
   }
 
-
-  const handlePageChange = (selected:number) => {
+  const handlePageChange = (selected: number) => {
     setActivePage(selected);
-    setPage(selected + 1)
+    setPage(selected + 1);
   };
 
   return (
@@ -65,14 +73,14 @@ const FeaturedJobs = ({ setApplyNowModal, setApplyJobData, jobsData, jobsDataIsL
         {jobsData.jobs.length > 0 && (
           <ReactPaginate
             className="custom-pagination "
-            activeClassName="paginate-active"
             breakLabel="..."
             nextLabel="Next"
             onPageChange={(event) => handlePageChange(event.selected)}
-            pageRangeDisplayed={5}
             pageCount={jobsData.totalPages}
+            pageRangeDisplayed={3}
             previousLabel="Previous"
             renderOnZeroPageCount={null}
+            activeClassName="paginate-active"
             forcePage={activePage}
           />
         )}

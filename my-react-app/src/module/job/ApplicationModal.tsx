@@ -40,47 +40,46 @@ const ApplicationModal = ({ setApplyNowModal, applyJobData }: any) => {
     },
   });
 
-  const { handleSubmit, setFieldValue, errors, values, handleChange } = useFormik({
-    initialValues: {
-      job_id: "",
-      category_id: "",
-      first_name: "",
-      last_name: "",
-      email: "",
-      pan_number: "",
-      mobile_number: "",
-      education: "",
-      ctc: "",
-      expected_ctc: "",
-      notice_period: "",
-      total_work_experience: "",
-      gender: "",
-      state: "",
-      resume_file: "",
-    },
-    validateOnChange: false,
-    onSubmit: (values: any) => {
-      console.log('here');
-      const formData: any = new FormData();
-      Object.keys(values).forEach((key) => {
-        if (!["resume_file", "job_id", "category_id"].includes(key)) {
-          formData.append(key, values[key]);
+  const { handleSubmit, setFieldValue, errors, values, handleChange } =
+    useFormik({
+      initialValues: {
+        job_id: "",
+        category_id: "",
+        first_name: "",
+        last_name: "",
+        email: "",
+        pan_number: "",
+        mobile_number: "",
+        education: "",
+        ctc: "",
+        expected_ctc: "",
+        notice_period: "",
+        total_work_experience: "",
+        gender: "",
+        state: "",
+        resume_file: "",
+      },
+      validateOnChange: false,
+      onSubmit: (values: any) => {
+        console.log("here");
+        const formData: any = new FormData();
+        Object.keys(values).forEach((key) => {
+          if (!["resume_file", "job_id", "category_id"].includes(key)) {
+            formData.append(key, values[key]);
+          }
+        });
+        formData.append("resume_file", file);
+        formData.append("job_id", applyJobData.job_id);
+        formData.append("category_id", applyJobData.category_id);
+        if (!file.name) {
+          toast.error("Please upload consent form");
+          return;
         }
-      });
-      formData.append("resume_file", file);
-      formData.append("job_id", applyJobData.job_id);
-      formData.append("category_id", applyJobData.category_id);
-      if (!file.name) {
-        toast.error("Please upload consent form");
-        return;
-      }
 
-      applyJobMutate(formData);
-    },
-    validateOnChange: false,
-    validationSchema:ApplicationModalSchema,
-  });
-
+        applyJobMutate(formData);
+      },
+      validationSchema: ApplicationModalSchema,
+    });
 
   console.log(errors);
 
@@ -124,9 +123,11 @@ const ApplicationModal = ({ setApplyNowModal, applyJobData }: any) => {
   };
 
   if (applyJobIsLoading) {
-    return <div className="text-center py-4 bg-white banner-height">
-    <Loader />
-  </div>
+    return (
+      <div className="text-center py-4 bg-white banner-height">
+        <Loader />
+      </div>
+    );
   }
 
   const statesDataList = [
@@ -258,8 +259,8 @@ const ApplicationModal = ({ setApplyNowModal, applyJobData }: any) => {
                       onChange={(event: any) => handleOnChangeEvent(event)}
                       value={values.mobile_number}
                       id="mobile_number"
-                      type="number"
                       name="mobile_number"
+                      type="tel"
                       className={errors.mobile_number ? "is-error" : ""}
                     />
                     <FormError error={errors.mobile_number} />
@@ -279,7 +280,7 @@ const ApplicationModal = ({ setApplyNowModal, applyJobData }: any) => {
                   </div>
 
                   <div className="form-group col-md-4">
-                    <label htmlFor="ctc">CTC (In Laksh)</label>
+                    <label htmlFor="ctc">CTC</label>
                     <FormLabel name="" htmlFor="ctc" />
                     <FormControl
                       onChange={(event: any) => handleOnChangeEvent(event)}
@@ -336,21 +337,30 @@ const ApplicationModal = ({ setApplyNowModal, applyJobData }: any) => {
 
                   <div className="form-group col-md-4">
                     <FormLabel name="Gender" htmlFor="gendar" />
-                    <FormControl
-                      onChange={handleChange}
+                    <select
+                      className={clsx(
+                        errors.gender ? "is-error" : "",
+                        "form-control"
+                      )}
+                      id="inputgender"
                       value={values.gender}
-                      id="gendar"
-                      type="text"
                       name="gender"
-                      className={errors.gender ? "is-error" : ""}
-                    />
+                      onChange={handleChange}
+                    >
+                      <option value="select">Select Gender</option>
+                      <option value="male">Male</option>
+                      <option value="female">FeMale</option>
+                    </select>
                     <FormError error={errors.gender} />
                   </div>
 
                   <div className="form-group col-md-4">
                     <label htmlFor="inputState">State</label>
                     <select
-                      className={clsx(errors.state ? "is-error" : "", "form-control")}
+                      className={clsx(
+                        errors.state ? "is-error" : "",
+                        "form-control"
+                      )}
                       id="inputState"
                       value={values.state}
                       name="state"
