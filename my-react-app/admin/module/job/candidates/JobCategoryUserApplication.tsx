@@ -54,7 +54,7 @@ const JobCategoryUserApplication = () => {
             </div>
           </div>
 
-          <div className="g-4 mb-4">
+          <div className="g-4 mb-4 border p-3 bg-white rounded shadow-sm job-candidate-list">
             <p>
               <b>First Name :</b> {applicationData?.first_name}
             </p>
@@ -95,7 +95,7 @@ const JobCategoryUserApplication = () => {
             </p>
             <p>
               <b>Resume :</b>{" "}
-              <button className="btn-link" onClick={handleViewResume}>Click Here</button>
+              <button className="btn-link px-0" onClick={handleViewResume}>Click Here</button>
             </p>
           </div>
         </div>
