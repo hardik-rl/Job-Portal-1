@@ -8,6 +8,9 @@ import Login from "../admin/module/auth/Login";
 import AdminLayout from "../admin/AdminLayout";
 import JobCategoryList from "../admin/module/job/candidates/JobCateoryList";
 import JobList from "../admin/module/job/job-list/JobList";
+import ApplicationList from "../admin/module/job/application-list/ApplicationList";
+import JobListApplication from "../admin/module/job/application-list/JobListApplication";
+
 import JobCategoryUserApplication from "../admin/module/job/candidates/JobCategoryUserApplication";
 import JobListView from "../admin/module/job/job-list/View";
 import withAuthenticationRequired from "./shared/utils/withAuthenticationRequired";
@@ -53,6 +56,8 @@ function App() {
           <Route path="update-job/:jobId" element={<UpdateJob />} />
 
           <Route path="job-list" element={<JobList />} />
+          <Route path="job-list-application/:jobId" element={<JobListApplication />} />
+          <Route path="application-list" element={<ApplicationList />} />
           <Route path="job-list/view/33" element={<JobListView />} />
           <Route path="*" element={<NotFound />} />
         </Route>

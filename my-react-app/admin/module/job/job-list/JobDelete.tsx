@@ -7,12 +7,12 @@ import { AxiosError } from "axios";
 const JobDelete = ({
   selectedItemId,
   setDeleteModal,
-  refetch,
+  jobListRefetch,
 }: any) => {
   const { mutate: deleteJobFn } = useMutation(() => deleteJob(selectedItemId), {
     onSuccess: () => {
       toast.success("Job Deleted Successfully.");
-      refetch();
+      jobListRefetch();
     },
     onError: (error: AxiosError<{ message: string }>) => {
       toast(error.response?.data.message, {

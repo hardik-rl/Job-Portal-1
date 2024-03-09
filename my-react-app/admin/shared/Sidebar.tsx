@@ -37,6 +37,8 @@ const SideBar = ({ sidebarOpen, handleClose }: any) => {
       setActiveLink("#1");
     } else if (currentRoute === "/admin/job-list") {
       setActiveLink("#2");
+    } else if (currentRoute === "/admin/application-list") {
+      setActiveLink("#3");
     }
   }, []);
 
@@ -85,6 +87,13 @@ const SideBar = ({ sidebarOpen, handleClose }: any) => {
               icon={<CardList />}
               isActive={activeLink === "#2"}
               onClick={() => handleNavLinkClick("#2")}
+            />
+            <NavLink
+              href="application-list"
+              text="Application List"
+              icon={<CardList />}
+              isActive={activeLink === "#3"}
+              onClick={() => handleNavLinkClick("#3")}
             />
           </ul>
         </nav>

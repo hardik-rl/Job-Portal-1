@@ -9,23 +9,28 @@ import Loader from "../../../shared/Loader";
 
 const JobList = () => {
   const navigate = useNavigate();
-  const { data, refetch, isLoading } = useQuery(["getAllJob"], getAllJob);
-  const jobListData = data;
   const [showModal, setShowModal] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);
   const [selectedItemId, setSelectedItemId] = useState("");
+  
+  const { data: jobListData, refetch: jobListRefetch, isLoading: jobListIsLoading } = useQuery(["getAllJob"], getAllJob);
 
   const handleEditClick = (id: any) => {
     navigate(`/admin/update-job/${id}`);
     setShowModal(true);
     setSelectedItemId(id);
   };
+
   const handleDeleteClick = (id: any) => {
     setDeleteModal(true);
     setSelectedItemId(id);
   };
 
-  if (isLoading) {
+  const handleViewApplication = (id: any) => {
+    navigate(`/admin/job-list-application/${id}`);
+  };
+
+  if (jobListIsLoading) {
     return (
       <div className="py-4 banner-height d-flex justify-content-center">
         <Loader />
@@ -81,6 +86,12 @@ const JobList = () => {
                             >
                               Delete
                             </button>
+                            <button
+                              className="ml-2 btn btn-danger p-2 text-white"
+                              onClick={() => handleViewApplication(item._id)}
+                            >
+                              View Application
+                            </button>
                           </div>
                         </td>
                       </tr>
@@ -93,14 +104,13 @@ const JobList = () => {
       </div>
       {showModal && (
         <JobEdit
-          refetch={refetch}
           selectedItemId={selectedItemId}
           setShowModal={setShowModal}
         />
       )}
       {deleteModal && (
         <JobDelete
-          refetch={refetch}
+          jobListRefetch={jobListRefetch}
           selectedItemId={selectedItemId}
           setDeleteModal={setDeleteModal}
         />

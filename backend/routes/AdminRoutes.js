@@ -83,12 +83,12 @@ router.get('/get-categories', authMiddleware, async (req, res) => {
 });
 
 
-router.get('/get-category-application/:category_id?', authMiddleware, async(req, res) => {
+router.get('/get-category-application/:categoryId?', authMiddleware, async(req, res) => {
   try {
     let query = {};
 
-    if (req.params.category_id) {
-        query = { category_id: req.params.category_id };
+    if (req.params.categoryId) {
+        query = { category_id: req.params.categoryId };
     }
 
     const applications = await Application.find(query);
@@ -100,10 +100,10 @@ router.get('/get-category-application/:category_id?', authMiddleware, async(req,
   }
 });
 
-router.get('/get-application/:application_id', authMiddleware, async(req, res) => {
+router.get('/get-application/:applicationId', authMiddleware, async(req, res) => {
   try {
 
-    const applicationId = req.params.application_id;
+    const applicationId = req.params.applicationId;
 
     const applications = await Application.findById(applicationId);
 
@@ -126,9 +126,9 @@ router.post('/add-job', authMiddleware, async(req, res) => {
 });
 
 // Edit Job API
-router.put('/edit-job/:id', authMiddleware, async (req, res) => {
+router.put('/edit-job/:jobId', authMiddleware, async (req, res) => {
   try {
-    const jobId = req.params.id;
+    const jobId = req.params.jobId;
     const updatedData = req.body;
     
     // Find the job by ID and update its data
@@ -146,9 +146,9 @@ router.put('/edit-job/:id', authMiddleware, async (req, res) => {
 });
 
 // Delete Job API
-router.delete('/delete-job/:id', authMiddleware, async (req, res) => {
+router.delete('/delete-job/:jobId', authMiddleware, async (req, res) => {
   try {
-    const jobId = req.params.id;
+    const jobId = req.params.jobId;
     
     // Find the job by ID and delete it
     const deletedJob = await Job.findByIdAndDelete(jobId);
@@ -176,8 +176,8 @@ router.get('/get-jobs', authMiddleware, async(req, res) => {
 });
 
 // get specific job
-router.get('/get-job/:id', authMiddleware, async(req, res) => {
-  const jobId = req.params.id;
+router.get('/get-job/:jobId', authMiddleware, async(req, res) => {
+  const jobId = req.params.jobId;
   try {
     const job = await Job.findById(jobId);
     res.json(job);
@@ -211,6 +211,30 @@ router.get('/jobs-categories', authMiddleware, async (req, res) => {
   }
 });
 
+
+
+router.get('/application/:jobId', authMiddleware, async (req, res) => {
+  const jobId = req.params.jobId;
+  try {
+    const application = await Application.find({job_id: jobId}).populate('job_id category_id');
+    res.json(application);
+  } catch (error) {
+    console.error('Error fetching application based on jobId:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+})
+
+router.get('/get-applications', authMiddleware, async (req, res) => {
+  try {
+    const applications = await Application.find({})
+    .populate('job_id category_id')
+    .exec();
+    res.json(applications);
+  } catch (error) {
+    console.error('Error fetching application based on jobId:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+})
 
 router.get('/protected', authMiddleware, (req, res) => {
   res.json({ message: 'This is a protected route', user: req.user });
