@@ -142,7 +142,7 @@ const ClientBanner = ({ setJobListFilter }: ClientBannerProps) => {
                         }}
                       />
                       <ReactSelect
-                      className="react-select__control"
+                        className="react-select__control"
                         name="job-categories"
                         styles={customStyles}
                         onChange={handleCategoryChange}
