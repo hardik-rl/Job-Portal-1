@@ -6,7 +6,6 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import { useFormik } from "formik";
 import { useState, useEffect, useRef } from "react";
-import useStore from "../../shared/store/useStore";
 import { ApplicationModalSchema } from "./validation";
 import FormError from "../../components/FormError";
 import clsx from "clsx";
@@ -16,31 +15,30 @@ import ReactSelect from "react-select";
 const UploadYourCVModal = ({ setUploadYourCVModal }: any) => {
   const [file, setFile] = useState<any>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const { jobTitle } = useStore();
-  const [categorySelect, setCategorySelect] = useState({
-    value: "",
-    label: "Any - All Categories",
-  });
+  // const [categorySelect, setCategorySelect] = useState({
+  //   value: "",
+  //   label: "Any - All Categories",
+  // });
   const [jobListSelect, setJobListSelect] = useState({
     value: "",
     label: "Any - All Jobs",
   });
-  const getJobCategories = async () => {
-    const response = await axios.get(`http://localhost:3000/jobs-categories`);
-    return response.data;
-  };
+  // const getJobCategories = async () => {
+  //   const response = await axios.get(`http://localhost:3000/jobs-categories`);
+  //   return response.data;
+  // };
 
-  const { data: jobCategoryData, isLoading: jobCategoryDataIsLoading } =
-    useQuery({
-      queryKey: ["job-category-list"],
-      queryFn: () => getJobCategories(),
-    });
+  // const { data: jobCategoryData, isLoading: jobCategoryDataIsLoading } =
+  //   useQuery({
+  //     queryKey: ["job-category-list"],
+  //     queryFn: () => getJobCategories(),
+  //   });
 
-  const jobCategoryOptions =
-    jobCategoryData?.map((category: any) => ({
-      value: category._id,
-      label: category.name,
-    })) || [];
+  // const jobCategoryOptions =
+  //   jobCategoryData?.map((category: any) => ({
+  //     value: category._id,
+  //     label: category.name,
+  //   })) || [];
 
 
     const getJobListData = async () => {
@@ -115,7 +113,9 @@ const UploadYourCVModal = ({ setUploadYourCVModal }: any) => {
         });
         formData.append("resume_file", file);
         formData.append("job_id", jobListSelect.value);
-        formData.append("category_id", categorySelect.value);
+        const categoryId = jobListData.find((job:any) => job._id === jobListSelect.value).category_id;
+
+        formData.append("category_id", categoryId);
         if (!file.name) {
           toast.error("Please upload consent form");
           return;
@@ -172,15 +172,15 @@ const UploadYourCVModal = ({ setUploadYourCVModal }: any) => {
     }
   }
 
-  const handleCategoryChange = (event: any) => {
-    setCategorySelect(event);
-  };
+  // const handleCategoryChange = (event: any) => {
+  //   setCategorySelect(event);
+  // };
 
   const handleJobListChange = (event: any) => {
     setJobListSelect(event);
   };
 
-  if (applyJobIsLoading || jobCategoryDataIsLoading || jobListDataIsLoading) {
+  if (applyJobIsLoading || jobListDataIsLoading) {
     return (
       <div className="text-center py-4 bg-white banner-height">
         <Loader />
@@ -246,7 +246,6 @@ const UploadYourCVModal = ({ setUploadYourCVModal }: any) => {
           <div className="modal-content">
             <div className="modal-header">
               <h5 className="modal-title" id="exampleModalLabel">
-                {jobTitle}
               </h5>
               <button
                 type="button"
@@ -432,7 +431,7 @@ const UploadYourCVModal = ({ setUploadYourCVModal }: any) => {
                     </select>
                     <FormError error={errors.state} />
                   </div>
-                  <div className="form-group col-md-4">
+                  {/* <div className="form-group col-md-4">
                     <label htmlFor="inputState">Select Category</label>
                     <ReactSelect
                       name="job-categories"
@@ -443,7 +442,7 @@ const UploadYourCVModal = ({ setUploadYourCVModal }: any) => {
                         IndicatorSeparator: () => null,
                       }}
                     />
-                  </div>
+                  </div> */}
 
                   <div className="form-group col-md-4">
                     <label htmlFor="inputState">Select Job</label>
