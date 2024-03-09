@@ -259,8 +259,8 @@ const ApplicationModal = ({ setApplyNowModal, applyJobData }: any) => {
                       onChange={(event: any) => handleOnChangeEvent(event)}
                       value={values.mobile_number}
                       id="mobile_number"
-                      type="number"
                       name="mobile_number"
+                      type="tel"
                       className={errors.mobile_number ? "is-error" : ""}
                     />
                     <FormError error={errors.mobile_number} />
@@ -280,7 +280,7 @@ const ApplicationModal = ({ setApplyNowModal, applyJobData }: any) => {
                   </div>
 
                   <div className="form-group col-md-4">
-                    <label htmlFor="ctc">CTC (In Laksh)</label>
+                    <label htmlFor="ctc">CTC</label>
                     <FormLabel name="" htmlFor="ctc" />
                     <FormControl
                       onChange={(event: any) => handleOnChangeEvent(event)}

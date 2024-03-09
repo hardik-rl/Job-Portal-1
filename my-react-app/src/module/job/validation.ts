@@ -7,7 +7,9 @@ export const ApplicationModalSchema = Yup.object().shape({
   pan_number: Yup.string()
   .matches(/[a-zA-Z]{5}[0-9]{4}[a-zA-Z]{1}/, 'Please Enter a Valid PAN Number')
   .required('PAN Number is Required'),
-  mobile_number: Yup.string().required('Mobile number is required'),
+  mobile_number: Yup.string()
+  .matches(/^[0-9]{10}$/, 'Please Enter a Valid 10-Digit Mobile Number')
+  .required('Mobile Number is Required'),
   education: Yup.string().required('Education details are required'),
   ctc: Yup.string().required('Current CTC is required'),
   expected_ctc: Yup.string().required('Expected CTC is required'),
