@@ -2,6 +2,7 @@ import { getAllApplication } from "../api";
 import { useQuery } from "@tanstack/react-query";
 import * as XLSX from "xlsx";
 
+
 import Loader from "../../../shared/Loader";
 import { DownloadIcon } from "../../../shared/Icon";
 
@@ -11,6 +12,7 @@ const ApplicationList = () => {
     refetch: applicationListRefetch,
     isLoading: applicationListIsLoading,
   } = useQuery(["getAllApplication"], getAllApplication);
+
 
   if (applicationListIsLoading) {
     return (
@@ -32,7 +34,6 @@ const ApplicationList = () => {
       Gender: application.gender || "-",
     }));
   };
-
   const downloadXL = () => {
     const userData = generateUserExcelArray();
     const ws = XLSX.utils.json_to_sheet(userData);
@@ -40,13 +41,14 @@ const ApplicationList = () => {
     XLSX.utils.book_append_sheet(wb, ws, "Sheet 1");
     XLSX.writeFile(wb, "job-applications.xlsx");
   };
-
+  
   return (
     <>
       <div className="app-wrapper">
         <div className="app-content pt-3 p-md-3 p-lg-4">
           <div className="container-xl">
             <div className="row g-3 mb-4 align-items-center justify-content-between">
+
               <div className="d-flex flex-wrap align-items-center">
                 <h1 className="app-page-title mb-0">All Job Applications</h1>
                 <button
@@ -54,9 +56,8 @@ const ApplicationList = () => {
                   onClick={downloadXL}
                 >
                   Export &nbsp;
-                  <DownloadIcon />{" "}
+                  <DownloadIcon />
                 </button>
-              </div>
             </div>
             <div className="g-4 mb-4 overflow-x-auto">
               <table className="table">
