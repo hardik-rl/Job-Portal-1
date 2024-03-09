@@ -42,7 +42,7 @@ const JobCategoryUserApplication = () => {
             <ol className="breadcrumb bg-transparent p-0">
               <li className="breadcrumb-item">
                 <button className="bg-transparent border-0 textgreen" onClick={()=> navigate(-1)}>
-                  &lt; Back to {jobCategoriesTitle} List
+                &#x2190; {jobCategoriesTitle} List
                 </button>
               </li>
             </ol>
