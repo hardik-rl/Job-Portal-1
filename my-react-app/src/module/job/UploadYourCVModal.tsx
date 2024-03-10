@@ -101,6 +101,7 @@ const UploadYourCVModal = ({ setUploadYourCVModal }: any) => {
         gender: "",
         state: "",
         resume_file: "",
+        job_listSelect: "",
       },
       validateOnChange: false,
       validationSchema: ApplicationModalSchema,
@@ -422,6 +423,7 @@ const UploadYourCVModal = ({ setUploadYourCVModal }: any) => {
                         IndicatorSeparator: () => null,
                       }}
                     />
+                    <FormError error={errors.job_listSelect} />
                   </div>
 
                   <div className="form-group col-md-4">
@@ -458,7 +460,7 @@ const UploadYourCVModal = ({ setUploadYourCVModal }: any) => {
                   </div> */}
 
                   <div className="form-group col-md-12">
-                    <label htmlFor="resume" className="btn-link mb-0 font-weight-bold">Add Resume</label>
+                    <label htmlFor="resume" className="btn-link mb-0 font-weight-bold cursor-pointer">Add Resume</label>
                     <input
                       className="form-control"
                       type="file"

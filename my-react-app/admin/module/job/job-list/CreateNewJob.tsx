@@ -280,11 +280,11 @@ const CreateNewJob = () => {
                   name="Enter Job nature (Full-Time/Part-Time)"
                   htmlFor="nature"
                 />
-                
+
                 <select
                   className={clsx(
                     errors.nature ? "is-error" : "",
-                    "form-control"
+                    "form-select"
                   )}
                   id="nature"
                   value={values.nature}

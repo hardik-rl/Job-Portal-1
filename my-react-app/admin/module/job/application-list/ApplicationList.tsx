@@ -6,10 +6,8 @@ import Loader from "../../../shared/Loader";
 import { DownloadIcon } from "../../../shared/Icon";
 
 const ApplicationList = () => {
-  const {
-    data: applicationListData,
-    isLoading: applicationListIsLoading,
-  } = useQuery(["getAllApplication"], getAllApplication);
+  const { data: applicationListData, isLoading: applicationListIsLoading } =
+    useQuery(["getAllApplication"], getAllApplication);
 
   if (applicationListIsLoading) {
     return (
@@ -70,14 +68,14 @@ const ApplicationList = () => {
                     </tr>
                   </thead>
                   <tbody>
-                  {!applicationListData ||
-                    (applicationListData.length === 0 && (
-                      <tr>
-                        <td colSpan={8}>
-                          <h3 className="text-center my-5">No Data Found</h3>
-                        </td>
-                      </tr>
-                    ))}
+                    {!applicationListData ||
+                      (applicationListData.length === 0 && (
+                        <tr>
+                          <td colSpan={8}>
+                            <h3 className="text-center my-5">No Data Found</h3>
+                          </td>
+                        </tr>
+                      ))}
                     {applicationListData &&
                       applicationListData.map(
                         (application: any, index: number) => (

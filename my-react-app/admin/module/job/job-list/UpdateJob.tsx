@@ -315,7 +315,7 @@ const UpdateJob = () => {
                 <select
                   className={clsx(
                     errors.nature ? "is-error" : "",
-                    "form-control"
+                    "form-select"
                   )}
                   id="nature"
                   value={values.nature}

@@ -58,7 +58,6 @@ const Job = () => {
         setPage={setPage}
       />
       <OnlineResume setUploadYourCVModal={setUploadYourCVModal} />
-      <HowItWorks />
       {applyNowModal && (
         <ApplicationModal
           setApplyNowModal={setApplyNowModal}

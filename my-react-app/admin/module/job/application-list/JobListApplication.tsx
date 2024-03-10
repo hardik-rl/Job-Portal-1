@@ -2,10 +2,12 @@ import { getApplicationBasedOnJob } from "../api";
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import Loader from "../../../shared/Loader";
+import { useNavigate } from "react-router-dom";
 
 const ApplicationList = () => {
   const { jobId } = useParams();
-  
+  const navigate = useNavigate();
+
   const { data: applicationListData, isLoading: applicationListIsLoading } = useQuery({
     queryKey: ["get-application-based-on-job-id"],
     queryFn: () => getApplicationBasedOnJob(jobId),
@@ -45,6 +47,15 @@ const ApplicationList = () => {
       <div className="app-wrapper">
         <div className="app-content pt-3 p-md-3 p-lg-4">
           <div className="container-xl">
+          <nav aria-label="breadcrumb mb-5">
+            <ol className="breadcrumb bg-transparent p-0">
+              <li className="breadcrumb-item ">
+                <button className="bg-transparent border-0 textgreen" onClick={()=> navigate(-1)}>
+                &#x2190; Job List
+                </button>
+              </li>
+            </ol>
+          </nav>
             <div className="row g-3 mb-4 align-items-center justify-content-between">
               <div className="col-auto">
                 <h1 className="app-page-title mb-0"> Job Applications</h1>
@@ -68,7 +79,7 @@ const ApplicationList = () => {
                   {applicationListData?.length === 0 && (
                     <tr><td colSpan={8}>No Data Found.</td></tr>
                   )}
-                  {applicationListData && applicationListData?.length > 0 && 
+                  {applicationListData && applicationListData?.length > 0 &&
                     applicationListData.map((application: any, index: number) => (
                       <tr key={index}>
                         <td>{index + 1}</td>

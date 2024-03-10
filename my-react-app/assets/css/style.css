@@ -6576,3 +6576,6 @@ form.search-box .find-job-btn:hover {
   overflow: auto;
   max-height: 600px;
 }
+.cursor-pointer {
+  cursor: pointer;
+}
