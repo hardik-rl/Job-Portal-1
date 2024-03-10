@@ -98,6 +98,9 @@ button.btn-primary {
   white-space: nowrap;
   text-overflow: ellipsis;
 }
+table.table {
+  margin-bottom: 0;
+}
 .app-content .table thead th {
   white-space: nowrap;
   color: #0c1310a3;
