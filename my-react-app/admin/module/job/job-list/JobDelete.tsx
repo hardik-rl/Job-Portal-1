@@ -55,7 +55,7 @@ const JobDelete = ({
             </div>
             <div className="modal-body">
               <form>
-                <p className="fs-5 text-dark">Are You Sure Want to Delete</p>
+                <p className="fs-5 text-dark">Are You Sure Want to Delete ?</p>
               </form>
             </div>
             <div className="modal-footer">

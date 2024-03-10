@@ -387,7 +387,7 @@ const ApplicationModal = ({ setApplyNowModal, applyJobData }: any) => {
                   </div>
 
                   <div className="form-group col-md-12">
-                    <label htmlFor="resume" className="btn-link mb-0 font-weight-bold">Add Resume</label>
+                    <label htmlFor="resume" className="btn-link mb-0 font-weight-bold cursor-pointer">Add Resume</label>
                     <input
                       className="form-control"
                       type="file"
