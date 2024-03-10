@@ -27,7 +27,7 @@ const JobOverview = ({ jobData }: { jobData: JobData }) => {
         </button>
       </div>
       {applyNowModal && (
-        <ApplicationModal setApplyNowModal={setApplyNowModal} applyJobData={{'job_id': jobData._id, 'category_id': jobData.category_id}} />
+        <ApplicationModal setApplyNowModal={setApplyNowModal} applyJobData={{'job_id': jobData._id, 'category_id': jobData.category_id._id}} />
       )}
       
     </div>
