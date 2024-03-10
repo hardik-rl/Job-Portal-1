@@ -40,16 +40,16 @@ const Job = () => {
   });
 
   useEffect(() => {
-    if(!!jobListFilter.searchFilter || (!!jobListFilter.categoryFilter || !!jobListFilter.locationFilter)) {
+    // if(!!jobListFilter.searchFilter || (!!jobListFilter.categoryFilter || !!jobListFilter.locationFilter)) {
       jobDataRefetch();
-    }
-    return;
+    // }
+    // return;
 
   }, [jobListFilter, jobDataRefetch])
 
   return (
     <>
-      <ClientBanner setJobListFilter={setJobListFilter} />
+      <ClientBanner setJobListFilter={setJobListFilter} setPage={setPage}/>
       <FeaturedJobs
         setApplyNowModal={setApplyNowModal}
         setApplyJobData={setApplyJobData}

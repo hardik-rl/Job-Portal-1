@@ -7,7 +7,6 @@ type JobPostProps = {
   
 }
 const JobPost = ({ jobData }: JobPostProps) => {
-  console.log({jobData});
   return (
     <div className="job-post-company pt-120 pb-120">
       <div className="container">

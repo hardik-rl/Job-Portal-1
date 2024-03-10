@@ -13,9 +13,10 @@ type ClientBannerProps = {
       categoryFilter: string;
     }>
   >;
+  setPage: React.Dispatch<React.SetStateAction<number>>;
 };
 
-const ClientBanner = ({ setJobListFilter }: ClientBannerProps) => {
+const ClientBanner = ({ setJobListFilter, setPage }: ClientBannerProps) => {
   const [categorySelect, setCategorySelect] = useState({
     value: "",
     label: "Any - All Categories",
@@ -96,6 +97,7 @@ const ClientBanner = ({ setJobListFilter }: ClientBannerProps) => {
       locationFilter: locationSelect.value === "" ? "" : locationSelect.label,
       categoryFilter: categorySelect.value === "" ? "" : categorySelect.label,
     });
+    setPage(1);
   };
   if (jobCategoryDataIsLoading || jobLocationDataIsLoading) {
     return <div className="py-4 banner-height">
