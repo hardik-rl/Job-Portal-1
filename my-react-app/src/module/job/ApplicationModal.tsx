@@ -73,8 +73,8 @@ const ApplicationModal = ({ setApplyNowModal, applyJobData }: any) => {
         formData.append("resume_file", file);
         formData.append("job_id", applyJobData.job_id);
         formData.append("category_id", applyJobData.category_id);
-        if (!file.name) {
-          toast.error("Please upload consent form");
+        if (!file || !file.name) {
+          toast.error("Please upload Resume.");
           return;
         }
 
@@ -82,7 +82,6 @@ const ApplicationModal = ({ setApplyNowModal, applyJobData }: any) => {
       },
 
     });
-
 
   const handleOnChangeEvent = (event: any) => {
     const value = event?.target.value.replace(/[^\d]/g, '');

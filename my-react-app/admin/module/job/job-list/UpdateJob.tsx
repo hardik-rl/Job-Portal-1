@@ -9,7 +9,7 @@ import {
 } from "../api";
 import { useFormik } from "formik";
 import { toast } from "react-toastify";
-import { ChangeEvent, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import ReactSelect from "react-select";
 import { AxiosError } from "axios";
 import Loader from "../../../shared/Loader";
