@@ -13,7 +13,7 @@ const OnlineResume = ({ setUploadYourCVModal }: OnlineResumeProps) => {
                 <p className="pera1"> JOBS</p>
                 <p className="pera2">
                   {" "}
-                  Can't find your approeriate role, Don't worry upload your
+                  Can't find your appropriate role, Don't worry upload your
                   resume here
                 </p>
                 <button

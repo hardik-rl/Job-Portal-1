@@ -5,7 +5,6 @@ const JobCategory = require('./JobCategoryModel');
 const ApplicationSchema = new mongoose.Schema({
   job_id: {
     type: mongoose.Schema.Types.ObjectId,
-    required: true,
     ref: Job
   },
   category_id: {

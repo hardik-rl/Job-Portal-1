@@ -1,6 +1,6 @@
 import * as Yup from 'yup';
 
-export const ApplicationModalSchema = Yup.object().shape({
+export const UploadYourCVModalSchema = Yup.object().shape({
   first_name: Yup.string().required('First name is required'),
   last_name: Yup.string().required('Last name is required'),
   email: Yup.string().email().matches(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/, 'Please Enter a Valid Email Address').required('Email is required'),
@@ -23,4 +23,5 @@ export const ApplicationModalSchema = Yup.object().shape({
   .positive('Total work experience must be a positive number'),
   gender: Yup.string().required('Please select your gender').oneOf(['male', 'female'], 'Gender is required'),
   state: Yup.string().required('State is required'),
+  category_id: Yup.string().required('Category is required')
 });

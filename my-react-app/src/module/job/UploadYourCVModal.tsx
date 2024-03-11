@@ -11,52 +11,78 @@ import FormError from "../../components/FormError";
 import clsx from "clsx";
 import Loader from "../../components/Loader";
 import ReactSelect from "react-select";
+import { UploadYourCVModalSchema } from "./UploadYourCVValidation";
 
 const UploadYourCVModal = ({ setUploadYourCVModal }: any) => {
   const [file, setFile] = useState<any>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
-  // const [categorySelect, setCategorySelect] = useState({
+  // const [categoryError, setCategoryError] = useState(false);
+  // const [jobListSelect, setJobListSelect] = useState({
+  //   value: "",
+  //   label: "Any - All Jobs",
+  // });
+
+  //category dropdown
+  const [categorySelect, setCategorySelect] = useState({
+    value: "",
+    label: "Any - All Categories",
+  });
+
+  const getJobCategories = async () => {
+    const response = await axios.get(`http://localhost:3000/jobs-categories`);
+    return response.data;
+  };
+
+  const { data: jobCategoryData, isLoading: jobCategoryDataIsLoading } =
+    useQuery({
+      queryKey: ["job-category-list"],
+      queryFn: () => getJobCategories(),
+    });
+
+  const jobCategoryOptions =
+    jobCategoryData?.map((category: any) => ({
+      value: category._id,
+      label: category.name,
+    })) || [];
+
+  //location dropdown
+  // const [locationSelect, setLocationSelect] = useState({
   //   value: "",
   //   label: "Any - All Categories",
   // });
-  const [jobListSelect, setJobListSelect] = useState({
-    value: "",
-    label: "Any - All Jobs",
-  });
-  // const getJobCategories = async () => {
-  //   const response = await axios.get(`http://localhost:3000/jobs-categories`);
+
+  // const getJobLocations = async () => {
+  //   const response = await axios.get(`http://localhost:3000/jobs-locations`);
   //   return response.data;
   // };
 
-  // const { data: jobCategoryData, isLoading: jobCategoryDataIsLoading } =
-  //   useQuery({
-  //     queryKey: ["job-category-list"],
-  //     queryFn: () => getJobCategories(),
-  //   });
+  // const { data: jobLocationData, isLoading: jobLocationDataIsLoading } =
+  //   useQuery(["job-location-list"], () => getJobLocations());
 
-  // const jobCategoryOptions =
-  //   jobCategoryData?.map((category: any) => ({
-  //     value: category._id,
-  //     label: category.name,
+  // const jobLocationOptions =
+  //   jobLocationData?.map((location: any) => ({
+  //     value: location._id,
+  //     label: location.name,
   //   })) || [];
 
 
-    const getJobListData = async () => {
-      const response = await axios.get(`http://localhost:3000/get-all-jobs`);
-      return response.data;
-    };
+  //jobList
+  // const getJobListData = async () => {
+  //   const response = await axios.get(`http://localhost:3000/get-all-jobs`);
+  //   return response.data;
+  // };
 
-    const { data: jobListData, isLoading: jobListDataIsLoading } =
-      useQuery({
-        queryKey: ["job-list"],
-        queryFn: () => getJobListData(),
-      });
+  // const { data: jobListData, isLoading: jobListDataIsLoading } =
+  //   useQuery({
+  //     queryKey: ["job-list"],
+  //     queryFn: () => getJobListData(),
+  //   });
 
-    const jobOptions =
-      jobListData?.map((job: any) => ({
-        value: job._id,
-        label: job.title,
-      })) || [];
+  // const jobOptions =
+  //   jobListData?.map((job: any) => ({
+  //     value: job._id,
+  //     label: job.title,
+  //   })) || [];
 
   const handleCloseModal = () => {
     setUploadYourCVModal(false);
@@ -83,6 +109,13 @@ const UploadYourCVModal = ({ setUploadYourCVModal }: any) => {
     },
   });
 
+  const customStyles = {
+    control: (base:any) => ({
+      ...base,
+      borderColor: 'red', // Set border color to red
+    }),
+  };
+
   const { handleSubmit, setFieldValue, errors, values, handleChange } =
     useFormik({
       initialValues: {
@@ -101,10 +134,9 @@ const UploadYourCVModal = ({ setUploadYourCVModal }: any) => {
         gender: "",
         state: "",
         resume_file: "",
-        job_listSelect: "",
       },
       validateOnChange: false,
-      validationSchema: ApplicationModalSchema,
+      validationSchema: UploadYourCVModalSchema,
       onSubmit: (values: any) => {
         const formData: any = new FormData();
         Object.keys(values).forEach((key) => {
@@ -113,12 +145,13 @@ const UploadYourCVModal = ({ setUploadYourCVModal }: any) => {
           }
         });
         formData.append("resume_file", file);
-        formData.append("job_id", jobListSelect.value);
-        const categoryId = jobListData.find((job:any) => job._id === jobListSelect.value).category_id;
+        formData.append("category_id", categorySelect.value)
+        // formData.append("job_id", jobListSelect.value);
+        // const categoryId = jobListData.find((job:any) => job._id === jobListSelect.value).category_id;
 
-        formData.append("category_id", categoryId);
-        if (!file.name) {
-          toast.error("Please upload consent form");
+        // formData.append("category_id", categoryId);
+        if (!file || file.name) {
+          toast.error("Please upload resume");
           return;
         }
 
@@ -173,15 +206,20 @@ const UploadYourCVModal = ({ setUploadYourCVModal }: any) => {
     }
   }
 
-  // const handleCategoryChange = (event: any) => {
-  //   setCategorySelect(event);
-  // };
-
-  const handleJobListChange = (event: any) => {
-    setJobListSelect(event);
+  const handleCategoryChange = (event: any) => {
+    setCategorySelect(event);
+    setFieldValue('category_id', event.value)
   };
 
-  if (applyJobIsLoading || jobListDataIsLoading) {
+  // const handleLocationChange = (event: any) => {
+  //   setLocationSelect(event);
+  // }
+
+  // const handleJobListChange = (event: any) => {
+  //   setJobListSelect(event);
+  // };
+
+  if (applyJobIsLoading || jobCategoryDataIsLoading ) {
     return (
       <div className="text-center py-4 bg-white banner-height">
         <Loader />
@@ -247,6 +285,7 @@ const UploadYourCVModal = ({ setUploadYourCVModal }: any) => {
           <div className="modal-content">
             <div className="modal-header">
               <h5 className="modal-title" id="exampleModalLabel">
+                Upload your CV
               </h5>
               <button
                 type="button"
@@ -362,19 +401,22 @@ const UploadYourCVModal = ({ setUploadYourCVModal }: any) => {
                       className={errors.expected_ctc ? "is-error" : ""}
                     />
                     <FormError error={errors.expected_ctc} />
+
                   </div>
 
                   <div className="form-group col-md-4">
-                    <FormLabel name="Notice Period (days)" htmlFor="notice_period" />
-                    <FormControl
-                      onChange={(event: any) => handleOnChangeEvent(event)}
-                      value={values.notice_period}
-                      id="notice_period"
-                      type="text"
-                      name="notice_period"
-                      className={errors.notice_period ? "is-error" : ""}
+                    <FormLabel name="Category" htmlFor="select catgory" />
+                    <ReactSelect
+                      styles={errors.category_id ? customStyles : {}}
+                      name="job-categories"
+                      value={categorySelect}
+                      options={jobCategoryOptions}
+                      onChange={handleCategoryChange}
+                      components={{
+                        IndicatorSeparator: () => null,
+                      }}
                     />
-                    <FormError error={errors.notice_period} />
+                    <FormError error={errors.category_id} />
                   </div>
 
                   <div className="form-group col-md-4">
@@ -412,7 +454,7 @@ const UploadYourCVModal = ({ setUploadYourCVModal }: any) => {
                     <FormError error={errors.gender} />
                   </div>
 
-                  <div className="form-group col-md-4">
+                  {/* <div className="form-group col-md-4">
                     <FormLabel name="Select Job" htmlFor="inputState" />
                     <ReactSelect
                       name="job-categories"
@@ -424,10 +466,10 @@ const UploadYourCVModal = ({ setUploadYourCVModal }: any) => {
                       }}
                     />
                     <FormError error={errors.job_listSelect} />
-                  </div>
+                  </div> */}
 
                   <div className="form-group col-md-4">
-                  <FormLabel name="State" htmlFor="state" />
+                    <FormLabel name="State" htmlFor="state" />
                     <select
                       className={clsx(
                         errors.state ? "is-error" : "",
@@ -446,13 +488,28 @@ const UploadYourCVModal = ({ setUploadYourCVModal }: any) => {
                     </select>
                     <FormError error={errors.state} />
                   </div>
+
+                  
+                  <div className="form-group col-md-4">
+                    <FormLabel name="Notice Period (days)" htmlFor="notice_period" />
+                    <FormControl
+                      onChange={(event: any) => handleOnChangeEvent(event)}
+                      value={values.notice_period}
+                      id="notice_period"
+                      type="text"
+                      name="notice_period"
+                      className={errors.notice_period ? "is-error" : ""}
+                    />
+                    <FormError error={errors.notice_period} />
+                  </div>
+
                   {/* <div className="form-group col-md-4">
-                    <label htmlFor="inputState">Select Category</label>
+                    <label htmlFor="inputState">Select Location</label>
                     <ReactSelect
-                      name="job-categories"
-                      value={categorySelect}
-                      options={jobCategoryOptions}
-                      onChange={handleCategoryChange}
+                      name="job-location"
+                      onChange={handleLocationChange}
+                      value={locationSelect}
+                      options={jobLocationOptions}
                       components={{
                         IndicatorSeparator: () => null,
                       }}
