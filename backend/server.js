@@ -9,6 +9,8 @@ const adminRoutes = require('./routes/AdminRoutes.js');
 const bodyParser = require('body-parser');
 const JobCategory = require('./models/JobCategoryModel.js');
 const multer = require('multer');
+const fs = require('fs');
+const path = require('path');
 
 connectDb();
 const app = express();
@@ -21,6 +23,14 @@ app.use(cors());
 //middleware
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
+// Directory path
+const uploadsPath = path.join(__dirname, 'uploads');
+
+// Create 'uploads/' directory if it does not exist
+if (!fs.existsSync(uploadsPath)) {
+  fs.mkdirSync(uploadsPath);
+}
 
 app.use('/admin', adminRoutes);
 
@@ -53,6 +63,8 @@ app.post('/apply', upload.single('resume_file'), async (req, res) => {
   try {
     const applicationData = req.body;
     const filePath = req.file.path;
+
+    console.log(req.file.path);
     
     const newApplication = await Application.create({
       ...applicationData,
@@ -141,19 +153,21 @@ app.get("/jobs", async (req, res) => {
 
   let filter = {}
   if (search) {
-    filter.category_id = await JobCategory.findOne({ name: { $regex: search, $options: 'i' } }).select('_id');
+    const exactTitle = await Job.findOne({ title: search });
+    filter.title = exactTitle ? exactTitle.title : null;
+
+    // filter.category_id = await JobCategory.findOne({ name: { $regex: search, $options: 'i' } }).select('_id');
   }
-  else {
-    if (category) {
-      const exactCategory = await JobCategory.findOne({ name: category });
-      filter.category_id = exactCategory ? exactCategory._id : null
-    }
-  
-    if (location) {
-      const exactLocation = await JobLocation.findOne({ name: location });
-      filter.job_location_id = exactLocation ? exactLocation._id : null;
-    }
+  if (category) {
+    const exactCategory = await JobCategory.findOne({ name: category });
+    filter.category_id = exactCategory ? exactCategory._id : null;
   }
+
+  if (location) {
+    const exactLocation = await JobLocation.findOne({ name: location });
+    filter.job_location_id = exactLocation ? exactLocation._id : null;
+  }
+
   try {
     const jobs = await Job
       .paginate(filter,{

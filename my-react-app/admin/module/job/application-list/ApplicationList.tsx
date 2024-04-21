@@ -15,7 +15,7 @@ const ApplicationList = () => {
     navigate(`/admin/job-category-user-application/${applicationId}`)
   }
 
-  const generateUserExcelArray = () => {
+  const generateApplicationListArray = () => {
     return applicationListData.map((application: any, index: number) => ({
       "Sr. No": index + 1 || "-",
       "Job Title": application?.job_id?.title || "-",
@@ -32,8 +32,9 @@ const ApplicationList = () => {
       "Gender": application?.gender || "-",
     }));
   };
+
   const downloadXL = () => {
-    const userData = generateUserExcelArray();
+    const userData = generateApplicationListArray();
     const ws = XLSX.utils.json_to_sheet(userData);
     const wb = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, "Sheet 1");

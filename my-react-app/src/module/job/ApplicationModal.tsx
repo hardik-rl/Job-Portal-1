@@ -357,9 +357,10 @@ const ApplicationModal = ({ setApplyNowModal, applyJobData }: any) => {
                       name="gender"
                       onChange={handleChange}
                     >
-                      <option value="select">Select Gender</option>
+                      <option value="">Select Gender</option>
                       <option value="male">Male</option>
                       <option value="female">Female</option>
+                      <option value="others">Others</option>
                     </select>
                     <FormError error={errors.gender} />
                   </div>

@@ -3,44 +3,62 @@ import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import Loader from "../../../shared/Loader";
 import { useNavigate } from "react-router-dom";
+import { DownloadIcon } from "../../../shared/Icon";
+import * as XLSX from "xlsx";
+import clsx from "clsx";
+import { useState } from "react";
 
-const ApplicationList = () => {
+const JobListApplication = () => {
   const { jobId } = useParams();
   const navigate = useNavigate();
+  const [genderFilter, setGenderFilter] = useState("");
 
-  const { data: applicationListData, isLoading: applicationListIsLoading } = useQuery({
-    queryKey: ["get-application-based-on-job-id"],
-    queryFn: () => getApplicationBasedOnJob(jobId),
+  const { data: jobListApplicationData, isLoading: jobListApplicationIsLoading } = useQuery({
+    queryKey: ["get-application-based-on-job-id", genderFilter],
+    queryFn: () => getApplicationBasedOnJob(jobId, genderFilter),
   });
 
-  if (applicationListIsLoading) {
+  const generateJobListApplicationArray = () => {
+    return jobListApplicationData.map((application: any, index: number) => ({
+      "Sr. No": index + 1 || "-",
+      "Job Title": application?.job_id?.title || "-",
+      "Category Name": application?.category_id?.name || "-",
+      "Applicant Name": application?.first_name || "-",
+      "Applicant Email": application?.email || "-",
+      "Applicant Education": application?.education || "-",
+      "Applicant Pan Number": application?.pan_number || "-",
+      "Applicant CTC": application?.ctc || "-",
+      "Applicant Expected CTC": application?.expected_ctc || "-",
+      "Notice Period": application?.notice_period || "-",
+      "Total Work Exp.": application?.total_work_experience || "-",
+      "State": application?.state || "-",
+      "Gender": application?.gender || "-",
+    }));
+  };
+
+  const downloadXL = () => {
+    const userData = generateJobListApplicationArray();
+    const ws = XLSX.utils.json_to_sheet(userData);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, "Sheet 1");
+    XLSX.writeFile(wb, "job-list-applications.xlsx");
+  };
+
+  const onGenderFilter = (event:any) => {
+    setGenderFilter(event.target.value)
+  }
+
+  const onClickResetFilter = () => {
+    setGenderFilter("");
+  }
+
+  if (jobListApplicationIsLoading) {
     return (
       <div className="py-4 banner-height d-flex justify-content-center">
         <Loader />
       </div>
     );
   }
-
-  // const generateUserExcelArray = () => {
-  //   return applicationListData.map((application:any, index: any) => ({
-  //     "Sr. No": index + 1 || "-",
-  //     "Job Title": application.job_id.title || "-",
-  //     "Applicant Name": application.first_name || "-",
-  //     "Applicant CTC": application.ctc || "-",
-  //     "Expected CTC": application.expected_ctc || "-",
-  //     "Notice Period": application.notice_period || "-",
-  //     "Total Work Exp.": application.total_work_experience || "-",
-  //     "Gender": application.gender || "-",
-  //   }));
-  // }
-
-  // const downloadXL = () => {
-  //   const userData = generateUserExcelArray();
-  //   const ws = XLSX.utils.json_to_sheet(userData);
-  //   const wb = XLSX.utils.book_new();
-  //   XLSX.utils.book_append_sheet(wb, ws, "Sheet 1");
-  //   XLSX.writeFile(wb, "job-applications.xlsx");
-  // }
 
   return (
     <>
@@ -56,10 +74,36 @@ const ApplicationList = () => {
               </li>
             </ol>
           </nav>
-            <div className="row g-3 mb-4 align-items-center justify-content-between">
-              <div className="col-auto">
-                <h1 className="app-page-title mb-0"> Job Applications</h1>
-              </div>
+            <div className="d-flex flex-wrap align-items-center mb-3">
+              <h1 className="app-page-title mb-0">Job Applications</h1>
+              <button
+                className="btn btn-primary d-flex align-items-center text-white ms-auto"
+                onClick={downloadXL}
+              >
+                Export &nbsp;
+                <DownloadIcon />
+              </button>
+            </div>
+            <div className="d-flex gap-3 align-items-center mb-3">
+              <select
+                className={"form-control appearance-auto w-auto"}
+                id="inputgender"
+                value={genderFilter}
+                name="gender"
+                onChange={onGenderFilter}
+              >
+                <option value="">Select Gender</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="others">Others</option>
+              </select>
+              <button
+                type="button"
+                className="btn-primary text-white"
+                onClick={onClickResetFilter}
+              >
+                Reset
+              </button>
             </div>
             <div className="g-4 mb-4 overflow-x-auto">
               <table className="table">
@@ -76,11 +120,11 @@ const ApplicationList = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {applicationListData?.length === 0 && (
+                  {jobListApplicationData?.length === 0 && (
                     <tr><td colSpan={8}>No Data Found.</td></tr>
                   )}
-                  {applicationListData && applicationListData?.length > 0 &&
-                    applicationListData.map((application: any, index: number) => (
+                  {jobListApplicationData && jobListApplicationData?.length > 0 &&
+                    jobListApplicationData.map((application: any, index: number) => (
                       <tr key={index}>
                         <td>{index + 1}</td>
                         <td>{application.job_id.title}</td>
@@ -102,4 +146,4 @@ const ApplicationList = () => {
   );
 };
 
-export default ApplicationList;
+export default JobListApplication;

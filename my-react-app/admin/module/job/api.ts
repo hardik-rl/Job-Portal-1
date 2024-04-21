@@ -25,8 +25,8 @@ export const getPdf = async (fileName: string | undefined) => {
 }
 
 
-export const getAllJob = async () => {
-  const res = await api.get("/get-jobs");
+export const getAllJob = async (categorySelect:any, locationSelect:any) => {
+  const res = await api.get(`/get-jobs?category=${categorySelect.value}&location=${locationSelect.value}`);
   return res.data;
 };
 
@@ -35,8 +35,8 @@ export const getAllApplication = async () => {
   return res.data;
 };
 
-export const getApplicationBasedOnJob = async (id: number|string|undefined) => {
-  const res = await api.get(`/application/${id}`);
+export const getApplicationBasedOnJob = async (id: number|string|undefined, genderFilter:any) => {
+  const res = await api.get(`/application/${id}?gender=${genderFilter}`);
   return res.data;
 };
 
