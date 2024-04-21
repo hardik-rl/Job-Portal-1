@@ -78,7 +78,7 @@ const JobCategoryUserApplication = () => {
               <b>CTC (In Lakh) :</b> {applicationData?.ctc}
             </p>
             <p>
-              <b>Expected CTC :</b> {applicationData?.expected_ctc}
+              <b>Expected CTC (in lakh) :</b> {applicationData?.expected_ctc}
             </p>
             <p>
               <b>Notice Period (Days) :</b> {applicationData?.notice_period}
