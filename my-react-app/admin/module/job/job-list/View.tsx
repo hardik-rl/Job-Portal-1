@@ -69,7 +69,7 @@ const View = () => {
               <b>CTC (In Lakh) :</b> {categoryViewData?.ctc}
             </p>
             <p>
-              <b>Expected CTC :</b> {categoryViewData?.expected_ctc}
+              <b>Expected CTC (in lakh) :</b> {categoryViewData?.expected_ctc}
             </p>
             <p>
               <b>Notice Period (Days) :</b> {categoryViewData?.notice_period}

@@ -6,7 +6,6 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import { useFormik } from "formik";
 import { useState, useEffect, useRef } from "react";
-import { ApplicationModalSchema } from "./validation";
 import FormError from "../../components/FormError";
 import clsx from "clsx";
 import Loader from "../../components/Loader";
@@ -377,7 +376,7 @@ const UploadYourCVModal = ({ setUploadYourCVModal }: any) => {
                   </div>
 
                   <div className="form-group col-md-4">
-                    <FormLabel name="CTC" htmlFor="ctc" />
+                    <FormLabel name="CTC (in lakh)" htmlFor="ctc" />
                     <FormLabel name="" htmlFor="ctc" />
                     <FormControl
                       onChange={(event: any) => handleOnChangeEvent(event)}
@@ -391,7 +390,7 @@ const UploadYourCVModal = ({ setUploadYourCVModal }: any) => {
                   </div>
 
                   <div className="form-group col-md-4">
-                    <FormLabel name="Expected CTC" htmlFor="expctc" />
+                    <FormLabel name="Expected CTC (in lakh)" htmlFor="expctc" />
                     <FormControl
                       onChange={(event: any) => handleOnChangeEvent(event)}
                       value={values.expected_ctc}
@@ -447,9 +446,11 @@ const UploadYourCVModal = ({ setUploadYourCVModal }: any) => {
                       name="gender"
                       onChange={handleChange}
                     >
-                      <option value="select">Select Gender</option>
+                      <option value="">Select Gender</option>
                       <option value="male">Male</option>
                       <option value="female">Female</option>
+                      <option value="others">Others</option>
+
                     </select>
                     <FormError error={errors.gender} />
                   </div>

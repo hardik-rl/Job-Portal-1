@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import FeaturedJobs from "./FeaturedJobs";
-import HowItWorks from "./HowItWorks";
 import OnlineResume from "./OnlineResume";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";

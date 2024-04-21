@@ -58,7 +58,8 @@ const FeaturedJobs = ({
                     <SingleJobList
                       setApplyNowModal={setApplyNowModal}
                       id={job?._id}
-                      title={job?.category_id?.name}
+                      title={job.title}
+                      categoryName={job.category_id.name}
                       categoryId={job?.category_id?._id}
                       description={job?.description}
                       location={job?.job_location_id?.name}

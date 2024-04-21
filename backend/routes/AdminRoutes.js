@@ -9,6 +9,7 @@ const Application = require('../models/ApplicationModel');
 const Job = require('../models/JobModel');
 const JobLocation = require('../models/JobLocationModel');
 const path = require('path');
+const mongoose = require('mongoose');
 
 router.post('/login', async (req, res) => {
   const { email, password } = req.body;
@@ -166,8 +167,62 @@ router.delete('/delete-job/:jobId', authMiddleware, async (req, res) => {
 
 // get all job
 router.get('/get-jobs', authMiddleware, async(req, res) => {
+  const { category, location } = req.query;
+
+  // let filter = {}
+  // if (search) {
+  //   filter.category_id = await JobCategory.findOne({ name: { $regex: search, $options: 'i' } }).select('_id');
+  // }
+  // else {
+  //   if (category) {
+  //     const exactCategory = await JobCategory.findOne({ name: category });
+  //     filter.category_id = exactCategory ? exactCategory._id : null
+  //   }
+  
+  //   if (location) {
+  //     const exactLocation = await JobLocation.findOne({ name: location });
+  //     filter.job_location_id = exactLocation ? exactLocation._id : null;
+  //   }
+  // }
+
+  console.log({category, location});
+
+  const matchStage = {};
+    if (category) {
+      matchStage.category_id = new mongoose.Types.ObjectId(category);
+    }
+    if (location) {
+      matchStage.job_location_id = new mongoose.Types.ObjectId(location);
+    }
+
   try {
-    const jobs = await Job.find({});
+
+    const jobs = await Job.aggregate([
+      { $match: matchStage },
+      {
+        $lookup: {
+          from: 'job_categories',
+          localField: 'category_id',
+          foreignField: '_id',
+          as: 'category_id',
+        },
+      },
+      {
+        $lookup: {
+          from: 'job_locations',
+          localField: 'job_location_id',
+          foreignField: '_id',
+          as: 'job_location_id',
+        },
+      },
+      { $unwind: '$category_id' },
+      { $unwind: '$job_location_id' },
+    ]);
+
+
+
+    // const jobs = await Job.find({})
+    // .populate('job_location_id category_id');
     res.json(jobs);
   } catch (error) {
     console.error('Error fetching jobs:', error);
@@ -215,8 +270,17 @@ router.get('/jobs-categories', authMiddleware, async (req, res) => {
 
 router.get('/application/:jobId', authMiddleware, async (req, res) => {
   const jobId = req.params.jobId;
+  const { gender } = req.query
+  
   try {
-    const application = await Application.find({job_id: jobId}).populate('job_id category_id');
+    let applicationQuery = { job_id: jobId };
+
+    if (gender !== "") {
+      // Add gender filter to the query
+      applicationQuery.gender = gender;
+    }
+
+    const application = await Application.find(applicationQuery).populate('job_id category_id');
     res.json(application);
   } catch (error) {
     console.error('Error fetching application based on jobId:', error);

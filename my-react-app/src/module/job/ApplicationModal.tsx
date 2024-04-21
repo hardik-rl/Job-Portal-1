@@ -290,7 +290,7 @@ const ApplicationModal = ({ setApplyNowModal, applyJobData }: any) => {
                   </div>
 
                   <div className="form-group col-md-4">
-                    <FormLabel name="CTC" htmlFor="CTC" />
+                    <FormLabel name="CTC (in lakh)" htmlFor="CTC" />
                     <FormLabel name="" htmlFor="ctc" />
                     <FormControl
                       onChange={(event: any) => handleOnChangeEvent(event)}
@@ -304,7 +304,7 @@ const ApplicationModal = ({ setApplyNowModal, applyJobData }: any) => {
                   </div>
 
                   <div className="form-group col-md-4">
-                    <FormLabel name="Expected CTC" htmlFor="expctc" />
+                    <FormLabel name="Expected CTC (in lakh)" htmlFor="expctc" />
                     <FormControl
                       onChange={(event: any) => handleOnChangeEvent(event)}
                       value={values.expected_ctc}
@@ -357,9 +357,10 @@ const ApplicationModal = ({ setApplyNowModal, applyJobData }: any) => {
                       name="gender"
                       onChange={handleChange}
                     >
-                      <option value="select">Select Gender</option>
+                      <option value="">Select Gender</option>
                       <option value="male">Male</option>
                       <option value="female">Female</option>
+                      <option value="others">Others</option>
                     </select>
                     <FormError error={errors.gender} />
                   </div>

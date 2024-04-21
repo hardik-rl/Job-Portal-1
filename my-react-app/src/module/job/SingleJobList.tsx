@@ -4,6 +4,7 @@ import useStore from "../../shared/store/useStore";
 type SingleJobProps = {
   id: string;
   title: string;
+  categoryName: string;
   location: string;
   setApplyNowModal: React.Dispatch<React.SetStateAction<boolean>>;
   companyName: string;
@@ -20,6 +21,7 @@ type SingleJobProps = {
 const SingleJobList = ({
   id,
   title,
+  categoryName,
   categoryId,
   setApplyNowModal,
   location,
@@ -47,7 +49,7 @@ const SingleJobList = ({
               type="button"
               onClick={() => onClickDetailPage(id)}
             >
-              <h4>{title}</h4>
+              <h4>{`${title} (${categoryName})`}</h4>
             </button>
             <p>{description}</p>
             <ul>
